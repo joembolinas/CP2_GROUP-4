@@ -361,5 +361,3 @@ The system uses a comprehensive SSS contribution table. Here's a sample of some 
 ---
 
 © 2025 MotorPH. All rights reserved.
-
-Similar code found with 1 license type
