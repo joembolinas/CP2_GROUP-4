@@ -1,0 +1,16 @@
+package com.motorph.original;
+import java.time.LocalDate;
+ import java.util.ArrayList;
+ import java.util.List;
+import java.util.stream.Collectors;
+public class PayrollManager {
+    private List<MotorPHDataModels.EmployeeData> employees;
+    private List<MotorPHDataModels.AttendanceRecord> attendanceRecords;
+    public PayrollManager(List<MotorPHDataModels.EmployeeData> e, List<MotorPHDataModels.AttendanceRecord> a) { employees = e; attendanceRecords = a; }
+    private MotorPHDataModels.EmployeeData findEmployeeById(int id) { return employees.stream().filter(e -> e.getEmployeeId() == id).findFirst().orElse(null); }
+    private List<MotorPHDataModels.AttendanceRecord> filterAttendance(int id, LocalDate s, LocalDate e) { return attendanceRecords.stream().filter(a -> a.getEmployeeId() == id && !a.getDate().isBefore(s) && !a.getDate().isAfter(e)).collect(Collectors.toList()); }
+    public MotorPHDataModels.PayrollResult processEmployeePayroll(int id, LocalDate s, LocalDate e) { var emp = findEmployeeById(id); if (emp == null) return null; var att = filterAttendance(id, s, e); return calculatePayroll(emp, att, s, e); }
+    public List<MotorPHDataModels.PayrollResult> processAllEmployeePayroll(LocalDate s, LocalDate e) { List<MotorPHDataModels.PayrollResult> r = new ArrayList<>(); for (var emp : employees) r.add(calculatePayroll(emp, filterAttendance(emp.getEmployeeId(), s, e), s, e)); return r; }
+    public String displayAttendanceRecords(int id, LocalDate s, LocalDate e) { var emp = findEmployeeById(id); if (emp == null) return "Employee not found"; var att = filterAttendance(id, s, e); StringBuilder sb = new StringBuilder(); sb.append("ID: "+emp.getEmployeeId()+"\nName: "+emp.getFirstName()+" "+emp.getLastName()+"\n"); for (var rec : att) sb.append(rec.getDate()+" "+rec.getTimeIn()+" "+rec.getTimeOut()+" "+rec.getHoursWorked()+" "+rec.getOvertimeHours()+"\n"); return sb.toString(); }
+    public MotorPHDataModels.PayrollResult calculatePayroll(MotorPHDataModels.EmployeeData emp, List<MotorPHDataModels.AttendanceRecord> att, LocalDate s, LocalDate e) { var r = new MotorPHDataModels.PayrollResult(emp, s, e); int days = (int) att.stream().filter(MotorPHDataModels.AttendanceRecord::isPresent).count(); r.setDaysWorked(days); double h = att.stream().mapToDouble(MotorPHDataModels.AttendanceRecord::getHoursWorked).sum(); double ot = att.stream().mapToDouble(MotorPHDataModels.AttendanceRecord::getOvertimeHours).sum(); r.setHoursWorked(h); r.setOvertimeHours(ot); double hr = emp.getHourlyRate(); r.setBasicPay(h * hr); r.setOvertimePay(ot * hr * 1.25); r.setRiceSubsidy(emp.getRiceSubsidy() / 22 * days); r.setPhoneAllowance(emp.getPhoneAllowance() / 22 * days); r.setClothingAllowance(emp.getClothingAllowance() / 22 * days); double gross = r.getGrossPay(); r.setSssDeduction(DeductionsCalculator.calculateSSS(gross)); r.setPhilhealthDeduction(DeductionsCalculator.calculatePhilhealth(gross)); r.setPagibigDeduction(DeductionsCalculator.calculatePagibig(gross)); r.setWithholdingTax(DeductionsCalculator.calculateWithholdingTax(gross, r.getSssDeduction(), r.getPhilhealthDeduction(), r.getPagibigDeduction())); return r; }
+}
