@@ -19,6 +19,10 @@ public class AttendanceRecord {
         this.date = date;
         this.timeIn = timeIn;
         this.timeOut = timeOut;
+        // Validate that timeOut is after timeIn
+        if (timeOut != null && timeIn != null && timeOut.isBefore(timeIn)) {
+            throw new IllegalArgumentException("Time out cannot be before time in");
+        }
     }
 
     public Duration getDuration() {

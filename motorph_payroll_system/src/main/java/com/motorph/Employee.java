@@ -37,7 +37,7 @@ public class Employee {
 
     public void calculateHourlyRate() {
         // Assuming 21 work days and 8 hours per day
-        this.hourlyRate = basicSalary / (21 * 8);
+        this.hourlyRate = basicSalary / (PayrollConstants.STANDARD_WORK_DAYS_PER_MONTH * PayrollConstants.REGULAR_HOURS_PER_DAY);
     }
 
     public int getEmployeeId() { return employeeId; }
