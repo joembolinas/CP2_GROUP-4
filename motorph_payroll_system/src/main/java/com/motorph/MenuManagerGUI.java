@@ -174,32 +174,43 @@ public class MenuManagerGUI extends JFrame {
         }
         searchTerm = searchTerm.toLowerCase();
 
-        // Prepare the result header
-        StringBuilder result = new StringBuilder();
-        result.append(String.format("%-10s %-20s %-20s %-15s %-15s%n",
-                "Emp#", "Name", "Position", "Status", "Hourly Rate"));
+        // Prepare data for the table
+        String[] columnNames = {"Emp#", "Name", "Position", "Status", "Hourly Rate"};
+        List<Employee> matchingEmployees = new ArrayList<>();
 
-        boolean found = false;
         for (Employee employee : employees) {
             String empId = String.valueOf(employee.getEmployeeId()).toLowerCase();
             String lastName = employee.getLastName().toLowerCase();
             String firstName = employee.getFirstName().toLowerCase();
             if (empId.contains(searchTerm) || lastName.contains(searchTerm) || firstName.contains(searchTerm)) {
-                found = true;
-                result.append(String.format("%-10d %-20s %-20s %-15s %-15.2f%n",
-                        employee.getEmployeeId(), employee.getFullName(),
-                        employee.getPosition(), employee.getStatus(), employee.getHourlyRate()));
+                matchingEmployees.add(employee);
             }
         }
 
-        // Display the results
-        if (!found) {
+        if (matchingEmployees.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No employees found matching your search criteria.");
-        } else {
-            JTextArea textArea = new JTextArea(result.toString());
-            textArea.setEditable(false);
-            JOptionPane.showMessageDialog(this, new JScrollPane(textArea), "Search Results", JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
+
+        Object[][] data = new Object[matchingEmployees.size()][5];
+        for (int i = 0; i < matchingEmployees.size(); i++) {
+            Employee employee = matchingEmployees.get(i);
+            data[i][0] = employee.getEmployeeId();
+            data[i][1] = employee.getFullName();
+            data[i][2] = employee.getPosition();
+            data[i][3] = employee.getStatus();
+            data[i][4] = String.format("%.2f", employee.getHourlyRate());
+        }
+
+        // Create the table with the data and column names
+        JTable table = new JTable(data, columnNames);
+        table.setFillsViewportHeight(true);
+
+        // Add the table to a scroll pane
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // Display the table in a dialog
+        JOptionPane.showMessageDialog(this, scrollPane, "Search Results", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void listAllEmployees() {
@@ -429,11 +440,122 @@ public class MenuManagerGUI extends JFrame {
     }
 
     private void generateEmployeePayslip(String title) {
-        JOptionPane.showMessageDialog(this, title + " functionality not implemented yet.");
+        // Prompt the user for the employee ID
+        String empNumberStr = JOptionPane.showInputDialog(this, "Enter Employee No:");
+        if (empNumberStr == null || empNumberStr.isEmpty()) return;
+
+        int empNumber;
+        try {
+            empNumber = Integer.parseInt(empNumberStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Invalid employee number. Please enter a numeric value.");
+            return;
+        }
+
+        // Find the employee
+        Employee employee = employees.stream()
+                .filter(emp -> emp.getEmployeeId() == empNumber)
+                .findFirst()
+                .orElse(null);
+
+        if (employee == null) {
+            JOptionPane.showMessageDialog(this, "Employee not found.");
+            return;
+        }
+
+        // Prompt the user for the date range
+        LocalDate startDate = getDateInput("Date From (MM/DD/YYYY):");
+        LocalDate endDate = getDateInput("Date To (MM/DD/YYYY):");
+
+        // Generate the payslip
+        PaySlip paySlip = new PaySlip(employee, startDate, endDate);
+        paySlip.generate(attendanceRecords, payrollCalculator);
+
+        // Display the payslip in a dialog
+        JTextArea textArea = new JTextArea();
+        textArea.setEditable(false);
+
+        StringBuilder payslipDetails = new StringBuilder();
+        payslipDetails.append("═══════════════════════════════════════════\n");
+        payslipDetails.append("           ").append(title).append("\n");
+        payslipDetails.append("═══════════════════════════════════════════\n");
+        payslipDetails.append("Employee No: ").append(employee.getEmployeeId()).append("\n");
+        payslipDetails.append("Name: ").append(employee.getFullName()).append("\n");
+        payslipDetails.append("Position: ").append(employee.getPosition()).append("\n");
+        payslipDetails.append("Period: ").append(startDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")))
+                .append(" to ").append(endDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))).append("\n");
+        payslipDetails.append("───────────────────────────────────────────\n");
+        payslipDetails.append("HOURS WORKED:\n");
+        payslipDetails.append(String.format("Regular Hours: %.2f\n", paySlip.getRegularHours()));
+        payslipDetails.append(String.format("Overtime Hours: %.2f\n", paySlip.getOvertimeHours()));
+        payslipDetails.append(String.format("Total Hours: %.2f\n", paySlip.getRegularHours() + paySlip.getOvertimeHours()));
+        payslipDetails.append("───────────────────────────────────────────\n");
+        payslipDetails.append("PAY DETAILS:\n");
+        payslipDetails.append(String.format("Hourly Rate: ₱%,.2f\n", employee.getHourlyRate()));
+        payslipDetails.append(String.format("Gross Pay: ₱%,.2f\n", paySlip.getGrossPay()));
+        payslipDetails.append("───────────────────────────────────────────\n");
+        payslipDetails.append("DEDUCTIONS:\n");
+        payslipDetails.append(String.format("SSS: ₱%,.2f\n", paySlip.getDeductions().get("sss")));
+        payslipDetails.append(String.format("PhilHealth: ₱%,.2f\n", paySlip.getDeductions().get("philhealth")));
+        payslipDetails.append(String.format("Pag-IBIG: ₱%,.2f\n", paySlip.getDeductions().get("pagibig")));
+        payslipDetails.append(String.format("Withholding Tax: ₱%,.2f\n", paySlip.getDeductions().get("withholdingTax")));
+        payslipDetails.append("───────────────────────────────────────────\n");
+        payslipDetails.append("ALLOWANCES:\n");
+        payslipDetails.append(String.format("Rice Subsidy: ₱%,.2f\n", paySlip.getAllowances().get("rice")));
+        payslipDetails.append(String.format("Phone Allowance: ₱%,.2f\n", paySlip.getAllowances().get("phone")));
+        payslipDetails.append(String.format("Clothing Allowance: ₱%,.2f\n", paySlip.getAllowances().get("clothing")));
+        payslipDetails.append("───────────────────────────────────────────\n");
+        payslipDetails.append(String.format("FINAL NET PAY: ₱%,.2f\n", paySlip.getNetPay()));
+        payslipDetails.append("═══════════════════════════════════════════\n");
+
+        textArea.setText(payslipDetails.toString());
+        JOptionPane.showMessageDialog(this, new JScrollPane(textArea), title, JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void generateSummaryReport(String reportType) {
-        JOptionPane.showMessageDialog(this, reportType + " Summary Report functionality not implemented yet.");
+        // Prompt the user for the date range
+        LocalDate startDate = getDateInput("Date From (MM/DD/YYYY):");
+        LocalDate endDate = getDateInput("Date To (MM/DD/YYYY):");
+
+        // Prepare data for the table
+        String[] columnNames = {"Emp#", "Name", "Total Hours", "Gross Pay", "Net Pay"};
+        Object[][] data = new Object[employees.size()][5];
+
+        for (int i = 0; i < employees.size(); i++) {
+            Employee employee = employees.get(i);
+
+            // Calculate total hours worked
+            double totalHours = 0;
+            for (AttendanceRecord record : attendanceRecords) {
+                if (record.getEmployeeId() == employee.getEmployeeId()) {
+                    LocalDate recordDate = record.getDate();
+                    if (recordDate != null && !recordDate.isBefore(startDate) && !recordDate.isAfter(endDate)) {
+                        totalHours += record.getTotalHours();
+                    }
+                }
+            }
+
+            // Calculate gross pay and net pay
+            double grossPay = payrollCalculator.calculateGrossPay(totalHours, employee.getHourlyRate());
+            double netPay = payrollCalculator.calculateNetPay(grossPay);
+
+            // Populate the table data
+            data[i][0] = employee.getEmployeeId();
+            data[i][1] = employee.getFullName();
+            data[i][2] = String.format("%.2f", totalHours);
+            data[i][3] = String.format("%.2f", grossPay);
+            data[i][4] = String.format("%.2f", netPay);
+        }
+
+        // Create the table with the data and column names
+        JTable table = new JTable(data, columnNames);
+        table.setFillsViewportHeight(true);
+
+        // Add the table to a scroll pane
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // Display the table in a dialog
+        JOptionPane.showMessageDialog(this, scrollPane, reportType + " Summary Report", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public static void main(String[] args) {
