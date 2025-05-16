@@ -37,6 +37,9 @@ public class MenuManagerGUI extends JFrame {
 
         // Initialize the main menu
         initMainMenu();
+
+        // Initialize the menu bar
+        initMenuBar();
     }
 
     private void initMainMenu() {
@@ -68,6 +71,65 @@ public class MenuManagerGUI extends JFrame {
         // Add the panel to the frame
         setContentPane(mainMenuPanel);
         revalidate();
+    }
+
+    private void initMenuBar() {
+        // Create the menu bar
+        JMenuBar menuBar = new JMenuBar();
+
+        // Create menus
+        JMenu fileMenu = new JMenu("File");
+        JMenu employeeMenu = new JMenu("Employee");
+        JMenu payrollMenu = new JMenu("Payroll");
+        JMenu reportsMenu = new JMenu("Reports");
+        JMenu helpMenu = new JMenu("Help");
+
+        // Add menu items to "File" menu
+        JMenuItem exitMenuItem = new JMenuItem("Exit");
+        exitMenuItem.addActionListener(e -> System.exit(0));
+        fileMenu.add(exitMenuItem);
+
+        // Add menu items to "Employee" menu
+        JMenuItem searchEmployeeMenuItem = new JMenuItem("Search Employee");
+        searchEmployeeMenuItem.addActionListener(e -> searchEmployee());
+        JMenuItem listAllEmployeesMenuItem = new JMenuItem("List All Employees");
+        listAllEmployeesMenuItem.addActionListener(e -> listAllEmployees());
+        employeeMenu.add(searchEmployeeMenuItem);
+        employeeMenu.add(listAllEmployeesMenuItem);
+
+        // Add menu items to "Payroll" menu
+        JMenuItem generatePayrollMenuItem = new JMenuItem("Generate Payroll");
+        generatePayrollMenuItem.addActionListener(e -> generatePayroll());
+        JMenuItem customPayrollMenuItem = new JMenuItem("Custom Payroll");
+        customPayrollMenuItem.addActionListener(e -> generateEmployeePayslip());
+        payrollMenu.add(generatePayrollMenuItem);
+        payrollMenu.add(customPayrollMenuItem);
+
+        // Add menu items to "Reports" menu
+        JMenuItem payslipMenuItem = new JMenuItem("Payslip");
+        payslipMenuItem.addActionListener(e -> generateEmployeePayslip("PAYSLIP REPORT"));
+        JMenuItem weeklySummaryMenuItem = new JMenuItem("Weekly Summary");
+        weeklySummaryMenuItem.addActionListener(e -> generateSummaryReport("Weekly"));
+        JMenuItem monthlySummaryMenuItem = new JMenuItem("Monthly Summary");
+        monthlySummaryMenuItem.addActionListener(e -> generateSummaryReport("Monthly"));
+        reportsMenu.add(payslipMenuItem);
+        reportsMenu.add(weeklySummaryMenuItem);
+        reportsMenu.add(monthlySummaryMenuItem);
+
+        // Add menu items to "Help" menu
+        JMenuItem aboutMenuItem = new JMenuItem("About");
+        aboutMenuItem.addActionListener(e -> JOptionPane.showMessageDialog(this, "MotorPH Payroll System v1.0\nDeveloped by Group 4", "About", JOptionPane.INFORMATION_MESSAGE));
+        helpMenu.add(aboutMenuItem);
+
+        // Add menus to the menu bar
+        menuBar.add(fileMenu);
+        menuBar.add(employeeMenu);
+        menuBar.add(payrollMenu);
+        menuBar.add(reportsMenu);
+        menuBar.add(helpMenu);
+
+        // Set the menu bar for the frame
+        setJMenuBar(menuBar);
     }
 
     private void showEmployeeManagementMenu() {
@@ -160,9 +222,9 @@ public class MenuManagerGUI extends JFrame {
     private JButton createStyledButton(String text) {
         JButton button = new JButton(text);
         button.setBackground(Color.WHITE);
-        button.setFont(new Font("Arial", Font.PLAIN, 14));
+        button.setFont(new Font("Arial", Font.PLAIN, 14)); // Keep the font size unchanged
         button.setFocusPainted(false);
-        button.setPreferredSize(new Dimension(150, 30)); // Smaller button size
+        button.setPreferredSize(new Dimension(10, 2)); // Smaller button size (width: 100px, height: 25px)
         return button;
     }
 
