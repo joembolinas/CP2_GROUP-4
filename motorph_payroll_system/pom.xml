@@ -37,12 +37,11 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
+            <plugin>                <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
-                    <mainClass>com.motorph.MotorPHPayrollMain</mainClass>
+                    <mainClass>com.motorph.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>

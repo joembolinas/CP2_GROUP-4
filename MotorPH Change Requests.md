@@ -1,9 +1,4 @@
-
----
-
-
-
-### CHANGE REQUEST FORM - MPHCR01-Feature 1
+## CHANGE REQUEST FORM - MPHCR01-Feature 1
 
 | **PROJECT NAME:** | MotorPH Employee App | **CHANGE NAME:** Addition of Feature 1 | **NUMBER:** MPHCR01 |
 | ----------------------- | -------------------- | -------------------------------------------- | ------------------------- |
@@ -28,9 +23,6 @@ Minimal impact
 
 1. Convert the console-based application to a working GUI-based application.
 2. Provide exception handling for the input of Employee Number and Pay Coverage.
-
----
-
 
 ### CHANGE REQUEST FORM - MPHCR02-Feature 2
 
@@ -68,8 +60,6 @@ Significant
 
 ---
 
-
-
 ### CHANGE REQUEST FORM - MPHCR03-Feature 3
 
 | **PROJECT NAME:** | MotorPH Employee App | **CHANGE NAME:** Addition of Feature 3 | **NUMBER:** MPHCR03 |
@@ -99,8 +89,6 @@ Significant
 4. After updating or deleting a record, the JTable must be refreshed to reflect the latest data.
 
 ---
-
-
 
 ### CHANGE REQUEST FORM - MPHCR04-Feature 4
 
