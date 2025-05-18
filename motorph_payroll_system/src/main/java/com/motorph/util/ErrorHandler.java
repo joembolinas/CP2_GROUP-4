@@ -1,9 +1,10 @@
 package com.motorph.util;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * Centralized error handling utility for the application.
