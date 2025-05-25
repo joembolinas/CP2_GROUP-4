@@ -33,7 +33,6 @@ public class Main {
     // File paths for data sources
     private static final String EMPLOYEES_FILE_PATH = "motorph_payroll_system/employeeDetails.csv";
     private static final String ATTENDANCE_FILE_PATH = "motorph_payroll_system/attendanceRecord.csv";
-    
     /**
      * Main entry point for the application
      * 
@@ -70,7 +69,10 @@ public class Main {
                 }
             });
         }
-    }
+  
+    
+    
+    } 
     
     /**
      * Initialize the application components and start the UI
@@ -104,4 +106,8 @@ public class Main {
         
         logger.info("MotorPH Payroll System started successfully");
     }
+
+     
 }
+
+

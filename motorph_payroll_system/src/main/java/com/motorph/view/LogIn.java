@@ -1,100 +1,3 @@
-/*package com.motorph.view;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-
-public class LogIn extends JDialog {
-    private JTextField usernameField;
-    private JPasswordField passwordField;
-    private boolean authenticated = false;
-
-    public LogIn(Frame owner) {
-        super(owner, "Login", true);
-        setSize(300, 150);
-        setLocationRelativeTo(owner);
-
-        // Use GridBagLayout for precise control
-        setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5); // Add padding around components
-
-       // Image label above username
-       // gbc.gridx = 0;
-       // gbc.gridy = 0;
-       // ImageIcon userIcon = new ImageIcon(getClass().getResource("/resources/motorphlogo.png"));
-       // JLabel userImageLabel = new JLabel(userIcon);
-       // add(userImageLabel, gbc);
-
-        // Username label and field
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        add(new JLabel("Username:"), gbc);
-
-        gbc.gridx = 1;
-        usernameField = new JTextField(15);
-        add(usernameField, gbc);
-
-        // Password label and field
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        add(new JLabel("Password:"), gbc);
-
-        gbc.gridx = 1;
-        passwordField = new JPasswordField(15);
-        add(passwordField, gbc);
-
-        // Login button aligned to the right
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        gbc.anchor = GridBagConstraints.EAST; // Align to the right
-        JButton loginButton = new JButton("Login");
-        loginButton.addActionListener(this::handleLogin);
-        add(loginButton, gbc);
-
-        setVisible(true);
-    }
-
-    private void handleLogin(ActionEvent e) {
-        String username = usernameField.getText();
-        String password = new String(passwordField.getPassword());
-
-        // Simple authentication logic
-        if ("admin".equals(username) && "admin".equals(password)) {
-            authenticated = true;
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Invalid credentials, please try again.");
-        }
-    }
-
-    public boolean isAuthenticated() {
-        return authenticated;
-    }
-
-    public class YourClass {
-    public YourClass() {
-        // Create a JLabel
-        JLabel label = new JLabel("Your Label");
-
-        // Load the image icon
-        URL imgURL = getClass().getResource("/path/to/your/image.png");
-        if (imgURL != null) {
-            ImageIcon icon = new ImageIcon(imgURL);
-            label.setIcon(icon);
-        } else {
-            System.err.println("Couldn't find file: /path/to/your/image.png");
-        }
-
-        // Additional code to add the label to a container and display the GUI
-    }
-}
-
-
-
-
-}*/
-
 package com.motorph.view;
 
 import javax.swing.*;
@@ -102,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import com.motorph.repository.CredentialManager;
 
 public class LogIn extends JDialog {
     private JTextField usernameField;
@@ -187,17 +91,40 @@ public class LogIn extends JDialog {
         setVisible(true);
     }
 
-    private void handleLogin(ActionEvent e) {
-        String username = usernameField.getText();
-        String password = new String(passwordField.getPassword());
+private void handleLogin(ActionEvent e) {
+    String username = usernameField.getText().trim();
+    String password = new String(passwordField.getPassword()).trim();
 
-        if ("admin".equals(username) && "0000".equals(password)) {
-            authenticated = true;
-            dispose();
+    String[] employeeRecord = CredentialManager.authenticate(username, password);
+
+    if (employeeRecord != null) {
+        if (password.equals("1234")) {
+            String newPassword = JOptionPane.showInputDialog(this,
+                    "First-time login detected. Please enter a new password:");
+
+            if (newPassword != null && !newPassword.trim().isEmpty()) {
+                boolean success = CredentialManager.updatePassword(username, newPassword.trim());
+                if (success) {
+                    JOptionPane.showMessageDialog(this, "Password updated successfully. Please log in again.");
+                    // Clear fields for re-login
+                    usernameField.setText("");
+                    passwordField.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to update password.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Password not updated. Try again.");
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Invalid credentials, please try again.");
+            authenticated = true;
+            dispose(); // <--- THIS closes the dialog and continues
         }
+    } else {
+        JOptionPane.showMessageDialog(this, "Invalid username or password.");
     }
+}
+
+
 
     public boolean isAuthenticated() {
         return authenticated;

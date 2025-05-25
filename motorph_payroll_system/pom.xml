@@ -33,6 +33,13 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
+        <!-- For reading CSV file and writing to another CSV file -->
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>5.7.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>

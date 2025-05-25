@@ -138,3 +138,63 @@ May 23, 2025 10:18:51 PM com.motorph.repository.DataRepository loadAttendanceRec
 INFO: Loading attendance from: motorph_payroll_system/attendanceRecord.csv
 May 23, 2025 10:18:51 PM com.motorph.repository.DataRepository loadAttendanceRecords
 INFO: Successfully loaded 5,168 of 5,168 attendance records
+May 25, 2025 6:00:36 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+May 25, 2025 6:00:36 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: motorph_payroll_system/employeeDetails.csv
+May 25, 2025 6:00:36 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Successfully loaded 34 of 34 employee records
+May 25, 2025 6:00:36 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: motorph_payroll_system/attendanceRecord.csv
+May 25, 2025 6:00:36 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Successfully loaded 5,168 of 5,168 attendance records
+May 25, 2025 6:04:26 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+May 25, 2025 6:04:26 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: motorph_payroll_system/employeeDetails.csv
+May 25, 2025 6:04:26 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Successfully loaded 34 of 34 employee records
+May 25, 2025 6:04:26 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: motorph_payroll_system/attendanceRecord.csv
+May 25, 2025 6:04:26 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Successfully loaded 5,168 of 5,168 attendance records
+May 25, 2025 6:13:41 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+May 25, 2025 6:13:41 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: motorph_payroll_system/employeeDetails.csv
+May 25, 2025 6:13:41 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Successfully loaded 34 of 34 employee records
+May 25, 2025 6:13:41 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: motorph_payroll_system/attendanceRecord.csv
+May 25, 2025 6:13:41 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Successfully loaded 5,168 of 5,168 attendance records
+May 25, 2025 7:09:08 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+May 25, 2025 7:09:08 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: motorph_payroll_system/employeeDetails.csv
+May 25, 2025 7:09:08 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Successfully loaded 34 of 34 employee records
+May 25, 2025 7:09:08 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: motorph_payroll_system/attendanceRecord.csv
+May 25, 2025 7:09:08 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Successfully loaded 5,168 of 5,168 attendance records
+May 25, 2025 8:52:47 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+May 25, 2025 8:52:48 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: motorph_payroll_system/employeeDetails.csv
+May 25, 2025 8:52:48 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Successfully loaded 34 of 34 employee records
+May 25, 2025 8:52:48 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: motorph_payroll_system/attendanceRecord.csv
+May 25, 2025 8:52:48 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Successfully loaded 5,168 of 5,168 attendance records
+May 25, 2025 8:53:16 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+May 25, 2025 8:53:16 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: motorph_payroll_system/employeeDetails.csv
+May 25, 2025 8:53:16 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Successfully loaded 34 of 34 employee records
+May 25, 2025 8:53:16 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: motorph_payroll_system/attendanceRecord.csv
+May 25, 2025 8:53:17 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Successfully loaded 5,168 of 5,168 attendance records
