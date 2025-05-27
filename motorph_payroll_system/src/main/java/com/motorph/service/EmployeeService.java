@@ -62,6 +62,66 @@ public class EmployeeService {
     }
     
     /**
+     * Add a new employee to the system and save to CSV
+     * 
+     * @param employee The employee to add
+     * @return true if employee was added successfully, false if employee ID already exists
+     */
+    public boolean addEmployee(Employee employee) {
+        // Check if employee ID already exists
+        if (findEmployeeById(employee.getEmployeeId()) != null) {
+            return false; // Employee ID already exists
+        }
+        
+        // Add employee to in-memory list
+        employees.add(employee);
+        
+        // Save to CSV file
+        try {
+            appendEmployeeToCSV(employee);
+            return true;
+        } catch (Exception e) {
+            // If CSV write fails, remove from memory and return false
+            employees.remove(employee);
+            throw new RuntimeException("Failed to save employee to CSV: " + e.getMessage(), e);
+        }
+    }
+    
+    /**
+     * Append a single employee to the CSV file
+     */
+    private void appendEmployeeToCSV(Employee employee) throws Exception {
+        String csvFile = "employeeDetails.csv";
+        try (java.io.FileWriter fileWriter = new java.io.FileWriter(csvFile, true);
+             com.opencsv.CSVWriter writer = new com.opencsv.CSVWriter(fileWriter)) {
+            
+            // Create CSV record for the employee
+            String[] data = {
+                String.valueOf(employee.getEmployeeId()),
+                employee.getLastName(),
+                employee.getFirstName(),
+                employee.getBirthday() != null ? employee.getBirthday().toString() : "",
+                employee.getAddress() != null ? employee.getAddress() : "",
+                employee.getPhoneNumber() != null ? employee.getPhoneNumber() : "",
+                employee.getSssNumber() != null ? employee.getSssNumber() : "",
+                employee.getPhilhealthNumber() != null ? employee.getPhilhealthNumber() : "",
+                employee.getTinNumber() != null ? employee.getTinNumber() : "",
+                employee.getPagibigNumber() != null ? employee.getPagibigNumber() : "",
+                employee.getStatus(),
+                employee.getPosition(),
+                employee.getSupervisor() != null ? employee.getSupervisor() : "",
+                String.valueOf(employee.getBasicSalary()),
+                String.valueOf(employee.getRiceSubsidy()),
+                String.valueOf(employee.getPhoneAllowance()),
+                String.valueOf(employee.getClothingAllowance()),
+                String.valueOf(employee.getGrossSemiMonthlyRate()),
+                String.valueOf(employee.getHourlyRate())
+            };
+            writer.writeNext(data);
+        }
+    }
+    
+    /**
      * Get attendance records for an employee within a date range
      * 
      * @param employeeId The employee ID
