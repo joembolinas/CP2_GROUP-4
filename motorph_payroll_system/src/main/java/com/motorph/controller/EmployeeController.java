@@ -62,6 +62,41 @@ public class EmployeeController {
     }
     
     /**
+     * Add a new employee to the system and save to CSV
+     * 
+     * @param employee The employee to add
+     * @return true if employee was added successfully, false if employee ID already exists
+     * @throws IllegalArgumentException if employee data is invalid
+     */
+    public boolean addEmployee(Employee employee) throws IllegalArgumentException {
+        if (employee == null) {
+            throw new IllegalArgumentException("Employee cannot be null");
+        }
+        
+        if (employee.getEmployeeId() <= 0) {
+            throw new IllegalArgumentException("Invalid employee ID");
+        }
+        
+        if (employee.getLastName() == null || employee.getLastName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Last name is required");
+        }
+        
+        if (employee.getFirstName() == null || employee.getFirstName().trim().isEmpty()) {
+            throw new IllegalArgumentException("First name is required");
+        }
+        
+        if (employee.getPosition() == null || employee.getPosition().trim().isEmpty()) {
+            throw new IllegalArgumentException("Position is required");
+        }
+        
+        if (employee.getBasicSalary() <= 0) {
+            throw new IllegalArgumentException("Basic salary must be greater than zero");
+        }
+        
+        return employeeService.addEmployee(employee);
+    }
+    
+    /**
      * Get attendance records for an employee within a date range
      * 
      * @param employeeId The employee ID
