@@ -1,10 +1,13 @@
 package com.motorph.view;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.*;
 import com.motorph.repository.CredentialManager;
 import com.motorph.util.ForgotCredentialsWindow;
+
 
 public class LogIn extends JDialog {
     private JTextField usernameField;
@@ -76,6 +79,30 @@ public class LogIn extends JDialog {
         loginButton.addActionListener(this::handleLogin);
         add(loginButton, gbc);
 
+        // Disable login button by default
+        loginButton.setEnabled(false); // <-- NEW LINE
+
+        // Enable login button only when both fields are filled
+        DocumentListener inputListener = new DocumentListener() { // <-- START NEW BLOCK
+            private void updateButtonState() {
+                String username = usernameField.getText().trim();
+                String password = new String(passwordField.getPassword()).trim();
+                loginButton.setEnabled(!username.isEmpty() && !password.isEmpty());
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) { updateButtonState(); }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) { updateButtonState(); }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) { updateButtonState(); }
+        };
+
+        usernameField.getDocument().addDocumentListener(inputListener);
+        passwordField.getDocument().addDocumentListener(inputListener); // <-- END NEW BLOCK
+
         // Forgot username/password link below the login button
         gbc.gridx = 1;
         gbc.gridy = 4;
@@ -90,7 +117,6 @@ public class LogIn extends JDialog {
                 forgotWindow.setVisible(true);
             }
         });
-
         add(forgotLink, gbc);
 
         // Set the login button as the default button
@@ -109,38 +135,43 @@ public class LogIn extends JDialog {
         setVisible(true);
     }
 
-    private void handleLogin(ActionEvent e) {
-        String username = usernameField.getText().trim();
-        String password = new String(passwordField.getPassword()).trim();
 
-        String[] employeeRecord = CredentialManager.authenticate(username, password);
+private void handleLogin(ActionEvent e) {
+    String username = usernameField.getText().trim();
+    String password = new String(passwordField.getPassword()).trim();
 
-        if (employeeRecord != null) {
-            if (password.equals("1234")) {
-                String newPassword = JOptionPane.showInputDialog(this,
-                        "First-time login detected. Please enter a new password:");
+    String[] employeeRecord = CredentialManager.authenticate(username, password);
 
-                if (newPassword != null && !newPassword.trim().isEmpty()) {
-                    boolean success = CredentialManager.updatePassword(username, newPassword.trim());
-                    if (success) {
-                        JOptionPane.showMessageDialog(this, "Password updated successfully. Please log in again.");
-                        // Clear fields for re-login
-                        usernameField.setText("");
-                        passwordField.setText("");
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Failed to update password.");
-                    }
+    if (employeeRecord != null) {
+        if (password.equals("1234")) {
+            String newPassword = JOptionPane.showInputDialog(this,
+                    "First-time login detected. Please enter a new password:");
+
+            if (newPassword != null && !newPassword.trim().isEmpty()) {
+                boolean success = CredentialManager.updatePassword(username, newPassword.trim());
+                if (success) {
+                    JOptionPane.showMessageDialog(this, "Password updated successfully. Please log in again.");
+                    // Clear fields for re-login
+                    usernameField.setText("");
+                    passwordField.setText("");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Password not updated. Try again.");
+                    JOptionPane.showMessageDialog(this, "Failed to update password.");
                 }
             } else {
-                authenticated = true;
-                dispose(); // closes dialog and continues
+                JOptionPane.showMessageDialog(this, "Password not updated. Try again.");
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Invalid username or password.");
+            authenticated = true;
+            dispose(); // closes dialog and continues
         }
+    } else {
+        JOptionPane.showMessageDialog(this, "Invalid username or password.");
+        usernameField.setText("");   // Clear username field
+        passwordField.setText("");   // Clear password field
     }
+}
+
+
 
     public boolean isAuthenticated() {
         return authenticated;
