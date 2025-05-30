@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -15,14 +16,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.motorph.controller.EmployeeController;
 import com.motorph.controller.PayrollController;
 import com.motorph.model.Employee;
 import com.motorph.util.UIConstants;
+import com.motorph.util.UIUtils;
 import com.motorph.view.dialog.EmployeeDetailsFrame;
 import com.motorph.view.dialog.NewEmployeeDialog;
+import com.motorph.view.renderer.ActionButtonRenderer;
 
 /**
  * Panel for displaying employee list with management functions as required by MPHCR-02.
