@@ -28,11 +28,11 @@ import com.motorph.view.MainFrame;
  */
 public class Main {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
-    
+
     // File paths for data sources
-    private static final String EMPLOYEES_FILE_PATH = "motorph_payroll_system/employeeDetails.csv";
-    private static final String ATTENDANCE_FILE_PATH = "motorph_payroll_system/attendanceRecord.csv";
-    
+    private static final String EMPLOYEES_FILE_PATH = "employeeDetails.csv";
+    private static final String ATTENDANCE_FILE_PATH = "attendanceRecord.csv";
+
     /**
      * Main entry point for the application
      * 
@@ -42,7 +42,7 @@ public class Main {
         try {
             // Set the look and feel to the system look and feel
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            
+
             // Initialize and start the application on the Event Dispatch Thread
             SwingUtilities.invokeLater(() -> {
                 try {
@@ -53,8 +53,8 @@ public class Main {
                     System.exit(1);
                 }
             });
-        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | 
-                 InstantiationException | IllegalAccessException e) {
+        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException
+                | IllegalAccessException e) {
             logger.log(Level.WARNING, "Failed to set system look and feel", e);
             // Continue with default look and feel
             SwingUtilities.invokeLater(() -> {
@@ -67,7 +67,7 @@ public class Main {
             });
         }
     }
-    
+
     /**
      * Initialize the application components and start the UI
      * 
@@ -76,28 +76,26 @@ public class Main {
     private static void initializeApplication() throws IOException {
         // Initialize the data repository
         DataRepository dataRepository = new DataRepository(EMPLOYEES_FILE_PATH, ATTENDANCE_FILE_PATH);
-        
+
         // Get employees and attendance records
         List<Employee> employees = dataRepository.getAllEmployees();
         List<AttendanceRecord> attendanceRecords = dataRepository.getAllAttendanceRecords();
-        
+
         // Initialize the payroll calculator
         PayrollProcessor payrollCalculator = new PayrollProcessor();
-        
+
         // Initialize services
         EmployeeService employeeService = new EmployeeService(employees, attendanceRecords);
         PayrollService payrollService = new PayrollService(employees, attendanceRecords, payrollCalculator);
         ReportService reportService = new ReportService(employeeService, payrollService);
-        
+
         // Initialize controllers
         EmployeeController employeeController = new EmployeeController(employeeService);
         PayrollController payrollController = new PayrollController(payrollService);
-        ReportController reportController = new ReportController(reportService);
-        
-        // Initialize and show the main frame
+        ReportController reportController = new ReportController(reportService); // Initialize and show the main frame
         MainFrame mainFrame = new MainFrame(employeeController, payrollController, reportController);
         mainFrame.setVisible(true);
-        
+
         logger.info("MotorPH Payroll System started successfully");
     }
 }

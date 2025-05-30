@@ -24,26 +24,22 @@ import com.motorph.view.dialog.EmployeeDetailsFrame;
 import com.motorph.view.dialog.NewEmployeeDialog;
 
 /**
- * Panel for displaying employee list as required by MPHCR-02.
- * Displays employees in JTable with Employee Number, Name, Position,
- * Department, Status, and Actions.
- * Matches the HTML prototype layout exactly.
+ * Panel for displaying employee list exactly as specified in HTML prototype.
+ * Simple layout: Title -> Add New Employee button -> Table with action buttons
  */
-public class EmployeeListPanel extends JPanel {
+public class EmployeeListPanelFixed extends JPanel {
 
     private final MainFrame mainFrame;
     private final EmployeeController employeeController;
     private JTable employeeTable;
     private DefaultTableModel tableModel;
 
+    // Table columns exactly as in HTML prototype
     private static final String[] COLUMN_NAMES = {
             "Emp. No.", "Name", "Position", "Department", "Status", "Actions"
     };
 
-    /**
-     * Constructor for the employee list panel
-     */
-    public EmployeeListPanel(MainFrame mainFrame, EmployeeController employeeController) {
+    public EmployeeListPanelFixed(MainFrame mainFrame, EmployeeController employeeController) {
         this.mainFrame = mainFrame;
         this.employeeController = employeeController;
         initPanel();
@@ -51,72 +47,82 @@ public class EmployeeListPanel extends JPanel {
     }
 
     /**
-     * Constructor for the employee list panel with payroll controller (legacy
-     * support)
-     */
-    public EmployeeListPanel(MainFrame mainFrame, EmployeeController employeeController, Object payrollController) {
-        this(mainFrame, employeeController);
-    }
-
-    /**
-     * Initialize the panel
+     * Initialize the panel - simple layout matching HTML prototype
      */
     private void initPanel() {
         setLayout(new BorderLayout(10, 10));
-        setBackground(UIConstants.BACKGROUND_COLOR);
+        setBackground(UIConstants.PANEL_BACKGROUND); // White background
+        setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createLineBorder(UIConstants.BORDER_COLOR, 1),
+                javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15)));
 
-        // North panel with title and controls
+        // North panel - Title and Add New Employee button
         JPanel northPanel = new JPanel(new BorderLayout());
-        northPanel.setBackground(UIConstants.BACKGROUND_COLOR);
+        northPanel.setBackground(UIConstants.PANEL_BACKGROUND);
 
-        JLabel titleLabel = new JLabel("Employee Management System", SwingConstants.CENTER);
-        titleLabel.setFont(UIConstants.TITLE_FONT);
+        // Section title - centered
+        JLabel titleLabel = new JLabel("Employee Management", SwingConstants.CENTER);
+        titleLabel.setFont(UIConstants.HEADING_FONT);
+        titleLabel.setForeground(UIConstants.TEXT_COLOR);
+        titleLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 15, 0));
         northPanel.add(titleLabel, BorderLayout.NORTH);
 
-        // Control panel with Add Employee button (matching prototype layout)
-        JPanel controlPanel = new JPanel(new BorderLayout());
-        controlPanel.setBackground(UIConstants.PANEL_BACKGROUND);
-        controlPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        // Top section with buttons
-        JPanel topButtonPanel = new JPanel(new BorderLayout());
-        topButtonPanel.setBackground(UIConstants.PANEL_BACKGROUND);
+        // Add New Employee button - left aligned
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 10));
+        buttonPanel.setBackground(UIConstants.PANEL_BACKGROUND);
 
-        // Left side - Add Employee button
-        JPanel leftButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 10));
-        leftButtonPanel.setBackground(UIConstants.PANEL_BACKGROUND);
-        JButton newEmployeeButton = createPrimaryButton("Add New Employee");
-        leftButtonPanel.add(newEmployeeButton);
-        // Right side - Back to Main Menu button
-        JPanel rightButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 10));
-        rightButtonPanel.setBackground(UIConstants.PANEL_BACKGROUND);
-        JButton backButton = com.motorph.util.UIUtils.createSecondaryButton("Back to Main Menu");
-        rightButtonPanel.add(backButton);
+        JButton addEmployeeButton = createAddEmployeeButton();
+        buttonPanel.add(addEmployeeButton);
 
-        topButtonPanel.add(leftButtonPanel, BorderLayout.WEST);
-        topButtonPanel.add(rightButtonPanel, BorderLayout.EAST);
-        controlPanel.add(topButtonPanel, BorderLayout.NORTH);
-
-        northPanel.add(controlPanel, BorderLayout.SOUTH);
+        northPanel.add(buttonPanel, BorderLayout.CENTER);
         add(northPanel, BorderLayout.NORTH);
 
-        // Center panel with employee table
+        // Center panel - Table
         createEmployeeTable();
         JScrollPane scrollPane = new JScrollPane(employeeTable);
-        scrollPane.setBackground(UIConstants.BACKGROUND_COLOR);
+        scrollPane.setBackground(UIConstants.PANEL_BACKGROUND);
+        scrollPane.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 0, 0, 0));
         add(scrollPane, BorderLayout.CENTER);
-        // Add action listeners
-        newEmployeeButton.addActionListener(e -> openNewEmployeeDialog());
-        backButton.addActionListener(e -> backToMainMenu());
+
+        // Add action listener
+        addEmployeeButton.addActionListener(e -> openNewEmployeeDialog());
     }
 
     /**
-     * Create the employee table
+     * Create Add New Employee button matching prototype style
+     */
+    private JButton createAddEmployeeButton() {
+        JButton button = new JButton("Add New Employee");
+        button.setBackground(UIConstants.BUTTON_COLOR); // #007BFF Blue
+        button.setForeground(UIConstants.BUTTON_TEXT_COLOR); // White
+        button.setFont(UIConstants.BUTTON_FONT);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setPreferredSize(new java.awt.Dimension(160, 35));
+
+        // Add rounded corners effect
+        button.setOpaque(true);
+        button.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 18, 10, 18));
+
+        return button;
+    }
+
+    /**
+     * Create the employee table with action buttons
      */
     private void createEmployeeTable() {
+        // Create table model
         tableModel = new DefaultTableModel(COLUMN_NAMES, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return column == 5; // Only Actions column is editable
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                if (columnIndex == 5)
+                    return JPanel.class; // Actions column
+                return String.class;
             }
         };
 
@@ -124,8 +130,9 @@ public class EmployeeListPanel extends JPanel {
         employeeTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         employeeTable.setFillsViewportHeight(true);
         employeeTable.getTableHeader().setReorderingAllowed(false);
+        employeeTable.setRowHeight(40); // Increase row height for buttons
 
-        // Set column widths to match prototype
+        // Set column widths
         employeeTable.getColumnModel().getColumn(0).setPreferredWidth(80); // Emp. No.
         employeeTable.getColumnModel().getColumn(1).setPreferredWidth(200); // Name
         employeeTable.getColumnModel().getColumn(2).setPreferredWidth(150); // Position
@@ -134,7 +141,13 @@ public class EmployeeListPanel extends JPanel {
         employeeTable.getColumnModel().getColumn(5).setPreferredWidth(180); // Actions
 
         // Set up the Actions column with custom renderer and editor
-        setupActionColumn();
+        employeeTable.getColumn("Actions").setCellRenderer(new ActionButtonRenderer());
+        employeeTable.getColumn("Actions").setCellEditor(new ActionButtonEditor());
+
+        // Style table header
+        employeeTable.getTableHeader().setBackground(UIConstants.TABLE_HEADER_BACKGROUND);
+        employeeTable.getTableHeader().setForeground(UIConstants.TEXT_COLOR);
+        employeeTable.getTableHeader().setFont(UIConstants.NORMAL_FONT);
     }
 
     /**
@@ -147,15 +160,15 @@ public class EmployeeListPanel extends JPanel {
             // Clear existing data
             tableModel.setRowCount(0);
 
-            // Add employee data to table (matching prototype columns)
+            // Add employee data to table
             for (Employee employee : employees) {
                 Object[] row = {
                         employee.getEmployeeId(),
-                        employee.getFullName(), // Combined name for cleaner display
+                        employee.getFullName(),
                         employee.getPosition(),
-                        "IT", // Default department - could be enhanced later
-                        "Active", // Default status - could be enhanced later
-                        "Actions" // Placeholder - will be handled by custom renderer
+                        "IT", // Default department
+                        "Active", // Default status
+                        createActionButtonPanel() // This will be handled by renderer/editor
                 };
                 tableModel.addRow(row);
             }
@@ -169,11 +182,19 @@ public class EmployeeListPanel extends JPanel {
     }
 
     /**
+     * Create action button panel for table cells
+     */
+    private JPanel createActionButtonPanel() {
+        return new JPanel(); // Placeholder - actual buttons handled by renderer/editor
+    }
+
+    /**
      * Open new employee dialog
      */
     private void openNewEmployeeDialog() {
         NewEmployeeDialog dialog = new NewEmployeeDialog(mainFrame, employeeController);
         dialog.setVisible(true);
+
         if (dialog.isEmployeeAdded()) {
             loadEmployeeData(); // Refresh the table
             JOptionPane.showMessageDialog(this,
@@ -184,37 +205,7 @@ public class EmployeeListPanel extends JPanel {
     }
 
     /**
-     * Navigate back to the main menu
-     */
-    private void backToMainMenu() {
-        mainFrame.showMainMenu();
-    }
-
-    /**
-     * Create a primary button (matching prototype style)
-     */
-    private JButton createPrimaryButton(String text) {
-        JButton button = new JButton(text);
-        button.setBackground(UIConstants.BUTTON_COLOR);
-        button.setForeground(UIConstants.BUTTON_TEXT_COLOR);
-        button.setFont(UIConstants.BUTTON_FONT);
-        button.setFocusPainted(false);
-        button.setBorderPainted(false);
-        button.setPreferredSize(new java.awt.Dimension(150, UIConstants.BUTTON_HEIGHT));
-        return button;
-    }
-
-    /**
-     * Setup action column with custom renderer and editor
-     */
-    private void setupActionColumn() {
-        employeeTable.getColumn("Actions").setCellRenderer(new ActionButtonRenderer());
-        employeeTable.getColumn("Actions").setCellEditor(new ActionButtonEditor());
-        employeeTable.setRowHeight(40); // Increase row height for buttons
-    }
-
-    /**
-     * Custom renderer for action buttons in table
+     * Custom renderer for action buttons in table cells
      */
     private class ActionButtonRenderer extends DefaultTableCellRenderer {
         private final JPanel panel;
@@ -224,6 +215,7 @@ public class EmployeeListPanel extends JPanel {
             panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 2, 2));
             panel.setBackground(UIConstants.PANEL_BACKGROUND);
 
+            // Create action buttons
             viewButton = createActionButton("View", UIConstants.BUTTON_COLOR);
             editButton = createActionButton("Edit", UIConstants.BUTTON_COLOR);
             deleteButton = createActionButton("Delete", UIConstants.DELETE_BUTTON_COLOR);
@@ -241,6 +233,7 @@ public class EmployeeListPanel extends JPanel {
             button.setFocusPainted(false);
             button.setBorderPainted(false);
             button.setPreferredSize(new java.awt.Dimension(55, 25));
+            button.setOpaque(true);
             return button;
         }
 
@@ -252,21 +245,24 @@ public class EmployeeListPanel extends JPanel {
     }
 
     /**
-     * Custom editor for action buttons in table
+     * Custom editor for action buttons in table cells - this makes buttons
+     * clickable
      */
     private class ActionButtonEditor extends AbstractCellEditor implements TableCellEditor {
         private final JPanel panel;
         private final JButton viewButton, editButton, deleteButton;
-        private int currentRow;
+        private int currentRow = -1;
 
         public ActionButtonEditor() {
             panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 2, 2));
             panel.setBackground(UIConstants.PANEL_BACKGROUND);
 
+            // Create action buttons
             viewButton = createActionButton("View", UIConstants.BUTTON_COLOR);
             editButton = createActionButton("Edit", UIConstants.BUTTON_COLOR);
             deleteButton = createActionButton("Delete", UIConstants.DELETE_BUTTON_COLOR);
-            // Add action listeners
+
+            // Add action listeners - THIS IS CRUCIAL FOR RESPONSIVENESS
             viewButton.addActionListener(e -> {
                 stopCellEditing();
                 viewEmployeeAtRow(currentRow);
@@ -295,6 +291,7 @@ public class EmployeeListPanel extends JPanel {
             button.setFocusPainted(false);
             button.setBorderPainted(false);
             button.setPreferredSize(new java.awt.Dimension(55, 25));
+            button.setOpaque(true);
             return button;
         }
 
@@ -319,7 +316,7 @@ public class EmployeeListPanel extends JPanel {
             int employeeId = (Integer) tableModel.getValueAt(row, 0);
             Employee employee = employeeController.findEmployeeById(employeeId);
             new EmployeeDetailsFrame(mainFrame, employee).setVisible(true);
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
                     "Error viewing employee details: " + e.getMessage(),
                     "Error",
@@ -335,20 +332,13 @@ public class EmployeeListPanel extends JPanel {
             int employeeId = (Integer) tableModel.getValueAt(row, 0);
             Employee employee = employeeController.findEmployeeById(employeeId);
 
-            // Create and show edit dialog
-            com.motorph.view.dialog.EditEmployeeDialog dialog = new com.motorph.view.dialog.EditEmployeeDialog(
-                    mainFrame, employeeController, employee);
-            dialog.setVisible(true);
-
-            // If employee was updated, refresh the table
-            if (dialog.isEmployeeUpdated()) {
-                loadEmployeeData();
-                JOptionPane.showMessageDialog(this,
-                        "Employee updated successfully!",
-                        "Success",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (RuntimeException e) {
+            // For now, show details and inform about future implementation
+            new EmployeeDetailsFrame(mainFrame, employee).setVisible(true);
+            JOptionPane.showMessageDialog(this,
+                    "Edit functionality will be implemented in future version.",
+                    "Edit Employee",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
                     "Error editing employee: " + e.getMessage(),
                     "Error",
@@ -365,34 +355,31 @@ public class EmployeeListPanel extends JPanel {
             Employee employee = employeeController.findEmployeeById(employeeId);
 
             int confirm = JOptionPane.showConfirmDialog(this,
-                    "Are you sure you want to delete employee: " + employee.getFullName() + "?\n" +
-                            "This action cannot be undone.",
+                    "Are you sure you want to delete employee: " + employee.getFullName() + "?",
                     "Confirm Delete",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.WARNING_MESSAGE);
 
             if (confirm == JOptionPane.YES_OPTION) {
-                // Delete the employee
-                boolean success = employeeController.deleteEmployee(employeeId);
-
-                if (success) {
-                    loadEmployeeData(); // Refresh the table
-                    JOptionPane.showMessageDialog(this,
-                            "Employee deleted successfully!",
-                            "Success",
-                            JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(this,
-                            "Failed to delete employee. Employee may not exist.",
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
+                JOptionPane.showMessageDialog(this,
+                        String.format(
+                                "Delete functionality will be implemented in future version.%nEmployee: %s would be deleted.",
+                                employee.getFullName()),
+                        "Delete Employee",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
                     "Error deleting employee: " + e.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    /**
+     * Refresh the employee data
+     */
+    public void refreshData() {
+        loadEmployeeData();
     }
 }
