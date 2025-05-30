@@ -336,13 +336,12 @@ public class NewEmployeeDialog extends JDialog {
                         "Error",
                         JOptionPane.ERROR_MESSAGE);
             }
-            
-        } catch (NumberFormatException e) {
+              } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this,
                     "Please enter valid numeric values for Employee ID, Basic Salary, and allowances.",
                     "Number Format Error",
                     JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(this,
                     "Error saving employee: " + e.getMessage(),
                     "Error",
@@ -351,11 +350,10 @@ public class NewEmployeeDialog extends JDialog {
     }
       /**
      * Add employee to system and save to CSV
-     */
-    private boolean addEmployeeToSystem(Employee employee) {
+     */    private boolean addEmployeeToSystem(Employee employee) {
         try {
             return employeeController.addEmployee(employee);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(this,
                 "Error saving employee: " + e.getMessage(),
                 "Save Error",
