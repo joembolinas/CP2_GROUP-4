@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotorPH Payroll System - Mockup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .app-container {
+            width: 90%;
+            max-width: 1000px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .screen {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .login-screen { text-align: center; }
+        .main-app-screen { display: none; /* Initially hidden */ }
+        .panel { display: none; /* Panels are hidden by default */ padding: 15px; border: 1px solid #e0e0e0; margin-top:10px; }
+        .panel.active { display: block; }
+
+        h1, h2, h3 {
+            color: #333;
+            text-align: center;
+        }
+        h2 { margin-top: 0; }
+
+        .menu-bar {
+            background-color: #e9e9e9;
+            padding: 8px 15px;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 15px;
+        }
+        .menu-bar span {
+            margin-right: 15px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .menu-bar span:hover { color: #007bff; }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="password"], input[type="date"], select, textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea { resize: vertical; min-height: 60px; }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 5px;
+        }
+        button:hover { background-color: #0056b3; }
+        button.secondary { background-color: #6c757d; }
+        button.secondary:hover { background-color: #545b62; }
+        button.danger { background-color: #dc3545; }
+        button.danger:hover { background-color: #c82333; }
+        button:disabled { background-color: #cccccc; cursor: not-allowed; }
+
+
+        .status-message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .status-message.success { background-color: #d4edda; color: #155724; }
+        .status-message.error { background-color: #f8d7da; color: #721c24; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th { background-color: #f0f0f0; }
+        tbody tr:hover { background-color: #f9f9f9; cursor: pointer;}
+
+        .quick-actions {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 20px auto;
+            width: fit-content;
+        }
+        .quick-actions h3 { margin-top: 0; }
+        .quick-actions button { display: block; width: 100%; margin-bottom: 10px; }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; }
+        .form-grid .full-width { grid-column: 1 / -1; }
+
+        /* Modal Dialog Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; /* 10% from the top and centered */
+            padding: 25px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            max-width: 700px;
+            border-radius: 5px;
+            position: relative;
+        }
+        .modal-header { padding-bottom: 10px; border-bottom: 1px solid #eee; margin-bottom: 15px; }
+        .modal-header h2 { margin:0; text-align: left; }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .modal-buttons { text-align: right; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Login Screen -->
+        <div id="loginScreen" class="screen login-screen">
+            <h1>MotorPH Payroll System</h1>
+            <h3>Login</h3>
+            <label for="username">Username:</label>
+            <input type="text" id="username" placeholder="admin">
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="adminpass">
+            <button onclick="login()">Login</button>
+            <div id="loginStatus" class="status-message"></div>
+        </div>
+
+        <!-- Main Application Screen -->
+        <div id="mainAppScreen" class="screen main-app-screen">
+            <h1>MotorPH Payroll System</h1>
+            <div class="menu-bar">
+                <span onclick="showPanel('dashboard')">Dashboard</span>
+                <span onclick="showPanel('employees')">Employees</span>
+                <span onclick="showPanel('payroll')">Payroll</span>
+                <span onclick="showPanel('reports')">Reports</span>
+                <span onclick="logout()">Logout</span>
+            </div>            <!-- Dashboard Panel -->
+            <div id="dashboardPanel" class="panel active">
+                <h2>Dashboard</h2>
+                <p>Welcome to the MotorPH Payroll System!</p>
+                <div class="quick-actions">
+                    <h3>Quick Actions</h3>
+                    <button onclick="showPanel('employees')">Manage Employees</button>
+                    <button onclick="showPanel('payroll')">Process Payroll</button>
+                    <button onclick="showPanel('reports')">Generate Reports</button>
+                </div>
+            </div>
+
+            <!-- Employees Panel -->
+            <div id="employeesPanel" class="panel">
+                <h2>Employee Management</h2>
+                <button onclick="openEmployeeModal('add')">Add New Employee</button>
+                
+                <table id="employeeTable">
+                    <thead>
+                        <tr>
+                            <th>Emp. No.</th>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Employee data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Payroll Panel -->
+            <div id="payrollPanel" class="panel">
+                <h2>Payroll Processing</h2>
+                
+                <div class="form-grid">
+                    <div>
+                        <h3>Individual Payroll</h3>
+                        <label for="empSelect">Select Employee:</label>
+                        <select id="empSelect">
+                            <option value="">Choose an employee...</option>
+                        </select>
+                        
+                        <label for="payPeriod">Pay Period:</label>
+                        <input type="date" id="payPeriod">
+                        
+                        <button onclick="calculateIndividualPayroll()">Calculate Payroll</button>
+                    </div>
+                    
+                    <div>
+                        <h3>Bulk Payroll Processing</h3>
+                        <label for="bulkPayPeriod">Pay Period:</label>
+                        <input type="date" id="bulkPayPeriod">
+                        
+                        <label for="department">Department:</label>
+                        <select id="department">
+                            <option value="">All Departments</option>
+                            <option value="HR">Human Resources</option>
+                            <option value="IT">Information Technology</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Operations">Operations</option>
+                        </select>
+                        
+                        <button onclick="processBulkPayroll()">Process Bulk Payroll</button>
+                    </div>
+                </div>
+                
+                <div id="payrollResults">
+                    <!-- Payroll calculation results will appear here -->
+                </div>
+            </div>
+
+            <!-- Reports Panel -->
+            <div id="reportsPanel" class="panel">
+                <h2>Reports & Analytics</h2>
+                
+                <div class="form-grid">
+                    <div class="full-width">
+                        <label for="reportType">Report Type:</label>
+                        <select id="reportType">
+                            <option value="employee-list">Employee List</option>
+                            <option value="payroll-summary">Payroll Summary</option>
+                            <option value="attendance">Attendance Report</option>
+                            <option value="tax-report">Tax Report</option>
+                            <option value="benefits">Benefits Report</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="startDate">Start Date:</label>
+                        <input type="date" id="startDate">
+                    </div>
+                    
+                    <div>
+                        <label for="endDate">End Date:</label>
+                        <input type="date" id="endDate">
+                    </div>
+                </div>
+                
+                <button onclick="generateReport()">Generate Report</button>
+                <button class="secondary" onclick="exportReport()">Export to PDF</button>
+                
+                <div id="reportResults">
+                    <!-- Generated reports will appear here -->
+                </div>
+            </div>
+        </div>
+    </div>    <!-- Employee Modal -->
+    <div id="employeeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeEmployeeModal()">&times;</span>
+            <div class="modal-header">
+                <h2 id="modalTitle">Add Employee</h2>
+            </div>
+            
+            <div class="form-grid">
+                <div>
+                    <label for="empNo">Employee Number:</label>
+                    <input type="text" id="empNo" placeholder="E.g., EMP001">
+                </div>
+                
+                <div>
+                    <label for="empStatus">Status:</label>
+                    <select id="empStatus">
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                        <option value="Probation">Probation</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" placeholder="Enter first name">
+                </div>
+                
+                <div>
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" placeholder="Enter last name">
+                </div>
+                
+                <div>
+                    <label for="position">Position:</label>
+                    <input type="text" id="position" placeholder="Job title">
+                </div>
+                
+                <div>
+                    <label for="empDepartment">Department:</label>
+                    <select id="empDepartment">
+                        <option value="HR">Human Resources</option>
+                        <option value="IT">Information Technology</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Operations">Operations</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="hireDate">Hire Date:</label>
+                    <input type="date" id="hireDate">
+                </div>
+                
+                <div>
+                    <label for="salary">Basic Salary:</label>
+                    <input type="text" id="salary" placeholder="e.g., 25000">
+                </div>
+                
+                <div class="full-width">
+                    <label for="address">Address:</label>
+                    <textarea id="address" placeholder="Complete address"></textarea>
+                </div>
+                
+                <div>
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" placeholder="Contact number">
+                </div>
+                
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" placeholder="email@example.com">
+                </div>
+                
+                <div>
+                    <label for="sss">SSS Number:</label>
+                    <input type="text" id="sss" placeholder="XX-XXXXXXX-X">
+                </div>
+                
+                <div>
+                    <label for="philhealth">PhilHealth:</label>
+                    <input type="text" id="philhealth" placeholder="XX-XXXXXXXXX-X">
+                </div>
+                
+                <div>
+                    <label for="tin">TIN:</label>
+                    <input type="text" id="tin" placeholder="XXX-XXX-XXX">
+                </div>
+                
+                <div>
+                    <label for="pagibig">Pag-IBIG:</label>
+                    <input type="text" id="pagibig" placeholder="XXXX-XXXX-XXXX">
+                </div>
+            </div>
+            
+            <div class="modal-buttons">
+                <button onclick="saveEmployee()">Save Employee</button>
+                <button class="secondary" onclick="closeEmployeeModal()">Cancel</button>
+                <button id="deleteBtn" class="danger" onclick="deleteEmployee()" style="display: none;">Delete</button>
+            </div>
+            
+            <div id="modalStatus" class="status-message"></div>
+        </div>
+    </div>    <script>
+        // Sample data - in a real application, this would come from a database
+        let employees = [
+            {
+                id: 1, empNo: 'EMP001', firstName: 'Juan', lastName: 'Dela Cruz', 
+                position: 'Software Developer', department: 'IT', status: 'Active',
+                hireDate: '2023-01-15', salary: '45000', address: '123 Main St, Manila',
+                phone: '09171234567', email: 'juan.delacruz@motorphils.com',
+                sss: '34-1234567-8', philhealth: '12-345678901-2', 
+                tin: '123-456-789-123', pagibig: '1234-5678-9012'
+            },
+            {
+                id: 2, empNo: 'EMP002', firstName: 'Maria', lastName: 'Santos', 
+                position: 'HR Manager', department: 'HR', status: 'Active',
+                hireDate: '2022-03-20', salary: '55000', address: '456 Rizal Ave, Quezon City',
+                phone: '09181234567', email: 'maria.santos@motorphils.com',
+                sss: '34-2345678-9', philhealth: '12-456789012-3', 
+                tin: '234-567-890-234', pagibig: '2345-6789-0123'
+            },
+            {
+                id: 3, empNo: 'EMP003', firstName: 'Pedro', lastName: 'Garcia', 
+                position: 'Accountant', department: 'Finance', status: 'Active',
+                hireDate: '2023-06-10', salary: '38000', address: '789 EDSA, Makati',
+                phone: '09191234567', email: 'pedro.garcia@motorphils.com',
+                sss: '34-3456789-0', philhealth: '12-567890123-4', 
+                tin: '345-678-901-345', pagibig: '3456-7890-1234'
+            }
+        ];
+
+        let currentEmployeeId = null;
+        let isLoggedIn = false;
+
+        // Login functionality
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const loginStatus = document.getElementById('loginStatus');
+
+            // Simple authentication (in real app, this would be server-side)
+            if (username === 'admin' && password === 'adminpass') {
+                isLoggedIn = true;
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('mainAppScreen').style.display = 'block';
+                showPanel('dashboard');
+                populateEmployeeTable();
+                populateEmployeeSelects();
+                showStatusMessage(loginStatus, 'Login successful!', 'success');
+            } else {
+                showStatusMessage(loginStatus, 'Invalid username or password. Try admin/adminpass', 'error');
+            }
+        }
+
+        // Logout functionality
+        function logout() {
+            isLoggedIn = false;
+            document.getElementById('loginScreen').style.display = 'block';
+            document.getElementById('mainAppScreen').style.display = 'none';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            showPanel('dashboard'); // Reset to dashboard
+        }
+
+        // Panel navigation
+        function showPanel(panelName) {
+            // Hide all panels
+            const panels = document.querySelectorAll('.panel');
+            panels.forEach(panel => panel.classList.remove('active'));
+            
+            // Show selected panel
+            document.getElementById(panelName + 'Panel').classList.add('active');
+        }
+
+        // Employee management functions
+        function populateEmployeeTable() {
+            const tableBody = document.querySelector('#employeeTable tbody');
+            tableBody.innerHTML = '';
+
+            employees.forEach(emp => {
+                const row = tableBody.insertRow();
+                row.innerHTML = `
+                    <td>${emp.empNo}</td>
+                    <td>${emp.firstName} ${emp.lastName}</td>
+                    <td>${emp.position}</td>
+                    <td>${emp.department}</td>
+                    <td><span class="status-${emp.status.toLowerCase()}">${emp.status}</span></td>
+                    <td>
+                        <button onclick="viewEmployee(${emp.id})">View</button>
+                        <button onclick="editEmployee(${emp.id})">Edit</button>
+                        <button class="danger" onclick="confirmDeleteEmployee(${emp.id})">Delete</button>
+                    </td>
+                `;
+            });
+        }
+
+        function populateEmployeeSelects() {
+            const empSelect = document.getElementById('empSelect');
+            empSelect.innerHTML = '<option value="">Choose an employee...</option>';
+            
+            employees.forEach(emp => {
+                const option = document.createElement('option');
+                option.value = emp.id;
+                option.textContent = `${emp.empNo} - ${emp.firstName} ${emp.lastName}`;
+                empSelect.appendChild(option);
+            });
+        }
+
+        function openEmployeeModal(action, employeeId = null) {
+            const modal = document.getElementById('employeeModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const deleteBtn = document.getElementById('deleteBtn');
+            
+            currentEmployeeId = employeeId;
+            
+            if (action === 'add') {
+                modalTitle.textContent = 'Add New Employee';
+                deleteBtn.style.display = 'none';
+                clearEmployeeForm();
+            } else if (action === 'edit') {
+                modalTitle.textContent = 'Edit Employee';
+                deleteBtn.style.display = 'inline-block';
+                loadEmployeeData(employeeId);
+            } else if (action === 'view') {
+                modalTitle.textContent = 'View Employee';
+                deleteBtn.style.display = 'none';
+                loadEmployeeData(employeeId);
+                // Make form read-only for view mode
+                setFormReadOnly(true);
+            }
+            
+            modal.style.display = 'block';
+        }
+
+        function closeEmployeeModal() {
+            document.getElementById('employeeModal').style.display = 'none';
+            setFormReadOnly(false);
+            clearStatusMessage(document.getElementById('modalStatus'));
+        }
+
+        function clearEmployeeForm() {
+            const fields = ['empNo', 'firstName', 'lastName', 'position', 'empDepartment', 
+                          'hireDate', 'salary', 'address', 'phone', 'email', 'sss', 
+                          'philhealth', 'tin', 'pagibig'];
+            
+            fields.forEach(field => {
+                document.getElementById(field).value = '';
+            });
+            document.getElementById('empStatus').value = 'Active';
+        }
+
+        function loadEmployeeData(employeeId) {
+            const employee = employees.find(emp => emp.id === employeeId);
+            if (employee) {
+                document.getElementById('empNo').value = employee.empNo;
+                document.getElementById('firstName').value = employee.firstName;
+                document.getElementById('lastName').value = employee.lastName;
+                document.getElementById('position').value = employee.position;
+                document.getElementById('empDepartment').value = employee.department;
+                document.getElementById('empStatus').value = employee.status;
+                document.getElementById('hireDate').value = employee.hireDate;
+                document.getElementById('salary').value = employee.salary;
+                document.getElementById('address').value = employee.address;
+                document.getElementById('phone').value = employee.phone;
+                document.getElementById('email').value = employee.email;
+                document.getElementById('sss').value = employee.sss;
+                document.getElementById('philhealth').value = employee.philhealth;
+                document.getElementById('tin').value = employee.tin;
+                document.getElementById('pagibig').value = employee.pagibig;
+            }
+        }
+
+        function setFormReadOnly(readOnly) {
+            const formElements = document.querySelectorAll('#employeeModal input, #employeeModal select, #employeeModal textarea');
+            formElements.forEach(element => {
+                element.readOnly = readOnly;
+                element.disabled = readOnly;
+            });
+        }
+
+        function saveEmployee() {
+            const modalStatus = document.getElementById('modalStatus');
+            
+            // Get form data
+            const employeeData = {
+                empNo: document.getElementById('empNo').value.trim(),
+                firstName: document.getElementById('firstName').value.trim(),
+                lastName: document.getElementById('lastName').value.trim(),
+                position: document.getElementById('position').value.trim(),
+                department: document.getElementById('empDepartment').value,
+                status: document.getElementById('empStatus').value,
+                hireDate: document.getElementById('hireDate').value,
+                salary: document.getElementById('salary').value.trim(),
+                address: document.getElementById('address').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                sss: document.getElementById('sss').value.trim(),
+                philhealth: document.getElementById('philhealth').value.trim(),
+                tin: document.getElementById('tin').value.trim(),
+                pagibig: document.getElementById('pagibig').value.trim()
+            };
+
+            // Basic validation
+            if (!employeeData.empNo || !employeeData.firstName || !employeeData.lastName) {
+                showStatusMessage(modalStatus, 'Employee Number, First Name, and Last Name are required.', 'error');
+                return;
+            }
+
+            // Check for duplicate employee number (only when adding or if number changed)
+            const existingEmp = employees.find(emp => emp.empNo === employeeData.empNo && emp.id !== currentEmployeeId);
+            if (existingEmp) {
+                showStatusMessage(modalStatus, 'Employee Number already exists.', 'error');
+                return;
+            }
+
+            if (currentEmployeeId) {
+                // Update existing employee
+                const empIndex = employees.findIndex(emp => emp.id === currentEmployeeId);
+                employees[empIndex] = { ...employees[empIndex], ...employeeData };
+                showStatusMessage(modalStatus, 'Employee updated successfully!', 'success');
+            } else {
+                // Add new employee
+                const newId = Math.max(...employees.map(emp => emp.id)) + 1;
+                employees.push({ id: newId, ...employeeData });
+                showStatusMessage(modalStatus, 'Employee added successfully!', 'success');
+            }
+
+            populateEmployeeTable();
+            populateEmployeeSelects();
+            
+            setTimeout(() => {
+                closeEmployeeModal();
+            }, 1500);
+        }
+
+        function viewEmployee(employeeId) {
+            openEmployeeModal('view', employeeId);
+        }
+
+        function editEmployee(employeeId) {
+            openEmployeeModal('edit', employeeId);
+        }
+
+        function confirmDeleteEmployee(employeeId) {
+            const employee = employees.find(emp => emp.id === employeeId);
+            if (confirm(`Are you sure you want to delete ${employee.firstName} ${employee.lastName}?`)) {
+                deleteEmployeeById(employeeId);
+            }
+        }
+
+        function deleteEmployee() {
+            if (currentEmployeeId && confirm('Are you sure you want to delete this employee?')) {
+                deleteEmployeeById(currentEmployeeId);
+                closeEmployeeModal();
+            }
+        }
+
+        function deleteEmployeeById(employeeId) {
+            employees = employees.filter(emp => emp.id !== employeeId);
+            populateEmployeeTable();
+            populateEmployeeSelects();
+        }
+
+        // Payroll functions
+        function calculateIndividualPayroll() {
+            const empId = document.getElementById('empSelect').value;
+            const payPeriod = document.getElementById('payPeriod').value;
+            const resultsDiv = document.getElementById('payrollResults');
+
+            if (!empId || !payPeriod) {
+                resultsDiv.innerHTML = '<div class="status-message error">Please select an employee and pay period.</div>';
+                return;
+            }
+
+            const employee = employees.find(emp => emp.id == empId);
+            if (!employee) {
+                resultsDiv.innerHTML = '<div class="status-message error">Employee not found.</div>';
+                return;
+            }
+
+            // Mock payroll calculation
+            const basicSalary = parseFloat(employee.salary);
+            const overtime = basicSalary * 0.05; // 5% overtime
+            const allowances = 5000; // Fixed allowances
+            const grossPay = basicSalary + overtime + allowances;
+            
+            const sss = grossPay * 0.045; // 4.5% SSS
+            const philhealth = grossPay * 0.025; // 2.5% PhilHealth
+            const pagibig = Math.min(grossPay * 0.02, 100); // 2% Pag-IBIG, max 100
+            const tax = grossPay * 0.15; // 15% tax (simplified)
+            
+            const totalDeductions = sss + philhealth + pagibig + tax;
+            const netPay = grossPay - totalDeductions;
+
+            resultsDiv.innerHTML = `
+                <div class="status-message success">
+                    <h3>Payroll for ${employee.firstName} ${employee.lastName}</h3>
+                    <p><strong>Pay Period:</strong> ${payPeriod}</p>
+                    <table>
+                        <tr><td>Basic Salary:</td><td>₱${basicSalary.toLocaleString()}</td></tr>
+                        <tr><td>Overtime:</td><td>₱${overtime.toLocaleString()}</td></tr>
+                        <tr><td>Allowances:</td><td>₱${allowances.toLocaleString()}</td></tr>
+                        <tr><td><strong>Gross Pay:</strong></td><td><strong>₱${grossPay.toLocaleString()}</strong></td></tr>
+                        <tr><td colspan="2"><strong>Deductions:</strong></td></tr>
+                        <tr><td>SSS:</td><td>₱${sss.toLocaleString()}</td></tr>
+                        <tr><td>PhilHealth:</td><td>₱${philhealth.toLocaleString()}</td></tr>
+                        <tr><td>Pag-IBIG:</td><td>₱${pagibig.toLocaleString()}</td></tr>
+                        <tr><td>Tax:</td><td>₱${tax.toLocaleString()}</td></tr>
+                        <tr><td><strong>Total Deductions:</strong></td><td><strong>₱${totalDeductions.toLocaleString()}</strong></td></tr>
+                        <tr><td><strong>Net Pay:</strong></td><td><strong>₱${netPay.toLocaleString()}</strong></td></tr>
+                    </table>
+                </div>
+            `;
+        }
+
+        function processBulkPayroll() {
+            const payPeriod = document.getElementById('bulkPayPeriod').value;
+            const department = document.getElementById('department').value;
+            const resultsDiv = document.getElementById('payrollResults');
+
+            if (!payPeriod) {
+                resultsDiv.innerHTML = '<div class="status-message error">Please select a pay period.</div>';
+                return;
+            }
+
+            // Filter employees by department if specified
+            let employeesToProcess = employees.filter(emp => emp.status === 'Active');
+            if (department) {
+                employeesToProcess = employeesToProcess.filter(emp => emp.department === department);
+            }
+
+            if (employeesToProcess.length === 0) {
+                resultsDiv.innerHTML = '<div class="status-message error">No active employees found for the selected criteria.</div>';
+                return;
+            }
+
+            let totalGrossPay = 0;
+            let totalNetPay = 0;
+            let payrollSummary = '';
+
+            employeesToProcess.forEach(employee => {
+                const basicSalary = parseFloat(employee.salary);
+                const overtime = basicSalary * 0.05;
+                const allowances = 5000;
+                const grossPay = basicSalary + overtime + allowances;
+                
+                const sss = grossPay * 0.045;
+                const philhealth = grossPay * 0.025;
+                const pagibig = Math.min(grossPay * 0.02, 100);
+                const tax = grossPay * 0.15;
+                
+                const totalDeductions = sss + philhealth + pagibig + tax;
+                const netPay = grossPay - totalDeductions;
+
+                totalGrossPay += grossPay;
+                totalNetPay += netPay;
+
+                payrollSummary += `
+                    <tr>
+                        <td>${employee.empNo}</td>
+                        <td>${employee.firstName} ${employee.lastName}</td>
+                        <td>${employee.department}</td>
+                        <td>₱${grossPay.toLocaleString()}</td>
+                        <td>₱${totalDeductions.toLocaleString()}</td>
+                        <td>₱${netPay.toLocaleString()}</td>
+                    </tr>
+                `;
+            });
+
+            resultsDiv.innerHTML = `
+                <div class="status-message success">
+                    <h3>Bulk Payroll Summary</h3>
+                    <p><strong>Pay Period:</strong> ${payPeriod}</p>
+                    <p><strong>Department:</strong> ${department || 'All Departments'}</p>
+                    <p><strong>Employees Processed:</strong> ${employeesToProcess.length}</p>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Emp. No.</th>
+                                <th>Name</th>
+                                <th>Department</th>
+                                <th>Gross Pay</th>
+                                <th>Deductions</th>
+                                <th>Net Pay</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${payrollSummary}
+                            <tr style="background-color: #f0f0f0; font-weight: bold;">
+                                <td colspan="3">TOTAL</td>
+                                <td>₱${totalGrossPay.toLocaleString()}</td>
+                                <td>-</td>
+                                <td>₱${totalNetPay.toLocaleString()}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        // Reports functions
+        function generateReport() {
+            const reportType = document.getElementById('reportType').value;
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const resultsDiv = document.getElementById('reportResults');
+
+            let reportContent = '';
+
+            switch (reportType) {
+                case 'employee-list':
+                    reportContent = generateEmployeeListReport();
+                    break;
+                case 'payroll-summary':
+                    reportContent = generatePayrollSummaryReport(startDate, endDate);
+                    break;
+                case 'attendance':
+                    reportContent = generateAttendanceReport(startDate, endDate);
+                    break;
+                case 'tax-report':
+                    reportContent = generateTaxReport(startDate, endDate);
+                    break;
+                case 'benefits':
+                    reportContent = generateBenefitsReport(startDate, endDate);
+                    break;
+                default:
+                    reportContent = '<div class="status-message error">Please select a report type.</div>';
+            }
+
+            resultsDiv.innerHTML = reportContent;
+        }
+
+        function generateEmployeeListReport() {
+            let reportHtml = `
+                <div class="status-message success">
+                    <h3>Employee List Report</h3>
+                    <p><strong>Generated on:</strong> ${new Date().toLocaleDateString()}</p>
+                    <p><strong>Total Employees:</strong> ${employees.length}</p>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Emp. No.</th>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Department</th>
+                                <th>Status</th>
+                                <th>Hire Date</th>
+                                <th>Salary</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            employees.forEach(emp => {
+                reportHtml += `
+                    <tr>
+                        <td>${emp.empNo}</td>
+                        <td>${emp.firstName} ${emp.lastName}</td>
+                        <td>${emp.position}</td>
+                        <td>${emp.department}</td>
+                        <td>${emp.status}</td>
+                        <td>${emp.hireDate}</td>
+                        <td>₱${parseFloat(emp.salary).toLocaleString()}</td>
+                    </tr>
+                `;
+            });
+
+            reportHtml += '</tbody></table></div>';
+            return reportHtml;
+        }
+
+        function generatePayrollSummaryReport(startDate, endDate) {
+            return `
+                <div class="status-message success">
+                    <h3>Payroll Summary Report</h3>
+                    <p><strong>Period:</strong> ${startDate || 'N/A'} to ${endDate || 'N/A'}</p>
+                    <p><strong>Generated on:</strong> ${new Date().toLocaleDateString()}</p>
+                    <p>This is a mockup report. In a real system, this would show actual payroll data for the specified period.</p>
+                    <ul>
+                        <li>Total Employees Paid: ${employees.filter(emp => emp.status === 'Active').length}</li>
+                        <li>Total Gross Pay: ₱${(employees.filter(emp => emp.status === 'Active').reduce((sum, emp) => sum + parseFloat(emp.salary), 0) * 1.1).toLocaleString()}</li>
+                        <li>Total Deductions: ₱${(employees.filter(emp => emp.status === 'Active').reduce((sum, emp) => sum + parseFloat(emp.salary), 0) * 0.2).toLocaleString()}</li>
+                        <li>Total Net Pay: ₱${(employees.filter(emp => emp.status === 'Active').reduce((sum, emp) => sum + parseFloat(emp.salary), 0) * 0.9).toLocaleString()}</li>
+                    </ul>
+                </div>
+            `;
+        }
+
+        function generateAttendanceReport(startDate, endDate) {
+            return `
+                <div class="status-message success">
+                    <h3>Attendance Report</h3>
+                    <p><strong>Period:</strong> ${startDate || 'N/A'} to ${endDate || 'N/A'}</p>
+                    <p><strong>Generated on:</strong> ${new Date().toLocaleDateString()}</p>
+                    <p>This is a mockup report. In a real system, this would show actual attendance data.</p>
+                </div>
+            `;
+        }
+
+        function generateTaxReport(startDate, endDate) {
+            const totalTax = employees.filter(emp => emp.status === 'Active')
+                .reduce((sum, emp) => sum + (parseFloat(emp.salary) * 0.15), 0);
+
+            return `
+                <div class="status-message success">
+                    <h3>Tax Report</h3>
+                    <p><strong>Period:</strong> ${startDate || 'N/A'} to ${endDate || 'N/A'}</p>
+                    <p><strong>Generated on:</strong> ${new Date().toLocaleDateString()}</p>
+                    <p><strong>Total Tax Withheld:</strong> ₱${totalTax.toLocaleString()}</p>
+                    <p>This is a mockup report showing estimated tax calculations.</p>
+                </div>
+            `;
+        }
+
+        function generateBenefitsReport(startDate, endDate) {
+            return `
+                <div class="status-message success">
+                    <h3>Benefits Report</h3>
+                    <p><strong>Period:</strong> ${startDate || 'N/A'} to ${endDate || 'N/A'}</p>
+                    <p><strong>Generated on:</strong> ${new Date().toLocaleDateString()}</p>
+                    <p>This is a mockup report for employee benefits analysis.</p>
+                </div>
+            `;
+        }
+
+        function exportReport() {
+            alert('Report export feature would be implemented here. This would generate a PDF version of the current report.');
+        }
+
+        // Additional utility functions
+        function bulkImportEmployees() {
+            alert('Bulk import feature would be implemented here. This would allow importing employee data from CSV/Excel files.');
+        }
+
+        function exportEmployees() {
+            alert('Employee export feature would be implemented here. This would export the employee list to CSV/Excel format.');
+        }
+
+        function showStatusMessage(element, message, type) {
+            element.textContent = message;
+            element.className = `status-message ${type}`;
+            element.style.display = 'block';
+        }
+
+        function clearStatusMessage(element) {
+            element.textContent = '';
+            element.className = 'status-message';
+            element.style.display = 'none';
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the application
+            populateEmployeeTable();
+            populateEmployeeSelects();
+            
+            // Set up enter key login
+            document.getElementById('password').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    login();
+                }
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                const modal = document.getElementById('employeeModal');
+                if (event.target === modal) {
+                    closeEmployeeModal();
+                }
+            });
+        });
+    </script>
+  </body>
+</html>
