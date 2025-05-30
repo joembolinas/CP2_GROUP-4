@@ -27,11 +27,9 @@ import com.motorph.view.MainFrame;
  * and starting the user interface.
  */
 public class Main {
-    private static final Logger logger = Logger.getLogger(Main.class.getName());
-
-    // File paths for data sources
-    private static final String EMPLOYEES_FILE_PATH = "employeeDetails.csv";
-    private static final String ATTENDANCE_FILE_PATH = "attendanceRecord.csv";
+    private static final Logger logger = Logger.getLogger(Main.class.getName()); // File paths for data sources
+    private static final String EMPLOYEES_FILE_PATH = "motorph_payroll_system/employeeDetails.csv";
+    private static final String ATTENDANCE_FILE_PATH = "motorph_payroll_system/attendanceRecord.csv";
 
     /**
      * Main entry point for the application
@@ -82,10 +80,8 @@ public class Main {
         List<AttendanceRecord> attendanceRecords = dataRepository.getAllAttendanceRecords();
 
         // Initialize the payroll calculator
-        PayrollProcessor payrollCalculator = new PayrollProcessor();
-
-        // Initialize services
-        EmployeeService employeeService = new EmployeeService(employees, attendanceRecords);
+        PayrollProcessor payrollCalculator = new PayrollProcessor(); // Initialize services
+        EmployeeService employeeService = new EmployeeService(employees, attendanceRecords, EMPLOYEES_FILE_PATH);
         PayrollService payrollService = new PayrollService(employees, attendanceRecords, payrollCalculator);
         ReportService reportService = new ReportService(employeeService, payrollService);
 

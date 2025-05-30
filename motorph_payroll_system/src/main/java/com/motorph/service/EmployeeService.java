@@ -1,8 +1,11 @@
 package com.motorph.service;
 
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import com.motorph.model.AttendanceRecord;
@@ -14,10 +17,12 @@ import com.motorph.model.Employee;
 public class EmployeeService {
     private final List<Employee> employees;
     private final List<AttendanceRecord> attendanceRecords;
+    private final String csvFilePath;
 
-    public EmployeeService(List<Employee> employees, List<AttendanceRecord> attendanceRecords) {
+    public EmployeeService(List<Employee> employees, List<AttendanceRecord> attendanceRecords, String csvFilePath) {
         this.employees = employees;
         this.attendanceRecords = attendanceRecords;
+        this.csvFilePath = csvFilePath;
     }
 
     /**
@@ -92,16 +97,14 @@ public class EmployeeService {
      * Append a single employee to the CSV file
      */
     private void appendEmployeeToCSV(Employee employee) throws Exception {
-        String csvFile = "employeeDetails.csv";
-        try (java.io.FileWriter fileWriter = new java.io.FileWriter(csvFile, true);
-                com.opencsv.CSVWriter writer = new com.opencsv.CSVWriter(fileWriter)) {
-
-            // Create CSV record for the employee
+        try (java.io.FileWriter fileWriter = new java.io.FileWriter(csvFilePath, true);
+                com.opencsv.CSVWriter writer = new com.opencsv.CSVWriter(fileWriter)) { // Create CSV record for the
+                                                                                        // employee
             String[] data = {
                     String.valueOf(employee.getEmployeeId()),
                     employee.getLastName(),
                     employee.getFirstName(),
-                    employee.getBirthday() != null ? employee.getBirthday().toString() : "",
+                    employee.getBirthday() != null ? formatDateForCSV(employee.getBirthday()) : "",
                     employee.getAddress() != null ? employee.getAddress() : "",
                     employee.getPhoneNumber() != null ? employee.getPhoneNumber() : "",
                     employee.getSssNumber() != null ? employee.getSssNumber() : "",
@@ -110,12 +113,12 @@ public class EmployeeService {
                     employee.getPagibigNumber() != null ? employee.getPagibigNumber() : "",
                     employee.getStatus(),
                     employee.getPosition(),
-                    employee.getSupervisor() != null ? employee.getSupervisor() : "",
-                    String.valueOf(employee.getBasicSalary()),
-                    String.valueOf(employee.getRiceSubsidy()),
-                    String.valueOf(employee.getPhoneAllowance()),
-                    String.valueOf(employee.getClothingAllowance()),
-                    String.valueOf(employee.getGrossSemiMonthlyRate()),
+                    employee.getSupervisor() != null ? employee.getSupervisor() : "N/A",
+                    formatMoneyForCSV(employee.getBasicSalary()),
+                    formatMoneyForCSV(employee.getRiceSubsidy()),
+                    formatMoneyForCSV(employee.getPhoneAllowance()),
+                    formatMoneyForCSV(employee.getClothingAllowance()),
+                    formatMoneyForCSV(employee.getGrossSemiMonthlyRate()),
                     String.valueOf(employee.getHourlyRate())
             };
             writer.writeNext(data);
@@ -183,8 +186,7 @@ public class EmployeeService {
      * Save all employees to the CSV file (used for update and delete operations)
      */
     private void saveAllEmployeesToCSV() throws Exception {
-        String csvFile = "employeeDetails.csv";
-        try (java.io.FileWriter fileWriter = new java.io.FileWriter(csvFile);
+        try (java.io.FileWriter fileWriter = new java.io.FileWriter(csvFilePath);
                 com.opencsv.CSVWriter writer = new com.opencsv.CSVWriter(fileWriter)) {
 
             // Write header
@@ -195,15 +197,13 @@ public class EmployeeService {
                     "Basic Salary", "Rice Subsidy", "Phone Allowance", "Clothing Allowance",
                     "Gross Semi-monthly Rate", "Hourly Rate"
             };
-            writer.writeNext(header);
-
-            // Write all employee data
+            writer.writeNext(header); // Write all employee data
             for (Employee employee : employees) {
                 String[] data = {
                         String.valueOf(employee.getEmployeeId()),
                         employee.getLastName(),
                         employee.getFirstName(),
-                        employee.getBirthday() != null ? employee.getBirthday().toString() : "",
+                        employee.getBirthday() != null ? formatDateForCSV(employee.getBirthday()) : "",
                         employee.getAddress() != null ? employee.getAddress() : "",
                         employee.getPhoneNumber() != null ? employee.getPhoneNumber() : "",
                         employee.getSssNumber() != null ? employee.getSssNumber() : "",
@@ -212,12 +212,12 @@ public class EmployeeService {
                         employee.getPagibigNumber() != null ? employee.getPagibigNumber() : "",
                         employee.getStatus(),
                         employee.getPosition(),
-                        employee.getSupervisor() != null ? employee.getSupervisor() : "",
-                        String.valueOf(employee.getBasicSalary()),
-                        String.valueOf(employee.getRiceSubsidy()),
-                        String.valueOf(employee.getPhoneAllowance()),
-                        String.valueOf(employee.getClothingAllowance()),
-                        String.valueOf(employee.getGrossSemiMonthlyRate()),
+                        employee.getSupervisor() != null ? employee.getSupervisor() : "N/A",
+                        formatMoneyForCSV(employee.getBasicSalary()),
+                        formatMoneyForCSV(employee.getRiceSubsidy()),
+                        formatMoneyForCSV(employee.getPhoneAllowance()),
+                        formatMoneyForCSV(employee.getClothingAllowance()),
+                        formatMoneyForCSV(employee.getGrossSemiMonthlyRate()),
                         String.valueOf(employee.getHourlyRate())
                 };
                 writer.writeNext(data);
@@ -241,7 +241,28 @@ public class EmployeeService {
                     return recordDate != null &&
                             !recordDate.isBefore(startDate) &&
                             !recordDate.isAfter(endDate);
-                })
-                .collect(Collectors.toList());
+                }).collect(Collectors.toList());
+    }
+
+    /**
+     * Format a LocalDate to match the CSV format (MM/dd/yyyy)
+     */
+    private String formatDateForCSV(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        return date.format(formatter);
+    }
+
+    /**
+     * Format money values to match the CSV format with quotes and commas
+     */
+    private String formatMoneyForCSV(double amount) {
+        if (amount >= 1000) {
+            // For amounts >= 1000, use comma formatting with quotes
+            NumberFormat formatter = NumberFormat.getNumberInstance(Locale.US);
+            return "\"" + formatter.format(amount) + "\"";
+        } else {
+            // For amounts < 1000, use simple string representation with quotes
+            return "\"" + (int) amount + "\"";
+        }
     }
 }
