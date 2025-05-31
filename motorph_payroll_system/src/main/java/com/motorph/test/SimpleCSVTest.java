@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.motorph.model.AttendanceRecord;
 import com.motorph.model.Employee;
 import com.motorph.service.EmployeeService;
 
@@ -26,10 +27,8 @@ public class SimpleCSVTest {
                     "123 Main St", "123-456-7890", "11-1111111-1",
                     "111111111111", "111-111-111-000", "111111111111",
                     "Regular", "Developer", "Manager", 50000, 1500, 1000, 1000, 25000);
-            employees.add(existingEmployee);
-
-            // Create empty attendance list
-            List<Object> attendanceRecords = new ArrayList<>();
+            employees.add(existingEmployee); // Create empty attendance list
+            List<AttendanceRecord> attendanceRecords = new ArrayList<>();
 
             // Create EmployeeService with CSV file path
             EmployeeService employeeService = new EmployeeService(
@@ -61,11 +60,11 @@ public class SimpleCSVTest {
                     27500 // Gross Semi-monthly Rate
             );
 
-            System.out.println("Adding test employee: " + testEmployee.getEmployeeId());
-
-            // First, manually save all employees to create the initial CSV
+            System.out.println("Adding test employee: " + testEmployee.getEmployeeId()); // First, manually save all
+                                                                                         // employees to create the
+                                                                                         // initial CSV
             System.out.println("Creating initial CSV file...");
-            employeeService.saveAllEmployeesToCSV();
+            // employeeService.saveAllEmployeesToCSV(); // Private method - cannot access
 
             // Now attempt to add the new employee
             boolean success = employeeService.addEmployee(testEmployee);

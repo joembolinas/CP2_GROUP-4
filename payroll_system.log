@@ -62,3 +62,291 @@ May 31, 2025 3:50:22 PM com.motorph.repository.DataRepository loadAttendanceReco
 INFO: Loading attendance from: motorph_payroll_system/attendanceRecord.csv
 May 31, 2025 3:50:22 PM com.motorph.repository.DataRepository loadAttendanceRecords
 INFO: Successfully loaded 5,168 of 5,168 attendance records
+Jun 01, 2025 1:58:29 AM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 01, 2025 1:58:29 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: employeeDetails.csv
+Jun 01, 2025 1:58:29 AM com.motorph.repository.DataRepository loadEmployees
+WARNING: Could not read from employee file: employeeDetails.csv (The system cannot find the file specified)
+Jun 01, 2025 1:58:29 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Using sample employee data
+Jun 01, 2025 1:58:29 AM com.motorph.repository.DataRepository loadSampleEmployees
+INFO: Loaded sample employee data
+Jun 01, 2025 1:58:29 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: attendanceRecord.csv
+Jun 01, 2025 1:58:29 AM com.motorph.repository.DataRepository loadAttendanceRecords
+WARNING: Could not read from attendance file: attendanceRecord.csv (The system cannot find the file specified)
+Jun 01, 2025 1:58:29 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Using sample attendance data
+Jun 01, 2025 1:58:29 AM com.motorph.repository.DataRepository loadSampleAttendanceRecords
+INFO: Loaded sample attendance data
+Jun 01, 2025 2:13:31 AM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 01, 2025 2:13:31 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: employeeDetails.csv
+Jun 01, 2025 2:13:31 AM com.motorph.repository.DataRepository loadEmployees
+WARNING: Could not read from employee file: employeeDetails.csv (The system cannot find the file specified)
+Jun 01, 2025 2:13:31 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Using sample employee data
+Jun 01, 2025 2:13:31 AM com.motorph.repository.DataRepository loadSampleEmployees
+INFO: Loaded sample employee data
+Jun 01, 2025 2:13:31 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: attendanceRecord.csv
+Jun 01, 2025 2:13:31 AM com.motorph.repository.DataRepository loadAttendanceRecords
+WARNING: Could not read from attendance file: attendanceRecord.csv (The system cannot find the file specified)
+Jun 01, 2025 2:13:31 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Using sample attendance data
+Jun 01, 2025 2:13:31 AM com.motorph.repository.DataRepository loadSampleAttendanceRecords
+INFO: Loaded sample attendance data
+Jun 01, 2025 2:38:45 AM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 01, 2025 2:38:45 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: employeeDetails.csv
+Jun 01, 2025 2:38:45 AM com.motorph.repository.DataRepository loadEmployees
+WARNING: Could not read from employee file: employeeDetails.csv (The system cannot find the file specified)
+Jun 01, 2025 2:38:45 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Using sample employee data
+Jun 01, 2025 2:38:45 AM com.motorph.repository.DataRepository loadSampleEmployees
+INFO: Loaded sample employee data
+Jun 01, 2025 2:38:45 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: attendanceRecord.csv
+Jun 01, 2025 2:38:45 AM com.motorph.repository.DataRepository loadAttendanceRecords
+WARNING: Could not read from attendance file: attendanceRecord.csv (The system cannot find the file specified)
+Jun 01, 2025 2:38:45 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Using sample attendance data
+Jun 01, 2025 2:38:45 AM com.motorph.repository.DataRepository loadSampleAttendanceRecords
+INFO: Loaded sample attendance data
+Jun 01, 2025 2:41:01 AM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 01, 2025 2:41:01 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: employeeDetails.csv
+Jun 01, 2025 2:41:01 AM com.motorph.repository.DataRepository loadEmployees
+WARNING: Could not read from employee file: employeeDetails.csv (The system cannot find the file specified)
+Jun 01, 2025 2:41:01 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Using sample employee data
+Jun 01, 2025 2:41:01 AM com.motorph.repository.DataRepository loadSampleEmployees
+INFO: Loaded sample employee data
+Jun 01, 2025 2:41:01 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: attendanceRecord.csv
+Jun 01, 2025 2:41:01 AM com.motorph.repository.DataRepository loadAttendanceRecords
+WARNING: Could not read from attendance file: attendanceRecord.csv (The system cannot find the file specified)
+Jun 01, 2025 2:41:01 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Using sample attendance data
+Jun 01, 2025 2:41:01 AM com.motorph.repository.DataRepository loadSampleAttendanceRecords
+INFO: Loaded sample attendance data
+Jun 01, 2025 2:47:47 AM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 01, 2025 2:47:47 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: employeeDetails.csv
+Jun 01, 2025 2:47:47 AM com.motorph.repository.DataRepository loadEmployees
+WARNING: Could not read from employee file: employeeDetails.csv (The system cannot find the file specified)
+Jun 01, 2025 2:47:47 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Using sample employee data
+Jun 01, 2025 2:47:47 AM com.motorph.repository.DataRepository loadSampleEmployees
+INFO: Loaded sample employee data
+Jun 01, 2025 2:47:47 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: attendanceRecord.csv
+Jun 01, 2025 2:47:47 AM com.motorph.repository.DataRepository loadAttendanceRecords
+WARNING: Could not read from attendance file: attendanceRecord.csv (The system cannot find the file specified)
+Jun 01, 2025 2:47:47 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Using sample attendance data
+Jun 01, 2025 2:47:47 AM com.motorph.repository.DataRepository loadSampleAttendanceRecords
+INFO: Loaded sample attendance data
+Jun 01, 2025 2:47:58 AM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 01, 2025 2:47:58 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: employeeDetails.csv
+Jun 01, 2025 2:47:58 AM com.motorph.repository.DataRepository loadEmployees
+WARNING: Could not read from employee file: employeeDetails.csv (The system cannot find the file specified)
+Jun 01, 2025 2:47:58 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Using sample employee data
+Jun 01, 2025 2:47:58 AM com.motorph.repository.DataRepository loadSampleEmployees
+INFO: Loaded sample employee data
+Jun 01, 2025 2:47:58 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: attendanceRecord.csv
+Jun 01, 2025 2:47:58 AM com.motorph.repository.DataRepository loadAttendanceRecords
+WARNING: Could not read from attendance file: attendanceRecord.csv (The system cannot find the file specified)
+Jun 01, 2025 2:47:58 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Using sample attendance data
+Jun 01, 2025 2:47:58 AM com.motorph.repository.DataRepository loadSampleAttendanceRecords
+INFO: Loaded sample attendance data
+Jun 01, 2025 2:52:36 AM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 01, 2025 2:52:36 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: employeeDetails.csv
+Jun 01, 2025 2:52:36 AM com.motorph.repository.DataRepository loadEmployees
+WARNING: Could not read from employee file: employeeDetails.csv (The system cannot find the file specified)
+Jun 01, 2025 2:52:36 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Using sample employee data
+Jun 01, 2025 2:52:36 AM com.motorph.repository.DataRepository loadSampleEmployees
+INFO: Loaded sample employee data
+Jun 01, 2025 2:52:36 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: attendanceRecord.csv
+Jun 01, 2025 2:52:36 AM com.motorph.repository.DataRepository loadAttendanceRecords
+WARNING: Could not read from attendance file: attendanceRecord.csv (The system cannot find the file specified)
+Jun 01, 2025 2:52:36 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Using sample attendance data
+Jun 01, 2025 2:52:36 AM com.motorph.repository.DataRepository loadSampleAttendanceRecords
+INFO: Loaded sample attendance data
+Jun 01, 2025 2:52:58 AM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 01, 2025 2:52:58 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: employeeDetails.csv
+Jun 01, 2025 2:52:58 AM com.motorph.repository.DataRepository loadEmployees
+WARNING: Could not read from employee file: employeeDetails.csv (The system cannot find the file specified)
+Jun 01, 2025 2:52:58 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Using sample employee data
+Jun 01, 2025 2:52:58 AM com.motorph.repository.DataRepository loadSampleEmployees
+INFO: Loaded sample employee data
+Jun 01, 2025 2:52:58 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: attendanceRecord.csv
+Jun 01, 2025 2:52:58 AM com.motorph.repository.DataRepository loadAttendanceRecords
+WARNING: Could not read from attendance file: attendanceRecord.csv (The system cannot find the file specified)
+Jun 01, 2025 2:52:58 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Using sample attendance data
+Jun 01, 2025 2:52:58 AM com.motorph.repository.DataRepository loadSampleAttendanceRecords
+INFO: Loaded sample attendance data
+Jun 01, 2025 3:30:44 AM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 01, 2025 3:30:44 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: src/main/java/com/motorph/employeeDetails.csv
+Jun 01, 2025 3:30:44 AM com.motorph.repository.DataRepository loadEmployees
+WARNING: Could not read from employee file: src\main\java\com\motorph\employeeDetails.csv (The system cannot find the path specified)
+Jun 01, 2025 3:30:44 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Using sample employee data
+Jun 01, 2025 3:30:44 AM com.motorph.repository.DataRepository loadSampleEmployees
+INFO: Loaded sample employee data
+Jun 01, 2025 3:30:44 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: src/main/java/com/motorph/attendanceRecord.csv
+Jun 01, 2025 3:30:44 AM com.motorph.repository.DataRepository loadAttendanceRecords
+WARNING: Could not read from attendance file: src\main\java\com\motorph\attendanceRecord.csv (The system cannot find the path specified)
+Jun 01, 2025 3:30:44 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Using sample attendance data
+Jun 01, 2025 3:30:44 AM com.motorph.repository.DataRepository loadSampleAttendanceRecords
+INFO: Loaded sample attendance data
+Jun 01, 2025 3:31:28 AM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 01, 2025 3:31:28 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: src/main/java/com/motorph/employeeDetails.csv
+Jun 01, 2025 3:31:28 AM com.motorph.repository.DataRepository loadEmployees
+WARNING: Could not read from employee file: src\main\java\com\motorph\employeeDetails.csv (The system cannot find the path specified)
+Jun 01, 2025 3:31:28 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Using sample employee data
+Jun 01, 2025 3:31:28 AM com.motorph.repository.DataRepository loadSampleEmployees
+INFO: Loaded sample employee data
+Jun 01, 2025 3:31:28 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: src/main/java/com/motorph/attendanceRecord.csv
+Jun 01, 2025 3:31:28 AM com.motorph.repository.DataRepository loadAttendanceRecords
+WARNING: Could not read from attendance file: src\main\java\com\motorph\attendanceRecord.csv (The system cannot find the path specified)
+Jun 01, 2025 3:31:28 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Using sample attendance data
+Jun 01, 2025 3:31:28 AM com.motorph.repository.DataRepository loadSampleAttendanceRecords
+INFO: Loaded sample attendance data
+Jun 01, 2025 3:33:15 AM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 01, 2025 3:33:15 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: src/main/java/com/motorph/employeeDetails.csv
+Jun 01, 2025 3:33:15 AM com.motorph.repository.DataRepository loadEmployees
+WARNING: Could not read from employee file: src\main\java\com\motorph\employeeDetails.csv (The system cannot find the path specified)
+Jun 01, 2025 3:33:15 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Using sample employee data
+Jun 01, 2025 3:33:15 AM com.motorph.repository.DataRepository loadSampleEmployees
+INFO: Loaded sample employee data
+Jun 01, 2025 3:33:15 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: src/main/java/com/motorph/attendanceRecord.csv
+Jun 01, 2025 3:33:15 AM com.motorph.repository.DataRepository loadAttendanceRecords
+WARNING: Could not read from attendance file: src\main\java\com\motorph\attendanceRecord.csv (The system cannot find the path specified)
+Jun 01, 2025 3:33:15 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Using sample attendance data
+Jun 01, 2025 3:33:15 AM com.motorph.repository.DataRepository loadSampleAttendanceRecords
+INFO: Loaded sample attendance data
+Jun 01, 2025 3:33:55 AM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 01, 2025 3:33:55 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: src/main/java/com/motorph/employeeDetails.csv
+Jun 01, 2025 3:33:55 AM com.motorph.repository.DataRepository loadEmployees
+WARNING: Could not read from employee file: src\main\java\com\motorph\employeeDetails.csv (The system cannot find the path specified)
+Jun 01, 2025 3:33:55 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Using sample employee data
+Jun 01, 2025 3:33:55 AM com.motorph.repository.DataRepository loadSampleEmployees
+INFO: Loaded sample employee data
+Jun 01, 2025 3:33:55 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: src/main/java/com/motorph/attendanceRecord.csv
+Jun 01, 2025 3:33:55 AM com.motorph.repository.DataRepository loadAttendanceRecords
+WARNING: Could not read from attendance file: src\main\java\com\motorph\attendanceRecord.csv (The system cannot find the path specified)
+Jun 01, 2025 3:33:55 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Using sample attendance data
+Jun 01, 2025 3:33:55 AM com.motorph.repository.DataRepository loadSampleAttendanceRecords
+INFO: Loaded sample attendance data
+Jun 01, 2025 3:38:55 AM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 01, 2025 3:38:55 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: src/main/java/com/motorph/employeeDetails.csv
+Jun 01, 2025 3:38:55 AM com.motorph.repository.DataRepository loadEmployees
+WARNING: Could not read from employee file: src\main\java\com\motorph\employeeDetails.csv (The system cannot find the path specified)
+Jun 01, 2025 3:38:55 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Using sample employee data
+Jun 01, 2025 3:38:55 AM com.motorph.repository.DataRepository loadSampleEmployees
+INFO: Loaded sample employee data
+Jun 01, 2025 3:38:55 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: src/main/java/com/motorph/attendanceRecord.csv
+Jun 01, 2025 3:38:55 AM com.motorph.repository.DataRepository loadAttendanceRecords
+WARNING: Could not read from attendance file: src\main\java\com\motorph\attendanceRecord.csv (The system cannot find the path specified)
+Jun 01, 2025 3:38:55 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Using sample attendance data
+Jun 01, 2025 3:38:55 AM com.motorph.repository.DataRepository loadSampleAttendanceRecords
+INFO: Loaded sample attendance data
+Jun 01, 2025 3:42:46 AM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 01, 2025 3:42:46 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: src/main/java/com/motorph/employeeDetails.csv
+Jun 01, 2025 3:42:46 AM com.motorph.repository.DataRepository loadEmployees
+WARNING: Could not read from employee file: src\main\java\com\motorph\employeeDetails.csv (The system cannot find the path specified)
+Jun 01, 2025 3:42:46 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Using sample employee data
+Jun 01, 2025 3:42:46 AM com.motorph.repository.DataRepository loadSampleEmployees
+INFO: Loaded sample employee data
+Jun 01, 2025 3:42:46 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: src/main/java/com/motorph/attendanceRecord.csv
+Jun 01, 2025 3:42:46 AM com.motorph.repository.DataRepository loadAttendanceRecords
+WARNING: Could not read from attendance file: src\main\java\com\motorph\attendanceRecord.csv (The system cannot find the path specified)
+Jun 01, 2025 3:42:46 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Using sample attendance data
+Jun 01, 2025 3:42:46 AM com.motorph.repository.DataRepository loadSampleAttendanceRecords
+INFO: Loaded sample attendance data
+Jun 01, 2025 3:44:54 AM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 01, 2025 3:44:54 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: src/main/java/com/motorph/employeeDetails.csv
+Jun 01, 2025 3:44:54 AM com.motorph.repository.DataRepository loadEmployees
+WARNING: Could not read from employee file: src\main\java\com\motorph\employeeDetails.csv (The system cannot find the path specified)
+Jun 01, 2025 3:44:54 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Using sample employee data
+Jun 01, 2025 3:44:54 AM com.motorph.repository.DataRepository loadSampleEmployees
+INFO: Loaded sample employee data
+Jun 01, 2025 3:44:54 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: src/main/java/com/motorph/attendanceRecord.csv
+Jun 01, 2025 3:44:54 AM com.motorph.repository.DataRepository loadAttendanceRecords
+WARNING: Could not read from attendance file: src\main\java\com\motorph\attendanceRecord.csv (The system cannot find the path specified)
+Jun 01, 2025 3:44:54 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Using sample attendance data
+Jun 01, 2025 3:44:54 AM com.motorph.repository.DataRepository loadSampleAttendanceRecords
+INFO: Loaded sample attendance data
+Jun 01, 2025 3:48:52 AM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 01, 2025 3:48:52 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: employeeDetails.csv
+Jun 01, 2025 3:48:52 AM com.motorph.repository.DataRepository loadEmployees
+WARNING: Could not read from employee file: employeeDetails.csv (The system cannot find the file specified)
+Jun 01, 2025 3:48:52 AM com.motorph.repository.DataRepository loadEmployees
+INFO: Using sample employee data
+Jun 01, 2025 3:48:52 AM com.motorph.repository.DataRepository loadSampleEmployees
+INFO: Loaded sample employee data
+Jun 01, 2025 3:48:52 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: attendanceRecord.csv
+Jun 01, 2025 3:48:52 AM com.motorph.repository.DataRepository loadAttendanceRecords
+WARNING: Could not read from attendance file: attendanceRecord.csv (The system cannot find the file specified)
+Jun 01, 2025 3:48:52 AM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Using sample attendance data
+Jun 01, 2025 3:48:52 AM com.motorph.repository.DataRepository loadSampleAttendanceRecords
+INFO: Loaded sample attendance data

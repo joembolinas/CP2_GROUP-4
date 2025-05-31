@@ -1,0 +1,52 @@
+{
+    "folders": [
+        {
+            "name": "MotorPH Payroll System",
+            "path": "./motorph_payroll_system"
+        }
+    ],
+    "settings": {
+        "java.configuration.updateBuildConfiguration": "automatic",
+        "java.compile.nullAnalysis.mode": "automatic",
+        "java.debug.settings.enableRunDebugCodeLens": true,
+        "java.import.maven.enabled": true,
+        "java.project.sourcePaths": ["src/main/java"],
+        "java.project.outputPath": "target/classes",
+        "java.server.launchMode": "Standard",
+        "java.debug.settings.console": "integratedTerminal",
+        "java.debug.settings.hotCodeReplace": "auto",
+        "files.exclude": {
+            "**/target/**": false,
+            "**/.classpath": true,
+            "**/.project": true,
+            "**/.settings": true,
+            "**/.factorypath": true
+        },
+        "java.clean.workspace": false,
+        "java.import.gradle.enabled": false,
+        "java.sources.organizeImports.starThreshold": 99,
+        "java.sources.organizeImports.staticStarThreshold": 99
+    },
+    "extensions": {
+        "recommendations": [
+            "vscjava.vscode-java-pack",
+            "redhat.java",
+            "vscjava.vscode-java-debug",
+            "vscjava.vscode-maven"
+        ]
+    },
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "type": "java",
+                "name": "Launch MotorPH Application",
+                "request": "launch",
+                "mainClass": "com.motorph.Main",
+                "projectName": "motorph_payroll_system",
+                "cwd": "${workspaceFolder}",
+                "console": "integratedTerminal"
+            }
+        ]
+    }
+}

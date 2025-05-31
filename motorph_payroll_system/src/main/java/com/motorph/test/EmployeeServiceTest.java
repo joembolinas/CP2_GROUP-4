@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.motorph.model.AttendanceRecord;
 import com.motorph.model.Employee;
 import com.motorph.service.EmployeeService;
 
@@ -27,10 +28,8 @@ public class EmployeeServiceTest {
                     "123 Main St", "123-456-7890", "11-1111111-1",
                     "111111111111", "111-111-111-000", "111111111111",
                     "Regular", "Developer", "Manager", 50000, 1500, 1000, 1000, 25000);
-            employees.add(existingEmployee);
-
-            // Create empty attendance list
-            List<Object> attendanceRecords = new ArrayList<>();
+            employees.add(existingEmployee); // Create empty attendance list
+            List<AttendanceRecord> attendanceRecords = new ArrayList<>();
 
             // Create EmployeeService
             EmployeeService employeeService = new EmployeeService(
