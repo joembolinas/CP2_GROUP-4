@@ -19,6 +19,7 @@ import com.motorph.service.EmployeeService;
 import com.motorph.service.PayrollProcessor;
 import com.motorph.service.PayrollService;
 import com.motorph.service.ReportService;
+import com.motorph.view.LogIn;
 import com.motorph.view.MainFrame;
 
 /**
@@ -41,20 +42,23 @@ public class Main {
             // Set the look and feel to the system look and feel
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
-            // Initialize and start the application on the Event Dispatch Thread
+                        // Initialize and start the application on the Event Dispatch Thread
             SwingUtilities.invokeLater(() -> {
                 try {
-                    // Initialize the application components
-                    initializeApplication();
+                    // Show login dialog
+                    LogIn loginDialog = new LogIn(null);
+                    if (loginDialog.isAuthenticated()) {
+                        initializeApplication();
+                    } else {
+                        System.exit(0); // Exit if authentication fails
+                    }
                 } catch (Exception e) {
                     logger.log(Level.SEVERE, "Failed to initialize application", e);
                     System.exit(1);
                 }
             });
-        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException
-                | IllegalAccessException e) {
+        } catch (Exception e) {
             logger.log(Level.WARNING, "Failed to set system look and feel", e);
-            // Continue with default look and feel
             SwingUtilities.invokeLater(() -> {
                 try {
                     initializeApplication();
@@ -63,6 +67,8 @@ public class Main {
                     System.exit(1);
                 }
             });
+
+
         }
     }
 

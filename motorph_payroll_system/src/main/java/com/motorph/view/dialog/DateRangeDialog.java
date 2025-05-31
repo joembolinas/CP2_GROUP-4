@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -14,12 +16,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.motorph.util.InputValidator;
 import com.motorph.util.UIConstants;
 
 /**
- * Dialog for selecting a date range with improved error handling.
- * Part of the intuitive UI implementation required by MPHCR01.
+ * Dialog for selecting a date range with custom validation, slash formatting,
+ * Enter key support, and clearing fields on error.
  */
 public class DateRangeDialog extends JDialog {
     private JTextField startDateField;
@@ -27,109 +28,144 @@ public class DateRangeDialog extends JDialog {
     private LocalDate startDate;
     private LocalDate endDate;
     private boolean confirmed = false;
-    
+
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
     public DateRangeDialog(JFrame parent, String title) {
         super(parent, title, true);
         initComponents();
     }
-    
+
     private void initComponents() {
         setLayout(new BorderLayout(10, 10));
-        
-        // Main panel with form fields
+
         JPanel formPanel = new JPanel(new GridLayout(0, 2, 5, 5));
         formPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         formPanel.setBackground(UIConstants.BACKGROUND_COLOR);
-        
-        // Start date
-        JLabel startDateLabel = new JLabel("Start Date (MM/DD/YYYY):");
-        startDateLabel.setFont(UIConstants.NORMAL_FONT);
+
+        // Start Date
+        JLabel startLabel = new JLabel("Start Date (MM/DD/YYYY):");
+        startLabel.setFont(UIConstants.NORMAL_FONT);
         startDateField = new JTextField(10);
         startDateField.setFont(UIConstants.NORMAL_FONT);
-        formPanel.add(startDateLabel);
+        addDateFormatListener(startDateField);
+        startDateField.addActionListener(e -> onOk());
+        formPanel.add(startLabel);
         formPanel.add(startDateField);
-        
-        // End date
-        JLabel endDateLabel = new JLabel("End Date (MM/DD/YYYY):");
-        endDateLabel.setFont(UIConstants.NORMAL_FONT);
+
+        // End Date
+        JLabel endLabel = new JLabel("End Date (MM/DD/YYYY):");
+        endLabel.setFont(UIConstants.NORMAL_FONT);
         endDateField = new JTextField(10);
         endDateField.setFont(UIConstants.NORMAL_FONT);
-        formPanel.add(endDateLabel);
+        addDateFormatListener(endDateField);
+        endDateField.addActionListener(e -> onOk());
+        formPanel.add(endLabel);
         formPanel.add(endDateField);
-        
-        // Button panel
+
+        // Buttons
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttonPanel.setBackground(UIConstants.BACKGROUND_COLOR);
         JButton okButton = new JButton("OK");
         JButton cancelButton = new JButton("Cancel");
-        
-        // Style buttons
+
+        getRootPane().setDefaultButton(okButton); // Enter triggers OK
+
         okButton.setBackground(UIConstants.BUTTON_COLOR);
         okButton.setFont(UIConstants.NORMAL_FONT);
         cancelButton.setBackground(UIConstants.BUTTON_COLOR);
         cancelButton.setFont(UIConstants.NORMAL_FONT);
-        
-        okButton.addActionListener(e -> {
-            try {
-                // Validate input fields
-                LocalDate start = InputValidator.validateDate(startDateField.getText());
-                LocalDate end = InputValidator.validateDate(endDateField.getText());
-                InputValidator.validateDateRange(start, end);
-                
-                // If validation passes, set values and close dialog
-                this.startDate = start;
-                this.endDate = end;
-                this.confirmed = true;
-                dispose();
-            } catch (IllegalArgumentException ex) {
-                // Display validation error with improved error handling
-                JOptionPane.showMessageDialog(
-                    this,
-                    ex.getMessage(),
-                    "Validation Error",
-                    JOptionPane.ERROR_MESSAGE
-                );
-            }
-        });
-        
+
+        okButton.addActionListener(e -> onOk());
         cancelButton.addActionListener(e -> {
-            this.confirmed = false;
+            confirmed = false;
             dispose();
         });
-        
+
         buttonPanel.add(okButton);
         buttonPanel.add(cancelButton);
-        
-        // Add panels to dialog
+
         add(formPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
-        
-        // Set dialog properties
+
         pack();
         setResizable(false);
         setLocationRelativeTo(getParent());
     }
-    
+
     /**
-     * Get the selected start date if confirmed
-     * @return LocalDate or null if canceled
+     * Automatically insert slashes as user types.
      */
+    private void addDateFormatListener(JTextField dateField) {
+        dateField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent e) {
+                String digits = dateField.getText().replaceAll("[^\\d]", "");
+                StringBuilder formatted = new StringBuilder();
+
+                for (int i = 0; i < digits.length() && i < 8; i++) {
+                    formatted.append(digits.charAt(i));
+                    if ((i == 1 || i == 3) && i < digits.length() - 1) {
+                        formatted.append('/');
+                    }
+                }
+
+                String newText = formatted.toString();
+                if (!newText.equals(dateField.getText())) {
+                    dateField.setText(newText);
+                }
+            }
+        });
+    }
+
+    /**
+     * Validates input and clears fields if error occurs.
+     */
+    private void onOk() {
+        String startText = startDateField.getText();
+        String endText = endDateField.getText();
+
+        if (startText.isEmpty() || endText.isEmpty()) {
+            showError("Please fill in both start and end dates.");
+            return;
+        }
+
+        try {
+            LocalDate start = LocalDate.parse(startText, FORMATTER);
+            LocalDate end = LocalDate.parse(endText, FORMATTER);
+
+            if (end.isBefore(start)) {
+                showError("End date cannot be earlier than start date.");
+                return;
+            }
+
+            this.startDate = start;
+            this.endDate = end;
+            this.confirmed = true;
+            dispose();
+
+        } catch (DateTimeParseException e) {
+            showError("Invalid date format. Please use MM/DD/YYYY.");
+        }
+    }
+
+    /**
+     * Shows an error message and clears both date fields.
+     */
+    private void showError(String message) {
+        JOptionPane.showMessageDialog(this, message, "Validation Error", JOptionPane.ERROR_MESSAGE);
+        startDateField.setText("");
+        endDateField.setText("");
+        startDateField.requestFocus();
+    }
+
     public LocalDate getStartDate() {
         return confirmed ? startDate : null;
     }
-    
-    /**
-     * Get the selected end date if confirmed
-     * @return LocalDate or null if canceled
-     */
+
     public LocalDate getEndDate() {
         return confirmed ? endDate : null;
     }
-    
-    /**
-     * Check if user confirmed the dialog
-     * @return true if confirmed, false if canceled
-     */
+
     public boolean isConfirmed() {
         return confirmed;
     }

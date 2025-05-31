@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class CredentialManager {
-    private static final String CREDENTIAL_FILE_PATH = "motorph_payroll_system/data/employeeCredentials.csv"; // moved out of resources
+    private static final String CREDENTIAL_FILE_PATH = "C:/Users/Karen/Desktop/mAIN pROGRAM/CP2_GROUP-4/motorph_payroll_system/data/employeeCredentials.csv"; // moved out of resources
 
     public static List<String[]> loadAllRows() {
         List<String[]> rows = new ArrayList<>();
