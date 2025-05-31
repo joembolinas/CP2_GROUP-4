@@ -1,6 +1,8 @@
 package com.motorph.view;
 
 import java.awt.CardLayout;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -22,31 +24,32 @@ public class MainFrame extends JFrame {
     private final EmployeeController employeeController;
     private final PayrollController payrollController;
     private final ReportController reportController;
-      private CardLayout cardLayout;
-    private JPanel cardPanel;    
-    
+
+    private CardLayout cardLayout;
+    private JPanel cardPanel;
+
     // Panels
     private MainMenuPanel mainMenuPanel;
     private EmployeeManagementPanel employeePanel;
     private EmployeeListPanel employeeListPanel;
     private PayrollPanel payrollPanel;
     private ReportsPanel reportsPanel;
-    
+
     /**
      * Constructor for the main frame
      */
     public MainFrame(EmployeeController employeeController,
-                    PayrollController payrollController,
-                    ReportController reportController) {
+                     PayrollController payrollController,
+                     ReportController reportController) {
         super(UIConstants.APP_TITLE);
-        
+
         this.employeeController = employeeController;
         this.payrollController = payrollController;
         this.reportController = reportController;
-        
+
         initUI();
     }
-    
+
     /**
      * Initialize the UI components
      */
@@ -58,86 +61,77 @@ public class MainFrame extends JFrame {
         } catch (Exception e) {
             System.err.println("Could not set system look and feel: " + e.getMessage());
         }
-        
-        // Set up the JFrame
-        setSize(800, 600);
+
+        // Set frame to fullscreen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        
-        // Set up the card layout
+        setUndecorated(false); // Keep window decorations (title bar, close button)
+        Rectangle screenBounds = GraphicsEnvironment.getLocalGraphicsEnvironment()
+                .getMaximumWindowBounds();
+        setBounds(screenBounds);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        // Set up card layout
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
-          // Initialize panels
+
+        // Initialize panels
         mainMenuPanel = new MainMenuPanel(this);
         employeePanel = new EmployeeManagementPanel(this, employeeController);
         employeeListPanel = new EmployeeListPanel(this, employeeController, payrollController);
         payrollPanel = new PayrollPanel(this, payrollController);
         reportsPanel = new ReportsPanel(this, reportController);
-        
+
         // Add panels to card layout
         cardPanel.add(mainMenuPanel, "MainMenu");
         cardPanel.add(employeePanel, "EmployeeManagement");
         cardPanel.add(employeeListPanel, "EmployeeList");
         cardPanel.add(payrollPanel, "PayrollManagement");
         cardPanel.add(reportsPanel, "Reports");
-        
-        // Show the main menu panel initially
+
+        // Show the main menu initially
         cardLayout.show(cardPanel, "MainMenu");
-        
+
         // Add the card panel to the frame
         add(cardPanel);
-        
+
         // Initialize menu bar
         setJMenuBar(createMenuBar());
+
+        // Show the frame
+        setVisible(true);
     }
-    
+
     /**
      * Create the application menu bar
      */
     private JMenuBar createMenuBar() {
         return new ApplicationMenuBar(this, employeeController, payrollController, reportController);
     }
-    
+
     /**
      * Show a specific panel by name
-     * 
-     * @param panelName The name of the panel to show
      */
     public void showPanel(String panelName) {
         cardLayout.show(cardPanel, panelName);
     }
-    
-    /**
-     * Show the main menu panel
-     */
+
     public void showMainMenu() {
-        cardLayout.show(cardPanel, "MainMenu");
+        showPanel("MainMenu");
     }
-      /**
-     * Show the employee management panel
-     */
+
     public void showEmployeeManagement() {
-        cardLayout.show(cardPanel, "EmployeeList");
+        showPanel("EmployeeList");
     }
-    
-    /**
-     * Show the employee list panel (MPHCR-02)
-     */
+
     public void showEmployeeList() {
-        cardLayout.show(cardPanel, "EmployeeList");
+        showPanel("EmployeeList");
     }
-    
-    /**
-     * Show the payroll management panel
-     */
+
     public void showPayrollManagement() {
-        cardLayout.show(cardPanel, "PayrollManagement");
+        showPanel("PayrollManagement");
     }
-    
-    /**
-     * Show the reports panel
-     */
+
     public void showReports() {
-        cardLayout.show(cardPanel, "Reports");
+        showPanel("Reports");
     }
 }

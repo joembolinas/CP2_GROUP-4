@@ -5,7 +5,7 @@ import javax.swing.*;
 import com.motorph.util.UIConstants;
 
 /**
- * Main menu panel with fixed-size navigation buttons.
+ * Main menu panel with full title above buttons and consistent button sizing.
  */
 public class MainMenuPanel extends JPanel {
 
@@ -19,38 +19,56 @@ public class MainMenuPanel extends JPanel {
     private void initPanel() {
         setLayout(new BorderLayout());
 
-        // Navigation panel on the left
-        JPanel navPanel = new JPanel();
-        navPanel.setBackground(UIConstants.NAVIGATION_BACKGROUND);
-        navPanel.setLayout(new BoxLayout(navPanel, BoxLayout.Y_AXIS));
-        navPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        navPanel.setPreferredSize(new Dimension(260, getHeight())); // fixed width panel
-
+        // ========== Title Panel ==========
         JLabel titleLabel = new JLabel(UIConstants.APP_TITLE, SwingConstants.CENTER);
         titleLabel.setFont(UIConstants.TITLE_FONT);
         titleLabel.setForeground(UIConstants.TEXT_COLOR);
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Create buttons
+        JPanel titlePanel = new JPanel(new BorderLayout());
+        titlePanel.setBackground(UIConstants.NAVIGATION_BACKGROUND);
+        titlePanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10));
+        titlePanel.add(titleLabel, BorderLayout.CENTER);
+
+        // Fills the rest of the screen with a placeholder panel
+        JPanel contentPanel = new JPanel();
+        contentPanel.setBackground(Color.WHITE); // or UIConstants.PANEL_BACKGROUND
+        add(contentPanel, BorderLayout.CENTER);
+
+
+        // ========== Navigation Panel (Buttons) ==========
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        buttonPanel.setBackground(UIConstants.NAVIGATION_BACKGROUND);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 30, 30, 30));
+
+        // Buttons
         JButton employeeManagementButton = createStyledButton("Employee Management");
         JButton payrollManagementButton = createStyledButton("Payroll Management");
         JButton reportsButton = createStyledButton("Reports");
         JButton exitButton = createStyledButton("Exit", UIConstants.DELETE_BUTTON_COLOR);
 
-        // Add components
-        navPanel.add(titleLabel);
-        navPanel.add(Box.createVerticalStrut(30));
-        navPanel.add(employeeManagementButton);
-        navPanel.add(Box.createVerticalStrut(10));
-        navPanel.add(payrollManagementButton);
-        navPanel.add(Box.createVerticalStrut(10));
-        navPanel.add(reportsButton);
-        navPanel.add(Box.createVerticalStrut(10));
-        navPanel.add(exitButton);
+        // Add buttons with spacing
+        buttonPanel.add(Box.createVerticalStrut(10));
+        buttonPanel.add(employeeManagementButton);
+        buttonPanel.add(Box.createVerticalStrut(10));
+        buttonPanel.add(payrollManagementButton);
+        buttonPanel.add(Box.createVerticalStrut(10));
+        buttonPanel.add(reportsButton);
+        buttonPanel.add(Box.createVerticalStrut(10));
+        buttonPanel.add(exitButton);
+
+        // ========== Left Navigation Container ==========
+        JPanel navPanel = new JPanel();
+        navPanel.setLayout(new BorderLayout());
+        navPanel.setBackground(UIConstants.NAVIGATION_BACKGROUND);
+        navPanel.setPreferredSize(new Dimension(260, getHeight()));
+
+        navPanel.add(titlePanel, BorderLayout.NORTH);
+        navPanel.add(buttonPanel, BorderLayout.CENTER);
 
         add(navPanel, BorderLayout.WEST);
 
-        // Add listeners
+        // ========== Action Listeners ==========
         employeeManagementButton.addActionListener(e -> mainFrame.showEmployeeManagement());
         payrollManagementButton.addActionListener(e -> mainFrame.showPayrollManagement());
         reportsButton.addActionListener(e -> mainFrame.showReports());
@@ -70,14 +88,13 @@ public class MainMenuPanel extends JPanel {
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         button.setOpaque(true);
         button.setBorderPainted(false);
-        button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Inner padding
 
-        // Fixed size for all buttons
-        Dimension fixedSize = new Dimension(200, UIConstants.BUTTON_HEIGHT);
-        button.setPreferredSize(fixedSize);
-        button.setMaximumSize(fixedSize);
-        button.setMinimumSize(fixedSize);
+        // Uniform button size
+        Dimension size = new Dimension(200, 40); // Wider and taller to fit long text
+        button.setPreferredSize(size);
+        button.setMaximumSize(size);
+        button.setMinimumSize(size);
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         return button;
     }
