@@ -28,8 +28,8 @@ import com.motorph.view.MainFrame;
  */
 public class Main {
     private static final Logger logger = Logger.getLogger(Main.class.getName()); // File paths for data sources
-    private static final String EMPLOYEES_FILE_PATH = "motorph_payroll_system/employeeDetails.csv";
-    private static final String ATTENDANCE_FILE_PATH = "motorph_payroll_system/attendanceRecord.csv";
+    private static final String EMPLOYEES_FILE_PATH = "employeeDetails.csv";
+    private static final String ATTENDANCE_FILE_PATH = "attendanceRecord.csv";
 
     /**
      * Main entry point for the application

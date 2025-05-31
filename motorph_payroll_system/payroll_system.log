@@ -176,3 +176,49 @@ May 30, 2025 10:47:09 PM com.motorph.repository.DataRepository <init>
 INFO: DataRepository initialized
 May 30, 2025 10:47:09 PM com.motorph.repository.DataRepository loadEmployees
 INFO: Loading employees from: c:\Users\ADMIN\Desktop\developerFiles\CP2_GROUP-4\motorph_payroll_system\employeeDetails.csv
+May 31, 2025 4:57:34 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+May 31, 2025 4:57:34 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: motorph_payroll_system/employeeDetails.csv
+May 31, 2025 4:57:34 PM com.motorph.repository.DataRepository loadEmployees
+WARNING: Could not read from employee file: motorph_payroll_system\employeeDetails.csv (The system cannot find the path specified)
+May 31, 2025 4:57:34 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Using sample employee data
+May 31, 2025 4:57:34 PM com.motorph.repository.DataRepository loadSampleEmployees
+INFO: Loaded sample employee data
+May 31, 2025 4:57:34 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: motorph_payroll_system/attendanceRecord.csv
+May 31, 2025 4:57:34 PM com.motorph.repository.DataRepository loadAttendanceRecords
+WARNING: Could not read from attendance file: motorph_payroll_system\attendanceRecord.csv (The system cannot find the path specified)
+May 31, 2025 4:57:34 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Using sample attendance data
+May 31, 2025 4:57:34 PM com.motorph.repository.DataRepository loadSampleAttendanceRecords
+INFO: Loaded sample attendance data
+May 31, 2025 5:01:17 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+May 31, 2025 5:01:17 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: employeeDetails.csv
+May 31, 2025 5:01:39 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+May 31, 2025 5:01:39 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: employeeDetails.csv
+May 31, 2025 5:01:39 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Successfully loaded 35 of 35 employee records
+May 31, 2025 5:01:39 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Employee 10001 details: ID=10,001, Name=Manuel III Garcia, Birthday=1983-10-11, Address=Valero Carpark Building Valero Street 1227, Makati City, SSS=44-4506057-3
+May 31, 2025 5:01:39 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: attendanceRecord.csv
+May 31, 2025 5:01:39 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Successfully loaded 5,168 of 5,168 attendance records
+May 31, 2025 5:03:52 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+May 31, 2025 5:03:52 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: employeeDetails.csv
+May 31, 2025 5:03:52 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Successfully loaded 35 of 35 employee records
+May 31, 2025 5:03:52 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Employee 10001 details: ID=10,001, Name=Manuel III Garcia, Birthday=1983-10-11, Address=Valero Carpark Building Valero Street 1227, Makati City, SSS=44-4506057-3
+May 31, 2025 5:03:52 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: attendanceRecord.csv
+May 31, 2025 5:03:52 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Successfully loaded 5,168 of 5,168 attendance records
