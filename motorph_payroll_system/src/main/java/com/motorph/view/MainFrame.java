@@ -77,7 +77,7 @@ public class MainFrame extends JFrame {
         // Initialize panels
         mainMenuPanel = new MainMenuPanel(this);
         employeePanel = new EmployeeManagementPanel(this, employeeController);
-        employeeListPanel = new EmployeeListPanel(this, employeeController, payrollController);
+       employeeListPanel = new EmployeeListPanel(this, employeeController);
         payrollPanel = new PayrollPanel(this, payrollController);
         reportsPanel = new ReportsPanel(this, reportController);
 
@@ -123,9 +123,9 @@ public class MainFrame extends JFrame {
         showPanel("EmployeeList");
     }
 
-    public void showEmployeeList() {
+    /*public void showEmployeeList() {
         showPanel("EmployeeList");
-    }
+    }*/
 
     public void showPayrollManagement() {
         showPanel("PayrollManagement");

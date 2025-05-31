@@ -30,9 +30,9 @@ public class MainMenuPanel extends JPanel {
         titlePanel.add(titleLabel, BorderLayout.CENTER);
 
         // Fills the rest of the screen with a placeholder panel
-        JPanel contentPanel = new JPanel();
-        contentPanel.setBackground(Color.WHITE); // or UIConstants.PANEL_BACKGROUND
-        add(contentPanel, BorderLayout.CENTER);
+    JPanel contentPanel = new JPanel();
+    contentPanel.setBackground(Color.WHITE); // or UIConstants.PANEL_BACKGROUND
+    add(contentPanel, BorderLayout.CENTER);
 
 
         // ========== Navigation Panel (Buttons) ==========

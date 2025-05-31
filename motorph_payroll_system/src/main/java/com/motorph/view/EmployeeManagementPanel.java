@@ -3,7 +3,7 @@ package com.motorph.view;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.time.LocalDate;
-
+    
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
