@@ -1,0 +1,38 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Run MotorPH Payroll System",
+            "request": "launch",
+            "mainClass": "com.motorph.Main",
+            "projectName": "motorph_payroll_system",
+            "cwd": "${workspaceFolder}",
+            "args": [],
+            "vmArgs": [],
+            "env": {},
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "preLaunchTask": "java: compile"
+        },
+        {
+            "type": "java",
+            "name": "Debug MotorPH Payroll System",
+            "request": "launch",
+            "mainClass": "com.motorph.Main",
+            "projectName": "motorph_payroll_system",
+            "cwd": "${workspaceFolder}",
+            "args": [],
+            "vmArgs": [],
+            "env": {},
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "stopOnEntry": false,
+            "stepFilters": {
+                "skipSynthetics": false,
+                "skipStaticInitializers": false,
+                "skipConstructors": false
+            }
+        }
+    ]
+}

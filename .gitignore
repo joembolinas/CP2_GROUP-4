@@ -1,4 +1,34 @@
-.vscode/
-.env
+
+# Ignore all files in the image directory
+# except for the .png files
+image/*
+# Allow .png files in the image directory
+!image/*.png
+# Ignore all files in the .vscode directory
+# except for the settings.json file
+.vscode/*
+# Allow settings.json in the .vscode directory
+!.vscode/settings.json
+# Ignore all files in the .env directory
+.env/*
+# Allow .env files in the .env directory
+!.env/*.env
+# Ignore all files in the planner.md file
 planner.md
-image/
+# Ignore all .bat files
+*.bat
+# Ignore all .ps1 files
+*.ps1
+# Ignore all .sh files
+*.sh
+# allow debug_motorph.bat
+!debug_motorph.bat
+# allow test_motorph.bat
+!test_motorph.bat
+# allow test_motorph.bat
+!test_motorph.bat
+
+
+# Ignore all mcp.json files
+mcp.json
+

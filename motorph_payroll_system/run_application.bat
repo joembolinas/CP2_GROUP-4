@@ -1,15 +1,21 @@
 @echo off
-echo Building and running MotorPH Payroll System...
+echo ========================================
+echo    MotorPH Payroll System - Launcher
+echo ========================================
 echo.
 
-REM Clean and compile the project
+echo Building project...
 mvn clean compile
 
-REM Copy dependencies
+echo.
+echo Copying dependencies...
 mvn dependency:copy-dependencies
 
-REM Run the application
-echo Starting application...
+echo.
+echo Starting MotorPH Payroll System...
+echo (Close the GUI window to return to this prompt)
 java -cp "target/classes;target/dependency/*" com.motorph.Main
 
+echo.
+echo Application closed.
 pause

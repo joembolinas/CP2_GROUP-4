@@ -1,6 +1,6 @@
-# Computer Programming 2 - MotorPH Development Checklist
+# MotorPH Development Checklist
 
-## ✅ Before Starting Development
+## Before Starting Development
 
 ### **Environment Check**
 
@@ -18,7 +18,7 @@ mvn -version          # Should show Maven version
 mvn clean compile    # Should compile without errors
 ```
 
-## 🔧 **Daily Workflow**
+## **Workflow**
 
 ### **Starting Work Session**
 
@@ -73,7 +73,7 @@ If project breaks completely:
 - `employeeDetails.csv` - Employee data
 - `attendanceRecord.csv` - Attendance data
 
-## **Best Practices for CP2**
+## **Best Practices**
 
 - Always use Maven commands instead of direct javac
 - Keep CSV files in project root directory
