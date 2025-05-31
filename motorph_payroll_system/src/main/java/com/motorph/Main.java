@@ -28,36 +28,29 @@ import com.motorph.view.MainFrame;
  * and starting the user interface.
  */
 public class Main {
-    private static final Logger logger = Logger.getLogger(Main.class.getName()); // File paths for data sources
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
     private static final String EMPLOYEES_FILE_PATH = "employeeDetails.csv";
     private static final String ATTENDANCE_FILE_PATH = "attendanceRecord.csv";
 
     /**
      * Main entry point for the application
-     * 
+     *
      * @param args Command line arguments (not used)
      */
     public static void main(String[] args) {
         try {
-            // Set the look and feel to the system look and feel
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
-                        // Initialize and start the application on the Event Dispatch Thread
             SwingUtilities.invokeLater(() -> {
                 try {
-                    // Show login dialog
-                    LogIn loginDialog = new LogIn(null);
-                    if (loginDialog.isAuthenticated()) {
-                        initializeApplication();
-                    } else {
-                        System.exit(0); // Exit if authentication fails
-                    }
+                    initializeApplication();
                 } catch (Exception e) {
                     logger.log(Level.SEVERE, "Failed to initialize application", e);
                     System.exit(1);
                 }
             });
-        } catch (Exception e) {
+        } catch (UnsupportedLookAndFeelException | ClassNotFoundException |
+                 InstantiationException | IllegalAccessException e) {
             logger.log(Level.WARNING, "Failed to set system look and feel", e);
             SwingUtilities.invokeLater(() -> {
                 try {
@@ -67,26 +60,29 @@ public class Main {
                     System.exit(1);
                 }
             });
-
-
         }
     }
 
     /**
      * Initialize the application components and start the UI
-     * 
+     *
      * @throws IOException If there's an error loading data
      */
     private static void initializeApplication() throws IOException {
-        // Initialize the data repository
-        DataRepository dataRepository = new DataRepository(EMPLOYEES_FILE_PATH, ATTENDANCE_FILE_PATH);
+        // Show login dialog first
+        LogIn loginDialog = new LogIn(null);
+        if (!loginDialog.isAuthenticated()) {
+            logger.info("Login failed or cancelled. Exiting application.");
+            System.exit(0);
+        }
 
-        // Get employees and attendance records
+        // Initialize data repository
+        DataRepository dataRepository = new DataRepository(EMPLOYEES_FILE_PATH, ATTENDANCE_FILE_PATH);
         List<Employee> employees = dataRepository.getAllEmployees();
         List<AttendanceRecord> attendanceRecords = dataRepository.getAllAttendanceRecords();
 
-        // Initialize the payroll calculator
-        PayrollProcessor payrollCalculator = new PayrollProcessor(); // Initialize services
+        // Initialize core services
+        PayrollProcessor payrollCalculator = new PayrollProcessor();
         EmployeeService employeeService = new EmployeeService(employees, attendanceRecords, EMPLOYEES_FILE_PATH);
         PayrollService payrollService = new PayrollService(employees, attendanceRecords, payrollCalculator);
         ReportService reportService = new ReportService(employeeService, payrollService);
@@ -94,7 +90,9 @@ public class Main {
         // Initialize controllers
         EmployeeController employeeController = new EmployeeController(employeeService);
         PayrollController payrollController = new PayrollController(payrollService);
-        ReportController reportController = new ReportController(reportService); // Initialize and show the main frame
+        ReportController reportController = new ReportController(reportService);
+
+        // Launch main application window
         MainFrame mainFrame = new MainFrame(employeeController, payrollController, reportController);
         mainFrame.setVisible(true);
 
