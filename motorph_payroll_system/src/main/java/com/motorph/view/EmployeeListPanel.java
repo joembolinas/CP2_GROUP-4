@@ -61,23 +61,28 @@ public class EmployeeListPanel extends JPanel {
         searchField.setPreferredSize(new Dimension(17000, UIConstants.BUTTON_HEIGHT));
         searchField.setForeground(Color.GRAY);
 
-        searchField.addFocusListener(new java.awt.event.FocusAdapter() {
+        // Automatically clear text on first click
+        searchField.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
-            public void focusGained(java.awt.event.FocusEvent e) {
-                if (searchField.getText().equals("Search by ID, First or Last Name")) {
+            public void mousePressed(java.awt.event.MouseEvent e) {
+                if (searchField.getText().equals("Search")) {
                     searchField.setText("");
                     searchField.setForeground(Color.BLACK);
                 }
             }
+        });
 
+        // Restore placeholder if empty when focus is lost
+        searchField.addFocusListener(new java.awt.event.FocusAdapter() {
             @Override
             public void focusLost(java.awt.event.FocusEvent e) {
                 if (searchField.getText().trim().isEmpty()) {
-                    searchField.setText("Search by ID, First or Last Name");
+                    searchField.setText("Search");
                     searchField.setForeground(Color.GRAY);
                 }
             }
         });
+
 
         // Search button
         JButton searchButton = createPrimaryButton("Search");
@@ -132,32 +137,50 @@ public class EmployeeListPanel extends JPanel {
                 return;
             }
 
-            boolean found = false;
+            boolean isNumeric = input.matches("\\d+");
+            boolean anyFound = false;
+            employeeTable.clearSelection(); // Clear previous selections
 
             for (int row = 0; row < tableModel.getRowCount(); row++) {
                 String id = tableModel.getValueAt(row, 0).toString().toLowerCase();
                 String fullName = tableModel.getValueAt(row, 1).toString().toLowerCase();
-                String[] nameParts = fullName.split(" ");
+
+                String[] nameParts = fullName.split("\\s+");
                 String firstName = nameParts.length > 0 ? nameParts[0] : "";
                 String lastName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : "";
 
-                if (id.contains(input) || firstName.contains(input) || lastName.contains(input)) {
-                    employeeTable.setRowSelectionInterval(row, row);
-                    employeeTable.scrollRectToVisible(employeeTable.getCellRect(row, 0, true));
-                    found = true;
-                    break;
+                boolean match = false;
+
+                if (isNumeric) {
+                    match = id.contains(input); // partial match by ID
+                } else {
+                    match = fullName.contains(input)
+                            || firstName.contains(input)
+                            || lastName.contains(input);
+                }
+
+                if (match) {
+                    employeeTable.addRowSelectionInterval(row, row);
+                    anyFound = true;
                 }
             }
 
-            if (!found) {
+            if (!anyFound) {
                 JOptionPane.showMessageDialog(this,
                         "No match found for: " + input,
                         "No Match",
                         JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                // Scroll to the first selected row
+                int firstSelectedRow = employeeTable.getSelectedRow();
+                if (firstSelectedRow >= 0) {
+                    employeeTable.scrollRectToVisible(employeeTable.getCellRect(firstSelectedRow, 0, true));
+                }
             }
 
             searchField.setText(""); // Clear search field
         };
+
 
         searchButton.addActionListener(e -> searchAction.run());
         searchField.addActionListener(e -> searchAction.run());
