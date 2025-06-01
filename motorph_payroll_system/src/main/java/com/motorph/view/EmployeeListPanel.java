@@ -54,10 +54,10 @@ public class EmployeeListPanel extends JPanel {
         leftButtonPanel.setLayout(new BoxLayout(leftButtonPanel, BoxLayout.Y_AXIS));
 
         // Search field
-        JTextField searchField = new JTextField("Search ID number");
+        JTextField searchField = new JTextField("Search ID #");
         searchField.setFont(UIConstants.BUTTON_FONT);
-        searchField.setMaximumSize(new Dimension(200, UIConstants.BUTTON_HEIGHT));
-        searchField.setPreferredSize(new Dimension(200, UIConstants.BUTTON_HEIGHT));
+        searchField.setMaximumSize(new Dimension(1700, UIConstants.BUTTON_HEIGHT));
+        searchField.setPreferredSize(new Dimension(1700, UIConstants.BUTTON_HEIGHT));
         searchField.setForeground(Color.GRAY);
 
         searchField.addFocusListener(new java.awt.event.FocusAdapter() {
