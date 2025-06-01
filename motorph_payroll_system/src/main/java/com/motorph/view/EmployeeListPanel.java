@@ -1,3 +1,4 @@
+// package and imports
 package com.motorph.view;
 
 import java.awt.*;
@@ -21,7 +22,7 @@ public class EmployeeListPanel extends JPanel {
     private DefaultTableModel tableModel;
 
     private static final String[] COLUMN_NAMES = {
-            "Emp. No.", "Name", "Position", "Department", "Status", "Actions"
+        "Emp. No.", "Name", "Position", "Department", "Status", "Actions"
     };
 
     public EmployeeListPanel(MainFrame mainFrame, EmployeeController employeeController) {
@@ -54,16 +55,16 @@ public class EmployeeListPanel extends JPanel {
         leftButtonPanel.setLayout(new BoxLayout(leftButtonPanel, BoxLayout.Y_AXIS));
 
         // Search field
-        JTextField searchField = new JTextField("Search ID #");
+        JTextField searchField = new JTextField("Search");
         searchField.setFont(UIConstants.BUTTON_FONT);
-        searchField.setMaximumSize(new Dimension(1700, UIConstants.BUTTON_HEIGHT));
-        searchField.setPreferredSize(new Dimension(1700, UIConstants.BUTTON_HEIGHT));
+        searchField.setMaximumSize(new Dimension(17000, UIConstants.BUTTON_HEIGHT));
+        searchField.setPreferredSize(new Dimension(17000, UIConstants.BUTTON_HEIGHT));
         searchField.setForeground(Color.GRAY);
 
         searchField.addFocusListener(new java.awt.event.FocusAdapter() {
             @Override
             public void focusGained(java.awt.event.FocusEvent e) {
-                if (searchField.getText().equals("Search ID number")) {
+                if (searchField.getText().equals("Search by ID, First or Last Name")) {
                     searchField.setText("");
                     searchField.setForeground(Color.BLACK);
                 }
@@ -72,7 +73,7 @@ public class EmployeeListPanel extends JPanel {
             @Override
             public void focusLost(java.awt.event.FocusEvent e) {
                 if (searchField.getText().trim().isEmpty()) {
-                    searchField.setText("Search ID number");
+                    searchField.setText("Search by ID, First or Last Name");
                     searchField.setForeground(Color.GRAY);
                 }
             }
@@ -82,11 +83,8 @@ public class EmployeeListPanel extends JPanel {
         JButton searchButton = createPrimaryButton("Search");
         searchButton.setPreferredSize(new Dimension(100, UIConstants.BUTTON_HEIGHT));
         searchButton.setMaximumSize(new Dimension(100, UIConstants.BUTTON_HEIGHT));
-
-        // Match height
         searchField.setPreferredSize(searchButton.getPreferredSize());
 
-        // Panel to hold search field and button side by side
         JPanel searchPanel = new JPanel();
         searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.X_AXIS));
         searchPanel.setBackground(UIConstants.PANEL_BACKGROUND);
@@ -95,12 +93,10 @@ public class EmployeeListPanel extends JPanel {
         searchPanel.add(Box.createRigidArea(new Dimension(5, 0)));
         searchPanel.add(searchButton);
 
-        // New Employee Button below search
         JButton newEmployeeButton = createPrimaryButton("Add New Employee");
         newEmployeeButton.setAlignmentX(Component.LEFT_ALIGNMENT);
         newEmployeeButton.setMaximumSize(new Dimension(200, UIConstants.BUTTON_HEIGHT));
 
-        // Add components to left button panel
         leftButtonPanel.add(searchPanel);
         leftButtonPanel.add(Box.createVerticalStrut(10));
         leftButtonPanel.add(newEmployeeButton);
@@ -124,42 +120,43 @@ public class EmployeeListPanel extends JPanel {
         newEmployeeButton.addActionListener(e -> openNewEmployeeDialog());
         backButton.addActionListener(e -> backToMainMenu());
 
+        // Updated search logic
         Runnable searchAction = () -> {
-            try {
-                String input = searchField.getText().trim();
-                if (input.isEmpty() || input.equals("Search ID number")) {
-                    JOptionPane.showMessageDialog(this,
-                            "Please enter a valid Employee ID.",
-                            "Input Required",
-                            JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
+            String input = searchField.getText().trim().toLowerCase();
 
-                int searchId = Integer.parseInt(input);
-                boolean found = false;
-                for (int row = 0; row < tableModel.getRowCount(); row++) {
-                    int empId = (Integer) tableModel.getValueAt(row, 0);
-                    if (empId == searchId) {
-                        employeeTable.setRowSelectionInterval(row, row);
-                        employeeTable.scrollRectToVisible(employeeTable.getCellRect(row, 0, true));
-                        found = true;
-                        break;
-                    }
-                }
-
-                if (!found) {
-                    JOptionPane.showMessageDialog(this,
-                            "Employee ID " + searchId + " not found.",
-                            "No Match",
-                            JOptionPane.INFORMATION_MESSAGE);
-                }
-                searchField.setText(""); // Clear field
-            } catch (NumberFormatException ex) {
+            if (input.isEmpty() || input.equals("search by id, first or last name")) {
                 JOptionPane.showMessageDialog(this,
-                        "Invalid Employee ID format. Please enter a number.",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
+                        "Please enter a valid Employee ID or Name.",
+                        "Input Required",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
             }
+
+            boolean found = false;
+
+            for (int row = 0; row < tableModel.getRowCount(); row++) {
+                String id = tableModel.getValueAt(row, 0).toString().toLowerCase();
+                String fullName = tableModel.getValueAt(row, 1).toString().toLowerCase();
+                String[] nameParts = fullName.split(" ");
+                String firstName = nameParts.length > 0 ? nameParts[0] : "";
+                String lastName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : "";
+
+                if (id.contains(input) || firstName.contains(input) || lastName.contains(input)) {
+                    employeeTable.setRowSelectionInterval(row, row);
+                    employeeTable.scrollRectToVisible(employeeTable.getCellRect(row, 0, true));
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                JOptionPane.showMessageDialog(this,
+                        "No match found for: " + input,
+                        "No Match",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            searchField.setText(""); // Clear search field
         };
 
         searchButton.addActionListener(e -> searchAction.run());
@@ -273,7 +270,7 @@ public class EmployeeListPanel extends JPanel {
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value,
-                                                       boolean isSelected, boolean hasFocus, int row, int column) {
+                boolean isSelected, boolean hasFocus, int row, int column) {
             return panel;
         }
     }
