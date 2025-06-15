@@ -1,4 +1,4 @@
-package com.motorph.test;
+package com.motorph;
 
 import java.time.LocalDate;
 import java.util.List;

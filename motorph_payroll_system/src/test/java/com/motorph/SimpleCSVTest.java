@@ -1,4 +1,4 @@
-package com.motorph.test;
+package com.motorph;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -9,18 +9,17 @@ import com.motorph.model.Employee;
 import com.motorph.service.EmployeeService;
 
 /**
- * Test for EmployeeService CSV functionality without external CSV dependencies
+ * Simple test to verify CSV writing functionality without full DataRepository
  */
-public class EmployeeServiceTest {
-
+public class SimpleCSVTest {
     public static void main(String[] args) {
-        System.out.println("=== EmployeeService CSV Test ===");
-
         try {
-            // Test file path
-            String csvFilePath = "c:\\Users\\ADMIN\\Desktop\\developerFiles\\CP2_GROUP-4\\motorph_payroll_system\\service_test.csv";
+            System.out.println("=== Simple CSV Write Test ===");
 
-            // Create initial employee list
+            // Use absolute path for CSV file
+            String csvFilePath = "c:\\Users\\ADMIN\\Desktop\\developerFiles\\CP2_GROUP-4\\motorph_payroll_system\\test_employees.csv";
+
+            // Create a simple list with one existing employee for testing
             List<Employee> employees = new ArrayList<>();
             Employee existingEmployee = new Employee(
                     1, "Dela Cruz", "Juan", LocalDate.of(1990, 1, 1),
@@ -32,26 +31,13 @@ public class EmployeeServiceTest {
             // Create empty attendance list
             List<Object> attendanceRecords = new ArrayList<>();
 
-            // Create EmployeeService
+            // Create EmployeeService with CSV file path
             EmployeeService employeeService = new EmployeeService(
                     employees,
                     attendanceRecords,
                     csvFilePath);
 
             System.out.println("Initial employee count: " + employees.size());
-
-            // First, save all employees to create the initial CSV file
-            System.out.println("Creating initial CSV file with existing employees...");
-            try {
-                // Use reflection to call the private method for testing
-                java.lang.reflect.Method saveMethod = EmployeeService.class.getDeclaredMethod("saveAllEmployeesToCSV");
-                saveMethod.setAccessible(true);
-                saveMethod.invoke(employeeService);
-                System.out.println("✅ Initial CSV created successfully");
-            } catch (Exception e) {
-                System.out.println("❌ Failed to create initial CSV: " + e.getMessage());
-                return;
-            }
 
             // Create a test employee
             Employee testEmployee = new Employee(
@@ -75,9 +61,13 @@ public class EmployeeServiceTest {
                     27500 // Gross Semi-monthly Rate
             );
 
-            System.out.println("Adding test employee with ID: " + testEmployee.getEmployeeId());
+            System.out.println("Adding test employee: " + testEmployee.getEmployeeId());
 
-            // Attempt to add the employee using the service
+            // First, manually save all employees to create the initial CSV
+            System.out.println("Creating initial CSV file...");
+            employeeService.saveAllEmployeesToCSV();
+
+            // Now attempt to add the new employee
             boolean success = employeeService.addEmployee(testEmployee);
 
             if (success) {
@@ -98,18 +88,11 @@ public class EmployeeServiceTest {
                 if (csvFile.exists()) {
                     System.out.println("✅ CSV file exists at: " + csvFilePath);
                     System.out.println("File size: " + csvFile.length() + " bytes");
-
-                    // Try to count lines in the file
-                    try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader(csvFile))) {
-                        long lineCount = reader.lines().count();
-                        System.out.println("CSV file has " + lineCount + " lines (1 header + " + (lineCount - 1)
-                                + " employee records)");
-                    }
                 } else {
                     System.out.println("❌ CSV file does not exist!");
                 }
 
-                System.out.println("✅ Test completed successfully!");
+                System.out.println("✅ Test completed. Check the CSV file to verify the new employee was written.");
             } else {
                 System.out.println("❌ Failed to add employee!");
             }
