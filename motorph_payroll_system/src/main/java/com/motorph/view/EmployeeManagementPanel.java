@@ -22,10 +22,10 @@ import com.motorph.view.dialog.SearchResultDialog;
  * Panel for employee management functions.
  */
 public class EmployeeManagementPanel extends JPanel {
-
+    
     private final MainFrame mainFrame;
     private final EmployeeController employeeController;
-
+    
     /**
      * Constructor for the employee management panel
      */
@@ -34,14 +34,14 @@ public class EmployeeManagementPanel extends JPanel {
         this.employeeController = employeeController;
         initPanel();
     }
-
+    
     /**
      * Initialize the panel
      */
     private void initPanel() {
         setLayout(new BorderLayout(10, 10));
         setBackground(UIConstants.BACKGROUND_COLOR);
-
+        
         // North panel with title
         JPanel titlePanel = new JPanel();
         titlePanel.setBackground(UIConstants.BACKGROUND_COLOR);
@@ -49,36 +49,34 @@ public class EmployeeManagementPanel extends JPanel {
         titleLabel.setFont(UIConstants.TITLE_FONT);
         titlePanel.add(titleLabel);
         add(titlePanel, BorderLayout.NORTH);
+        
         // Center panel with buttons
-        JPanel buttonPanel = new JPanel(new GridLayout(5, 1, 10, 10)); // Updated to 5 rows
+        JPanel buttonPanel = new JPanel(new GridLayout(4, 1, 10, 10));
         buttonPanel.setBackground(UIConstants.BACKGROUND_COLOR);
-
+        
         JButton searchEmployeeButton = createStyledButton("Search Employee");
         JButton listAllEmployeesButton = createStyledButton("List All Employees");
-        JButton mphcr02Button = createStyledButton("MPHCR-02: Employee Management"); // New MPHCR-02 button
         JButton attendanceButton = createStyledButton("Attendance");
         JButton backButton = createStyledButton("Back to Main Menu");
-
+        
         buttonPanel.add(searchEmployeeButton);
         buttonPanel.add(listAllEmployeesButton);
-        buttonPanel.add(mphcr02Button);
         buttonPanel.add(attendanceButton);
         buttonPanel.add(backButton);
-
+        
         // Add to a wrapper panel with margins
         JPanel centerPanel = new JPanel(new BorderLayout());
         centerPanel.setBackground(UIConstants.BACKGROUND_COLOR);
         centerPanel.add(buttonPanel, BorderLayout.CENTER);
         add(centerPanel, BorderLayout.CENTER);
-
+        
         // Add action listeners for buttons
         searchEmployeeButton.addActionListener(e -> searchEmployee());
         listAllEmployeesButton.addActionListener(e -> listAllEmployees());
-        mphcr02Button.addActionListener(e -> openMPHCR02Panel()); // New action listener
         attendanceButton.addActionListener(e -> viewAttendance());
         backButton.addActionListener(e -> mainFrame.showMainMenu());
     }
-
+    
     /**
      * Create a styled button with consistent look and feel
      */
@@ -89,66 +87,66 @@ public class EmployeeManagementPanel extends JPanel {
         button.setFocusPainted(false);
         return button;
     }
-
+    
     /**
      * Search for an employee
      */
     private void searchEmployee() {
-        String searchTerm = JOptionPane.showInputDialog(mainFrame,
+        String searchTerm = JOptionPane.showInputDialog(mainFrame, 
                 "Enter search term (name or employee number):");
-
+                
         if (searchTerm == null || searchTerm.isEmpty()) {
             return; // User canceled
         }
-
+        
         try {
             var matchingEmployees = employeeController.searchEmployees(searchTerm);
-
+            
             if (matchingEmployees.isEmpty()) {
-                JOptionPane.showMessageDialog(mainFrame,
+                JOptionPane.showMessageDialog(mainFrame, 
                         "No employees found matching your search criteria.",
-                        "Search Results",
+                        "Search Results", 
                         JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-
+            
             // Display results in a dialog
             new SearchResultDialog(mainFrame, matchingEmployees, "Search Results").setVisible(true);
-
+            
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(mainFrame,
+            JOptionPane.showMessageDialog(mainFrame, 
                     "Error searching for employees: " + e.getMessage(),
-                    "Error",
+                    "Error", 
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
     /**
      * List all employees
      */
     private void listAllEmployees() {
         try {
             var employees = employeeController.getAllEmployees();
-
+            
             if (employees.isEmpty()) {
-                JOptionPane.showMessageDialog(mainFrame,
+                JOptionPane.showMessageDialog(mainFrame, 
                         "No employees found in the system.",
-                        "All Employees",
+                        "All Employees", 
                         JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-
+            
             // Display results in a dialog
             new SearchResultDialog(mainFrame, employees, "All Employees").setVisible(true);
-
+            
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(mainFrame,
+            JOptionPane.showMessageDialog(mainFrame, 
                     "Error listing employees: " + e.getMessage(),
-                    "Error",
+                    "Error", 
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
     /**
      * View attendance records for an employee
      */
@@ -156,43 +154,43 @@ public class EmployeeManagementPanel extends JPanel {
         // Show employee number input dialog
         EmployeeNumberInputDialog employeeDialog = new EmployeeNumberInputDialog(mainFrame, "Attendance Records");
         employeeDialog.setVisible(true);
-
+        
         if (!employeeDialog.isConfirmed()) {
             return; // User canceled
         }
-
+        
         int employeeId = employeeDialog.getEmployeeNumber();
-
+        
         // Show date range dialog
         DateRangeDialog dateDialog = new DateRangeDialog(mainFrame, "Select Date Range");
         dateDialog.setVisible(true);
-
+        
         if (!dateDialog.isConfirmed()) {
             return; // User canceled
         }
-
+        
         LocalDate startDate = dateDialog.getStartDate();
         LocalDate endDate = dateDialog.getEndDate();
-
+        
         try {
             // Find employee first
             var employee = employeeController.findEmployeeById(employeeId);
-
+            
             // Get attendance records
             var records = employeeController.getAttendanceRecords(employeeId, startDate, endDate);
-
+            
             if (records.isEmpty()) {
-                JOptionPane.showMessageDialog(mainFrame,
+                JOptionPane.showMessageDialog(mainFrame, 
                         "No attendance records found for the specified period.",
-                        "Attendance Records",
+                        "Attendance Records", 
                         JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-
+            
             // Prepare data for the table
-            String[] columnNames = { "Date", "Time In", "Time Out", "Duration (hrs)", "Remarks" };
+            String[] columnNames = {"Date", "Time In", "Time Out", "Duration (hrs)", "Remarks"};
             Object[][] data = new Object[records.size()][5];
-
+            
             for (int i = 0; i < records.size(); i++) {
                 var record = records.get(i);
                 data[i][0] = record.getDate();
@@ -201,34 +199,27 @@ public class EmployeeManagementPanel extends JPanel {
                 data[i][3] = String.format("%.2f", record.getTotalHours());
                 data[i][4] = record.isLate() ? "Late" : "On Time";
             }
-
+            
             // Create the table
             JTable table = new JTable(data, columnNames);
             table.setFillsViewportHeight(true);
-
+            
             // Show in a dialog
-            JOptionPane.showMessageDialog(mainFrame,
-                    new JScrollPane(table),
-                    "Attendance Records for " + employee.getFullName(),
+            JOptionPane.showMessageDialog(mainFrame, 
+                    new JScrollPane(table), 
+                    "Attendance Records for " + employee.getFullName(), 
                     JOptionPane.INFORMATION_MESSAGE);
-
+            
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(mainFrame,
+            JOptionPane.showMessageDialog(mainFrame, 
                     e.getMessage(),
-                    "Error",
+                    "Error", 
                     JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(mainFrame,
+            JOptionPane.showMessageDialog(mainFrame, 
                     "Error retrieving attendance records: " + e.getMessage(),
-                    "Error",
+                    "Error", 
                     JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    /**
-     * Open the MPHCR-02 Employee Management panel
-     */
-    private void openMPHCR02Panel() {
-        mainFrame.showEmployeeListPanel();
     }
 }

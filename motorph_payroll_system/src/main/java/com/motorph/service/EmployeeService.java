@@ -1,8 +1,8 @@
 package com.motorph.service;
 
-import java.io.FileWriter;
 import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -10,20 +10,19 @@ import java.util.stream.Collectors;
 
 import com.motorph.model.AttendanceRecord;
 import com.motorph.model.Employee;
-import com.opencsv.CSVWriter;
 
 /**
  * Service for employee-related operations.
- * Enhanced for MPHCR-02 Feature 2 implementation with CSV writing capabilities.
  */
 public class EmployeeService {
     private final List<Employee> employees;
     private final List<AttendanceRecord> attendanceRecords;
-    private static final String CSV_FILE_PATH = "motorph_payroll_system/employeeDetails.csv";
+    private final String csvFilePath;
 
-    public EmployeeService(List<Employee> employees, List<AttendanceRecord> attendanceRecords) {
+    public EmployeeService(List<Employee> employees, List<AttendanceRecord> attendanceRecords, String csvFilePath) {
         this.employees = employees;
         this.attendanceRecords = attendanceRecords;
+        this.csvFilePath = csvFilePath;
     }
 
     /**
@@ -68,6 +67,165 @@ public class EmployeeService {
     }
 
     /**
+     * Add a new employee to the system and save to CSV
+     * 
+     * @param employee The employee to add
+     * @return true if employee was added successfully, false if employee ID already
+     *         exists
+     */
+    public boolean addEmployee(Employee employee) {
+        // Check if employee ID already exists
+        if (findEmployeeById(employee.getEmployeeId()) != null) {
+            return false; // Employee ID already exists
+        }
+
+        // Add employee to in-memory list
+        employees.add(employee);
+
+        // Save to CSV file
+        try {
+            appendEmployeeToCSV(employee);
+            return true;
+        } catch (Exception e) {
+            // If CSV write fails, remove from memory and return false
+            employees.remove(employee);
+            throw new RuntimeException("Failed to save employee to CSV: " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Append a single employee to the CSV file
+     */
+    private void appendEmployeeToCSV(Employee employee) throws Exception {
+        try (java.io.FileWriter fileWriter = new java.io.FileWriter(csvFilePath, true);
+                com.opencsv.CSVWriter writer = new com.opencsv.CSVWriter(fileWriter)) { // Create CSV record for the
+                                                                                        // employee
+            String[] data = {
+                    String.valueOf(employee.getEmployeeId()),
+                    employee.getLastName(),
+                    employee.getFirstName(),
+                    employee.getBirthday() != null ? formatDateForCSV(employee.getBirthday()) : "",
+                    employee.getAddress() != null ? employee.getAddress() : "",
+                    employee.getPhoneNumber() != null ? employee.getPhoneNumber() : "",
+                    employee.getSssNumber() != null ? employee.getSssNumber() : "",
+                    employee.getPhilhealthNumber() != null ? employee.getPhilhealthNumber() : "",
+                    employee.getTinNumber() != null ? employee.getTinNumber() : "",
+                    employee.getPagibigNumber() != null ? employee.getPagibigNumber() : "",
+                    employee.getStatus(),
+                    employee.getPosition(),
+                    employee.getSupervisor() != null ? employee.getSupervisor() : "N/A",
+                    formatMoneyForCSV(employee.getBasicSalary()),
+                    formatMoneyForCSV(employee.getRiceSubsidy()),
+                    formatMoneyForCSV(employee.getPhoneAllowance()),
+                    formatMoneyForCSV(employee.getClothingAllowance()),
+                    formatMoneyForCSV(employee.getGrossSemiMonthlyRate()),
+                    String.valueOf(employee.getHourlyRate())
+            };
+            writer.writeNext(data);
+        }
+    }
+
+    /**
+     * Update an existing employee in the system and save to CSV
+     * 
+     * @param employee The employee with updated information
+     * @return true if employee was updated successfully, false if employee ID
+     *         doesn't exist
+     */
+    public boolean updateEmployee(Employee employee) {
+        // Find the existing employee
+        Employee existingEmployee = findEmployeeById(employee.getEmployeeId());
+        if (existingEmployee == null) {
+            return false; // Employee doesn't exist
+        }
+
+        // Update the employee in the list
+        int index = employees.indexOf(existingEmployee);
+        employees.set(index, employee);
+
+        // Save all employees to CSV file
+        try {
+            saveAllEmployeesToCSV();
+            return true;
+        } catch (Exception e) {
+            // If CSV write fails, revert the change
+            employees.set(index, existingEmployee);
+            throw new RuntimeException("Failed to update employee in CSV: " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Delete an employee from the system and update CSV
+     * 
+     * @param employeeId The ID of the employee to delete
+     * @return true if employee was deleted successfully, false if employee ID
+     *         doesn't exist
+     */
+    public boolean deleteEmployee(int employeeId) {
+        // Find the existing employee
+        Employee existingEmployee = findEmployeeById(employeeId);
+        if (existingEmployee == null) {
+            return false; // Employee doesn't exist
+        }
+
+        // Remove the employee from the list
+        employees.remove(existingEmployee);
+
+        // Save all employees to CSV file
+        try {
+            saveAllEmployeesToCSV();
+            return true;
+        } catch (Exception e) {
+            // If CSV write fails, add the employee back
+            employees.add(existingEmployee);
+            throw new RuntimeException("Failed to delete employee from CSV: " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Save all employees to the CSV file (used for update and delete operations)
+     */
+    private void saveAllEmployeesToCSV() throws Exception {
+        try (java.io.FileWriter fileWriter = new java.io.FileWriter(csvFilePath);
+                com.opencsv.CSVWriter writer = new com.opencsv.CSVWriter(fileWriter)) {
+
+            // Write header
+            String[] header = {
+                    "Employee Number", "Last Name", "First Name", "Birthday", "Address",
+                    "Phone Number", "SSS Number", "Philhealth Number", "TIN Number",
+                    "Pagibig Number", "Status", "Position", "Immediate Supervisor",
+                    "Basic Salary", "Rice Subsidy", "Phone Allowance", "Clothing Allowance",
+                    "Gross Semi-monthly Rate", "Hourly Rate"
+            };
+            writer.writeNext(header); // Write all employee data
+            for (Employee employee : employees) {
+                String[] data = {
+                        String.valueOf(employee.getEmployeeId()),
+                        employee.getLastName(),
+                        employee.getFirstName(),
+                        employee.getBirthday() != null ? formatDateForCSV(employee.getBirthday()) : "",
+                        employee.getAddress() != null ? employee.getAddress() : "",
+                        employee.getPhoneNumber() != null ? employee.getPhoneNumber() : "",
+                        employee.getSssNumber() != null ? employee.getSssNumber() : "",
+                        employee.getPhilhealthNumber() != null ? employee.getPhilhealthNumber() : "",
+                        employee.getTinNumber() != null ? employee.getTinNumber() : "",
+                        employee.getPagibigNumber() != null ? employee.getPagibigNumber() : "",
+                        employee.getStatus(),
+                        employee.getPosition(),
+                        employee.getSupervisor() != null ? employee.getSupervisor() : "N/A",
+                        formatMoneyForCSV(employee.getBasicSalary()),
+                        formatMoneyForCSV(employee.getRiceSubsidy()),
+                        formatMoneyForCSV(employee.getPhoneAllowance()),
+                        formatMoneyForCSV(employee.getClothingAllowance()),
+                        formatMoneyForCSV(employee.getGrossSemiMonthlyRate()),
+                        String.valueOf(employee.getHourlyRate())
+                };
+                writer.writeNext(data);
+            }
+        }
+    }
+
+    /**
      * Get attendance records for an employee within a date range
      * 
      * @param employeeId The employee ID
@@ -83,121 +241,28 @@ public class EmployeeService {
                     return recordDate != null &&
                             !recordDate.isBefore(startDate) &&
                             !recordDate.isAfter(endDate);
-                })
-                .collect(Collectors.toList());
+                }).collect(Collectors.toList());
     }
 
     /**
-     * Add a new employee and save to CSV file (MPHCR-02 Feature 2)
-     * 
-     * @param employee The employee to add
-     * @return true if successful, false otherwise
+     * Format a LocalDate to match the CSV format (MM/dd/yyyy)
      */
-    public boolean addEmployee(Employee employee) {
-        try {
-            // Validate employee data
-            if (employee == null || employee.getEmployeeId() <= 0) {
-                throw new IllegalArgumentException("Invalid employee data");
-            }
-
-            // Check for duplicate employee ID
-            if (findEmployeeById(employee.getEmployeeId()) != null) {
-                throw new IllegalArgumentException("Employee ID already exists: " + employee.getEmployeeId());
-            }
-
-            // Add to memory
-            employees.add(employee);
-
-            // Save to CSV file
-            appendEmployeeToCSV(employee);
-
-            return true;
-        } catch (Exception e) {
-            // Rollback if CSV writing fails
-            employees.remove(employee);
-            throw new RuntimeException("Failed to save employee: " + e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Append a single employee to the CSV file
-     * 
-     * @param employee The employee to append
-     * @throws Exception if writing fails
-     */
-    private void appendEmployeeToCSV(Employee employee) throws Exception {
-        try (FileWriter fileWriter = new FileWriter(CSV_FILE_PATH, true);
-                CSVWriter writer = new CSVWriter(fileWriter)) {
-
-            String[] data = {
-                    String.valueOf(employee.getEmployeeId()),
-                    employee.getLastName(),
-                    employee.getFirstName(),
-                    employee.getBirthday() != null ? employee.getBirthday() : "",
-                    employee.getAddress() != null ? employee.getAddress() : "",
-                    employee.getPhoneNumber() != null ? employee.getPhoneNumber() : "",
-                    employee.getSssNumber() != null ? employee.getSssNumber() : "",
-                    employee.getPhilhealthNumber() != null ? employee.getPhilhealthNumber() : "",
-                    employee.getTinNumber() != null ? employee.getTinNumber() : "",
-                    employee.getPagibigNumber() != null ? employee.getPagibigNumber() : "",
-                    employee.getStatus() != null ? employee.getStatus() : "Regular",
-                    employee.getPosition() != null ? employee.getPosition() : "",
-                    employee.getImmediateSupervisor() != null ? employee.getImmediateSupervisor() : "",
-                    formatMoneyForCSV(employee.getBasicSalary()),
-                    formatMoneyForCSV(employee.getRiceSubsidy()),
-                    formatMoneyForCSV(employee.getPhoneAllowance()),
-                    formatMoneyForCSV(employee.getClothingAllowance()),
-                    formatMoneyForCSV(employee.getGrossSemimonthlyRate()),
-                    String.format("%.2f", employee.getHourlyRate())
-            };
-
-            writer.writeNext(data);
-        }
+    private String formatDateForCSV(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        return date.format(formatter);
     }
 
     /**
      * Format money values to match the CSV format with quotes and commas
-     * 
-     * @param amount The amount to format
-     * @return Formatted string for CSV
      */
     private String formatMoneyForCSV(double amount) {
         if (amount >= 1000) {
+            // For amounts >= 1000, use comma formatting with quotes
             NumberFormat formatter = NumberFormat.getNumberInstance(Locale.US);
             return "\"" + formatter.format(amount) + "\"";
+        } else {
+            // For amounts < 1000, use simple string representation with quotes
+            return "\"" + (int) amount + "\"";
         }
-        return "\"" + (int) amount + "\"";
-    }
-
-    /**
-     * Generate next available employee ID
-     * 
-     * @return Next available employee ID
-     */
-    public int generateNextEmployeeId() {
-        return employees.stream()
-                .mapToInt(Employee::getEmployeeId)
-                .max()
-                .orElse(10000) + 1;
-    }
-
-    /**
-     * Get employees suitable for table display (MPHCR-02 requirement)
-     * Returns data in the format needed for the employee list table
-     * 
-     * @return List of Object arrays for table model
-     */
-    public List<Object[]> getEmployeesForTable() {
-        return employees.stream()
-                .map(emp -> new Object[] {
-                        emp.getEmployeeId(),
-                        emp.getLastName(),
-                        emp.getFirstName(),
-                        emp.getSssNumber() != null ? emp.getSssNumber() : "N/A",
-                        emp.getPhilhealthNumber() != null ? emp.getPhilhealthNumber() : "N/A",
-                        emp.getTinNumber() != null ? emp.getTinNumber() : "N/A",
-                        emp.getPagibigNumber() != null ? emp.getPagibigNumber() : "N/A"
-                })
-                .collect(Collectors.toList());
     }
 }

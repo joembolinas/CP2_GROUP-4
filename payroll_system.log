@@ -108,3 +108,25 @@ Jun 15, 2025 3:49:09 PM com.motorph.repository.DataRepository loadAttendanceReco
 INFO: Loading attendance from: motorph_payroll_system/attendanceRecord.csv
 Jun 15, 2025 3:49:09 PM com.motorph.repository.DataRepository loadAttendanceRecords
 INFO: Successfully loaded 5,168 of 5,168 attendance records
+Jun 15, 2025 4:32:42 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 15, 2025 4:32:42 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: motorph_payroll_system/employeeDetails.csv
+Jun 15, 2025 4:32:42 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Successfully loaded 34 of 34 employee records
+Jun 15, 2025 4:32:42 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: motorph_payroll_system/attendanceRecord.csv
+Jun 15, 2025 4:32:42 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Successfully loaded 5,168 of 5,168 attendance records
+Jun 15, 2025 5:28:28 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 15, 2025 5:28:28 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: motorph_payroll_system/employeeDetails.csv
+Jun 15, 2025 5:28:28 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Successfully loaded 35 of 35 employee records
+Jun 15, 2025 5:28:28 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Employee 10001 details: ID=10,001, Name=Manuel III Garcia, Birthday=1983-10-11, Address=Valero Carpark Building Valero Street 1227, Makati City, SSS=44-4506057-3
+Jun 15, 2025 5:28:28 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: motorph_payroll_system/attendanceRecord.csv
+Jun 15, 2025 5:28:28 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Successfully loaded 5,168 of 5,168 attendance records

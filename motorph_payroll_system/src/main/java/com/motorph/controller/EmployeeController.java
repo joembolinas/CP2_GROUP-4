@@ -62,6 +62,93 @@ public class EmployeeController {
     }
 
     /**
+     * Add a new employee to the system and save to CSV
+     * 
+     * @param employee The employee to add
+     * @return true if employee was added successfully, false if employee ID already
+     *         exists
+     * @throws IllegalArgumentException if employee data is invalid
+     */
+    public boolean addEmployee(Employee employee) throws IllegalArgumentException {
+        if (employee == null) {
+            throw new IllegalArgumentException("Employee cannot be null");
+        }
+
+        if (employee.getEmployeeId() <= 0) {
+            throw new IllegalArgumentException("Invalid employee ID");
+        }
+
+        if (employee.getLastName() == null || employee.getLastName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Last name is required");
+        }
+
+        if (employee.getFirstName() == null || employee.getFirstName().trim().isEmpty()) {
+            throw new IllegalArgumentException("First name is required");
+        }
+
+        if (employee.getPosition() == null || employee.getPosition().trim().isEmpty()) {
+            throw new IllegalArgumentException("Position is required");
+        }
+
+        if (employee.getBasicSalary() <= 0) {
+            throw new IllegalArgumentException("Basic salary must be greater than zero");
+        }
+        return employeeService.addEmployee(employee);
+    }
+
+    /**
+     * Update an existing employee in the system and save to CSV
+     * 
+     * @param employee The employee with updated information
+     * @return true if employee was updated successfully, false if employee ID
+     *         doesn't exist
+     * @throws IllegalArgumentException if employee data is invalid
+     */
+    public boolean updateEmployee(Employee employee) throws IllegalArgumentException {
+        if (employee == null) {
+            throw new IllegalArgumentException("Employee cannot be null");
+        }
+
+        if (employee.getEmployeeId() <= 0) {
+            throw new IllegalArgumentException("Invalid employee ID");
+        }
+
+        if (employee.getLastName() == null || employee.getLastName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Last name is required");
+        }
+
+        if (employee.getFirstName() == null || employee.getFirstName().trim().isEmpty()) {
+            throw new IllegalArgumentException("First name is required");
+        }
+
+        if (employee.getPosition() == null || employee.getPosition().trim().isEmpty()) {
+            throw new IllegalArgumentException("Position is required");
+        }
+
+        if (employee.getBasicSalary() <= 0) {
+            throw new IllegalArgumentException("Basic salary must be greater than zero");
+        }
+
+        return employeeService.updateEmployee(employee);
+    }
+
+    /**
+     * Delete an employee from the system and update CSV
+     * 
+     * @param employeeId The ID of the employee to delete
+     * @return true if employee was deleted successfully, false if employee ID
+     *         doesn't exist
+     * @throws IllegalArgumentException if employee ID is invalid
+     */
+    public boolean deleteEmployee(int employeeId) throws IllegalArgumentException {
+        if (employeeId <= 0) {
+            throw new IllegalArgumentException("Invalid employee ID");
+        }
+
+        return employeeService.deleteEmployee(employeeId);
+    }
+
+    /**
      * Get attendance records for an employee within a date range
      * 
      * @param employeeId The employee ID
@@ -85,38 +172,5 @@ public class EmployeeController {
         }
 
         return employeeService.getAttendanceRecords(employeeId, startDate, endDate);
-    }
-
-    /**
-     * Get employees formatted for table display (MPHCR-02)
-     * 
-     * @return List of Object arrays for table model
-     */
-    public List<Object[]> getEmployeesForTable() {
-        return employeeService.getEmployeesForTable();
-    }
-
-    /**
-     * Add a new employee (MPHCR-02)
-     * 
-     * @param employee The employee to add
-     * @return true if successful
-     * @throws IllegalArgumentException if employee data is invalid
-     */
-    public boolean addEmployee(Employee employee) throws IllegalArgumentException {
-        if (employee == null) {
-            throw new IllegalArgumentException("Employee cannot be null");
-        }
-
-        return employeeService.addEmployee(employee);
-    }
-
-    /**
-     * Generate next available employee ID (MPHCR-02)
-     * 
-     * @return Next available employee ID
-     */
-    public int generateNextEmployeeId() {
-        return employeeService.generateNextEmployeeId();
     }
 }

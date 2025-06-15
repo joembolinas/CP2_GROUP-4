@@ -207,9 +207,19 @@ public class DataRepository {
                             new Object[] { totalRecords, ex.getMessage() });
                 }
             }
-
             logger.log(Level.INFO, "Successfully loaded {0} of {1} employee records",
                     new Object[] { successfulRecords, totalRecords });
+
+            // Debug log for employee 10001
+            for (Employee emp : loadedEmployees) {
+                if (emp.getEmployeeId() == 10001) {
+                    logger.log(Level.INFO,
+                            "Employee 10001 details: ID={0}, Name={1} {2}, Birthday={3}, Address={4}, SSS={5}",
+                            new Object[] { emp.getEmployeeId(), emp.getFirstName(), emp.getLastName(),
+                                    emp.getBirthday(), emp.getAddress(), emp.getSssNumber() });
+                    break;
+                }
+            }
 
         } catch (IOException ex) {
             logger.log(Level.WARNING, "Could not read from employee file: {0}", ex.getMessage());
@@ -222,11 +232,16 @@ public class DataRepository {
 
     private Employee createEmployeeFromRecord(CSVRecord record) {
         try {
-            // Enhanced for MPHCR-02 - read all fields from CSV
             int id = Integer.parseInt(record.get(0));
             String lastName = record.get(1);
             String firstName = record.get(2);
-            String birthday = record.get(3);
+
+            // Parse birthday with flexible date format
+            LocalDate birthday = null;
+            if (!record.get(3).isEmpty()) {
+                birthday = parseFlexibleDate(record.get(3));
+            }
+
             String address = record.get(4);
             String phoneNumber = record.get(5);
             String sssNumber = record.get(6);
@@ -235,53 +250,49 @@ public class DataRepository {
             String pagibigNumber = record.get(9);
             String status = record.get(10);
             String position = record.get(11);
-            String immediateSupervisor = record.get(12);
+            String supervisor = record.get(12);
 
             double basicSalary = parseAmount(record.get(13));
             double riceSubsidy = parseAmount(record.get(14));
             double phoneAllowance = parseAmount(record.get(15));
             double clothingAllowance = parseAmount(record.get(16));
-            double grossSemimonthlyRate = parseAmount(record.get(17));
-            double hourlyRate = Double.parseDouble(record.get(18));
+            double grossSemiMonthlyRate = parseAmount(record.get(17));
 
-            // Use enhanced constructor for MPHCR-02
-            return new Employee(id, lastName, firstName, birthday, address, phoneNumber,
-                    sssNumber, philhealthNumber, tinNumber, pagibigNumber, status, position,
-                    immediateSupervisor, basicSalary, riceSubsidy, phoneAllowance, clothingAllowance,
-                    grossSemimonthlyRate, hourlyRate);
+            // Use the full constructor to include all employee details
+            return new Employee(
+                    id, lastName, firstName, birthday, address, phoneNumber,
+                    sssNumber, philhealthNumber, tinNumber, pagibigNumber,
+                    status, position, supervisor, basicSalary, riceSubsidy,
+                    phoneAllowance, clothingAllowance, grossSemiMonthlyRate);
         } catch (NumberFormatException ex) {
             throw new IllegalArgumentException("Invalid number format: " + ex.getMessage());
         }
     }
 
     private void loadSampleEmployees(List<Employee> employees) {
-        // Enhanced sample data for MPHCR-02 with all fields
-        employees.add(new Employee(10001, "Garcia", "Manuel", "10/11/1983",
-                "Valero Carpark Building Valero Street 1227, Makati City", "966-860-270",
-                "44-4506057-3", "820126853951", "442-605-657-000", "691295330870",
-                "Regular", "Chief Executive Officer", "N/A", 90000, 1500, 2000, 1000, 45000, 535.71));
-
-        employees.add(new Employee(10002, "Lim", "Antonio", "06/19/1988",
-                "San Antonio De Padua 2, Block 1 Lot 8 and 2, Dasmarinas, Cavite", "171-867-411",
-                "52-2061274-9", "331735646338", "683-102-776-000", "663904995411",
-                "Regular", "Chief Operating Officer", "Garcia, Manuel III", 60000, 1500, 2000, 1000, 30000, 357.14));
-
-        employees.add(new Employee(10003, "Aquino", "Bianca Sofia", "08/04/1989",
-                "Rm. 402 4/F Jiao Building Timog Avenue Cor. Quezon Avenue 1100, Quezon City", "966-889-370",
-                "30-8870406-2", "177451189665", "971-711-280-000", "171519773969",
-                "Regular", "Chief Finance Officer", "Garcia, Manuel III", 60000, 1500, 2000, 1000, 30000, 357.14));
-
-        employees.add(new Employee(10004, "Reyes", "Isabella", "06/16/1994",
-                "460 Solanda Street Intramuros 1000, Manila", "786-868-477",
-                "40-2511815-0", "341911411254", "876-809-437-000", "416946776041",
-                "Regular", "Chief Marketing Officer", "Garcia, Manuel III", 60000, 1500, 2000, 1000, 30000, 357.14));
-
-        employees.add(new Employee(10005, "Lee", "Harper", "01/15/1990",
-                "Sample Address", "123-456-789",
-                "12-3456789-0", "123456789012", "123-456-789-000", "123456789012",
-                "Regular", "IT Operations", "Garcia, Manuel III", 52670, 1500, 1000, 1000, 26335, 314.64));
-
-        logger.info("Loaded sample employee data with enhanced MPHCR-02 fields");
+        // Create sample employees with full details
+        LocalDate sampleDate = LocalDate.of(1990, 1, 1);
+        employees.add(new Employee(
+                10001, "Garcia", "Manuel", sampleDate, "Sample Address", "123-456-789",
+                "SSS-123456", "PH-123456", "TIN-123456", "PAGIBIG-123456",
+                "Regular", "Chief Executive Officer", "N/A", 90000, 1500, 2000, 1000, 45000));
+        employees.add(new Employee(
+                10002, "Santos", "Antonio", sampleDate, "Sample Address", "123-456-789",
+                "SSS-123456", "PH-123456", "TIN-123456", "PAGIBIG-123456",
+                "Regular", "Chief Operating Officer", "Garcia, Manuel", 60000, 1500, 2000, 1000, 30000));
+        employees.add(new Employee(
+                10003, "Reyes", "Bianca", sampleDate, "Sample Address", "123-456-789",
+                "SSS-123456", "PH-123456", "TIN-123456", "PAGIBIG-123456",
+                "Regular", "Chief Finance Officer", "Garcia, Manuel", 60000, 1500, 2000, 1000, 30000));
+        employees.add(new Employee(
+                10004, "Lim", "Isabella", sampleDate, "Sample Address", "123-456-789",
+                "SSS-123456", "PH-123456", "TIN-123456", "PAGIBIG-123456",
+                "Regular", "Chief Marketing Officer", "Garcia, Manuel", 60000, 1500, 2000, 1000, 30000));
+        employees.add(new Employee(
+                10005, "Lee", "Harper", sampleDate, "Sample Address", "123-456-789",
+                "SSS-123456", "PH-123456", "TIN-123456", "PAGIBIG-123456",
+                "Regular", "IT Operations", "Lim, Antonio", 52670, 1500, 1000, 1000, 26335));
+        logger.info("Loaded sample employee data");
     }
 
     /**
