@@ -23,7 +23,7 @@ public class PaySlip {
     private double netPay;
     private Map<String, Double> deductions;
     private Map<String, Double> allowances;
-    //private static final String CURRENCY_FORMAT = "₱%,15.2f";
+    private static final String CURRENCY_FORMAT = "₱%,15.2f";
 
     public PaySlip(Employee employee, LocalDate startDate, LocalDate endDate) {
         this.employee = employee;

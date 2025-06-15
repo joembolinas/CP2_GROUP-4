@@ -1,0 +1,18 @@
+Jun 15, 2025 6:19:58 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 15, 2025 6:19:58 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: motorph_payroll_system/data/employeeDetails.csv
+Jun 15, 2025 6:19:58 PM com.motorph.repository.DataRepository loadEmployees
+WARNING: Could not read from employee file: motorph_payroll_system\data\employeeDetails.csv (The system cannot find the path specified)
+Jun 15, 2025 6:19:58 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Using sample employee data
+Jun 15, 2025 6:19:58 PM com.motorph.repository.DataRepository loadSampleEmployees
+INFO: Loaded sample employee data
+Jun 15, 2025 6:19:58 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: motorph_payroll_system/data/attendanceRecord.csv
+Jun 15, 2025 6:19:58 PM com.motorph.repository.DataRepository loadAttendanceRecords
+WARNING: Could not read from attendance file: motorph_payroll_system\data\attendanceRecord.csv (The system cannot find the path specified)
+Jun 15, 2025 6:19:58 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Using sample attendance data
+Jun 15, 2025 6:19:58 PM com.motorph.repository.DataRepository loadSampleAttendanceRecords
+INFO: Loaded sample attendance data

@@ -22,13 +22,13 @@ public class MainFrame extends JFrame {
     private final EmployeeController employeeController;
     private final PayrollController payrollController;
     private final ReportController reportController;
-    
-    private CardLayout cardLayout;
-    private JPanel cardPanel;
+      private CardLayout cardLayout;
+    private JPanel cardPanel;    
     
     // Panels
     private MainMenuPanel mainMenuPanel;
     private EmployeeManagementPanel employeePanel;
+    private EmployeeListPanel employeeListPanel;
     private PayrollPanel payrollPanel;
     private ReportsPanel reportsPanel;
     
@@ -67,16 +67,17 @@ public class MainFrame extends JFrame {
         // Set up the card layout
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
-        
-        // Initialize panels
+          // Initialize panels
         mainMenuPanel = new MainMenuPanel(this);
         employeePanel = new EmployeeManagementPanel(this, employeeController);
+        employeeListPanel = new EmployeeListPanel(this, employeeController, payrollController);
         payrollPanel = new PayrollPanel(this, payrollController);
         reportsPanel = new ReportsPanel(this, reportController);
         
         // Add panels to card layout
         cardPanel.add(mainMenuPanel, "MainMenu");
         cardPanel.add(employeePanel, "EmployeeManagement");
+        cardPanel.add(employeeListPanel, "EmployeeList");
         cardPanel.add(payrollPanel, "PayrollManagement");
         cardPanel.add(reportsPanel, "Reports");
         
@@ -112,12 +113,18 @@ public class MainFrame extends JFrame {
     public void showMainMenu() {
         cardLayout.show(cardPanel, "MainMenu");
     }
-    
-    /**
+      /**
      * Show the employee management panel
      */
     public void showEmployeeManagement() {
-        cardLayout.show(cardPanel, "EmployeeManagement");
+        cardLayout.show(cardPanel, "EmployeeList");
+    }
+    
+    /**
+     * Show the employee list panel (MPHCR-02)
+     */
+    public void showEmployeeList() {
+        cardLayout.show(cardPanel, "EmployeeList");
     }
     
     /**
