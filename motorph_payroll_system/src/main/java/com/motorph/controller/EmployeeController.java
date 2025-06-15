@@ -13,11 +13,11 @@ import com.motorph.service.EmployeeService;
  */
 public class EmployeeController {
     private final EmployeeService employeeService;
-    
+
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
-    
+
     /**
      * Find an employee by ID
      * 
@@ -29,15 +29,15 @@ public class EmployeeController {
         if (employeeId <= 0) {
             throw new IllegalArgumentException("Invalid employee ID");
         }
-        
+
         Employee employee = employeeService.findEmployeeById(employeeId);
         if (employee == null) {
             throw new IllegalArgumentException("Employee with ID " + employeeId + " not found");
         }
-        
+
         return employee;
     }
-    
+
     /**
      * Search for employees by name or ID
      * 
@@ -48,10 +48,10 @@ public class EmployeeController {
         if (searchTerm == null || searchTerm.trim().isEmpty()) {
             throw new IllegalArgumentException("Search term cannot be empty");
         }
-        
+
         return employeeService.searchEmployees(searchTerm);
     }
-    
+
     /**
      * Get all employees
      * 
@@ -60,31 +60,63 @@ public class EmployeeController {
     public List<Employee> getAllEmployees() {
         return employeeService.getAllEmployees();
     }
-    
+
     /**
      * Get attendance records for an employee within a date range
      * 
      * @param employeeId The employee ID
-     * @param startDate Start date for the range
-     * @param endDate End date for the range
+     * @param startDate  Start date for the range
+     * @param endDate    End date for the range
      * @return List of matching attendance records
      * @throws IllegalArgumentException if parameters are invalid
      */
-    public List<AttendanceRecord> getAttendanceRecords(int employeeId, LocalDate startDate, LocalDate endDate) 
+    public List<AttendanceRecord> getAttendanceRecords(int employeeId, LocalDate startDate, LocalDate endDate)
             throws IllegalArgumentException {
         if (employeeId <= 0) {
             throw new IllegalArgumentException("Invalid employee ID");
         }
-        
+
         if (startDate == null || endDate == null) {
             throw new IllegalArgumentException("Start and end dates are required");
         }
-        
+
         if (startDate.isAfter(endDate)) {
             throw new IllegalArgumentException("Start date must be before or equal to end date");
         }
-        
+
         return employeeService.getAttendanceRecords(employeeId, startDate, endDate);
     }
-}
 
+    /**
+     * Get employees formatted for table display (MPHCR-02)
+     * 
+     * @return List of Object arrays for table model
+     */
+    public List<Object[]> getEmployeesForTable() {
+        return employeeService.getEmployeesForTable();
+    }
+
+    /**
+     * Add a new employee (MPHCR-02)
+     * 
+     * @param employee The employee to add
+     * @return true if successful
+     * @throws IllegalArgumentException if employee data is invalid
+     */
+    public boolean addEmployee(Employee employee) throws IllegalArgumentException {
+        if (employee == null) {
+            throw new IllegalArgumentException("Employee cannot be null");
+        }
+
+        return employeeService.addEmployee(employee);
+    }
+
+    /**
+     * Generate next available employee ID (MPHCR-02)
+     * 
+     * @return Next available employee ID
+     */
+    public int generateNextEmployeeId() {
+        return employeeService.generateNextEmployeeId();
+    }
+}
