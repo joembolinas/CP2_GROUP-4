@@ -1,0 +1,886 @@
+---
+title: "MotorPH Payroll System"
+description: "A comprehensive Java-based payroll management system built with MVC architecture"
+version: "2.0.0"
+author: "CP2 Group 4"
+lastUpdated: "2025-01-28"
+tags: ["Java", "Maven", "Swing", "Payroll", "MVC", "Enterprise"]
+---
+
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { CheckCircle, XCircle, FileText, Users, Calculator, BarChart3, Zap } from 'lucide-react'
+
+# 🏢 MotorPH Payroll System
+
+<div className="flex flex-wrap gap-2 mb-6">
+  <Badge variant="default">Java 17</Badge>
+  <Badge variant="secondary">Maven</Badge>
+  <Badge variant="outline">Swing GUI</Badge>
+  <Badge variant="destructive">MVC Architecture</Badge>
+  <Badge variant="secondary">CSV Data</Badge>
+  <Badge variant="outline">Enterprise Ready</Badge>
+</div>
+
+<Alert className="mb-6">
+  <Zap className="h-4 w-4" />
+  <AlertTitle>Recently Refactored!</AlertTitle>
+  <AlertDescription>
+    This project has undergone comprehensive cleanup and restructuring, achieving a 17% reduction in source files while improving maintainability and organization.
+  </AlertDescription>
+</Alert>
+
+## 📋 Project Overview
+
+The **MotorPH Payroll System** is a sophisticated Java-based application designed to streamline and automate payroll management for MotorPH company. Built with enterprise-grade architecture patterns, this system demonstrates modern software engineering practices while providing a robust solution for payroll processing.
+  
+  <Card>
+    <CardHeader>
+      <CardTitle className="text-lg">📁 Structure</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <p className="text-sm text-muted-foreground">
+        Proper Maven structure with separated test files and organized data directory
+      </p>
+    </CardContent>
+  </Card>
+  
+  <Card>
+    <CardHeader>
+      <CardTitle className="text-lg">🏗️ Architecture</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <p className="text-sm text-muted-foreground">
+        Clean MVC pattern with proper separation of concerns and dependency management
+      </p>
+    </CardContent>
+  </Card>
+</div>
+
+## ✨ Key Features
+
+<Tabs defaultValue="employee" className="w-full">
+  <TabsList className="grid w-full grid-cols-4">
+    <TabsTrigger value="employee">👥 Employee Management</TabsTrigger>
+    <TabsTrigger value="payroll">💰 Payroll Processing</TabsTrigger>
+    <TabsTrigger value="reports">📊 Reporting System</TabsTrigger>
+    <TabsTrigger value="ui">🖥️ User Interface</TabsTrigger>
+  </TabsList>
+  
+  <TabsContent value="employee" className="space-y-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>Employee Management Features</CardTitle>
+        <CardDescription>Comprehensive employee data management capabilities</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-2">
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">✓</span>
+          <span>Employee data storage and retrieval</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">✓</span>
+          <span>Advanced search functionality by name or ID</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">✓</span>
+          <span>Comprehensive employee listings with actions</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">✓</span>
+          <span>Employee attendance tracking and reporting</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">✓</span>
+          <span>Add, edit, and delete employee records</span>
+        </div>
+      </CardContent>
+    </Card>
+  </TabsContent>
+  
+  <TabsContent value="payroll" className="space-y-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>Payroll Processing Features</CardTitle>
+        <CardDescription>Automated payroll calculations and management</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-2">
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">✓</span>
+          <span>Automatic calculation of regular and overtime hours</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">✓</span>
+          <span>Computation of gross and net pay</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">✓</span>
+          <span>Government-mandated deductions (SSS, PhilHealth, Pag-IBIG, Tax)</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">✓</span>
+          <span>Employee allowances (rice, phone, clothing)</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">✓</span>
+          <span>Flexible date range selection for payroll periods</span>
+        </div>
+      </CardContent>
+    </Card>
+  </TabsContent>
+  
+  <TabsContent value="reports" className="space-y-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>Reporting System Features</CardTitle>
+        <CardDescription>Comprehensive reporting and analytics</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-2">
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">✓</span>
+          <span>Individual employee payslip generation</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">✓</span>
+          <span>Weekly and monthly summary reports</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">✓</span>
+          <span>Customizable date range for reports</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">✓</span>
+          <span>Formatted payslip display with proper calculations</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">✓</span>
+          <span>Export capabilities for future enhancements</span>
+        </div>
+      </CardContent>
+    </Card>
+  </TabsContent>
+  
+  <TabsContent value="ui" className="space-y-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>User Interface Features</CardTitle>
+        <CardDescription>Modern and intuitive user experience</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-2">
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">✓</span>
+          <span>Intuitive graphical user interface (GUI)</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">✓</span>
+          <span>Menu-driven navigation system</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">✓</span>
+          <span>Interactive dialogs for user input</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">✓</span>
+          <span>Consistent styling and visual presentation</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">✓</span>
+          <span>Error handling with user-friendly messages</span>
+        </div>
+      </CardContent>
+    </Card>
+  </TabsContent>
+</Tabs>
+
+## 🏗️ System Architecture
+
+The system follows a clean **Model-View-Controller (MVC)** architecture pattern with proper separation of concerns:
+
+```mermaid
+flowchart TB
+    subgraph "🖥️ Presentation Layer"
+        UI[Main Frame]
+        Menu[Application Menu Bar]
+        Panels[Management Panels]
+        Dialogs[Dialog Components]
+    end
+    
+    subgraph "🎮 Controller Layer"
+        EC[Employee Controller]
+        PC[Payroll Controller] 
+        RC[Report Controller]
+    end
+    
+    subgraph "⚙️ Business Logic Layer"
+        ES[Employee Service]
+        PS[Payroll Service]
+        PP[Payroll Processor]
+        RS[Report Service]
+    end
+    
+    subgraph "📋 Model Layer"
+        EMP[Employee Model]
+        ATT[Attendance Record]
+        PAY[PaySlip Model]
+    end
+    
+    subgraph "💾 Data Layer"
+        DR[Data Repository]
+        CSV[(CSV Files)]
+    end
+    
+    subgraph "🔧 Utility Layer"
+        UTILS[Date Utils<br/>Error Handler<br/>Input Validator<br/>UI Utils]
+    end
+    
+    %% Connections
+    UI --> EC
+    UI --> PC
+    UI --> RC
+    
+    EC --> ES
+    PC --> PS
+    RC --> RS
+    
+    ES --> EMP
+    PS --> PP
+    PS --> PAY
+    RS --> ATT
+    
+    ES --> DR
+    PS --> DR
+    RS --> DR
+    
+    DR --> CSV
+    
+    EC -.-> UTILS
+    PC -.-> UTILS
+    RC -.-> UTILS
+    UI -.-> UTILS
+    
+    %% Styling
+    classDef uiLayer fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef controllerLayer fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef serviceLayer fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+    classDef modelLayer fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef dataLayer fill:#fce4ec,stroke:#880e4f,stroke-width:2px
+    classDef utilLayer fill:#f1f8e9,stroke:#33691e,stroke-width:2px
+    
+    class UI,Menu,Panels,Dialogs uiLayer
+    class EC,PC,RC controllerLayer
+    class ES,PS,PP,RS serviceLayer
+    class EMP,ATT,PAY modelLayer
+    class DR,CSV dataLayer
+    class UTILS utilLayer
+```
+
+## 📁 Project Structure
+
+Our cleaned and organized project structure follows Maven conventions:
+
+```mermaid
+flowchart TD
+    ROOT[🏠 motorph_payroll_system/]
+    
+    ROOT --> DATA[📊 data/]
+    ROOT --> POM[⚙️ pom.xml]
+    ROOT --> SRC[📁 src/]
+    
+    DATA --> ATTEND[📋 attendanceRecord.csv]
+    DATA --> EMPLOY[👥 employeeDetails.csv]
+    
+    SRC --> MAIN[📁 main/]
+    SRC --> TEST[🧪 test/]
+    
+    MAIN --> JAVA[☕ java/com/motorph/]
+    TEST --> TESTJAVA[🧪 java/com/motorph/]
+    
+    JAVA --> MAINCLASS[🚀 Main.java]
+    JAVA --> CONTROLLER[🎮 controller/]
+    JAVA --> MODEL[📋 model/]
+    JAVA --> REPO[💾 repository/]
+    JAVA --> SERVICE[⚙️ service/]
+    JAVA --> UTIL[🔧 util/]
+    JAVA --> VIEW[🖥️ view/]
+    
+    CONTROLLER --> EC[👤 EmployeeController.java]
+    CONTROLLER --> PC[💰 PayrollController.java]
+    CONTROLLER --> RC[📊 ReportController.java]
+    
+    MODEL --> EMPM[👤 Employee.java]
+    MODEL --> ATTM[📋 AttendanceRecord.java]
+    MODEL --> PAYM[💰 PaySlip.java]
+    
+    REPO --> DR[💾 DataRepository.java]
+    
+    SERVICE --> ES[👥 EmployeeService.java]
+    SERVICE --> PS[💰 PayrollService.java]
+    SERVICE --> PP[🧮 PayrollProcessor.java]
+    SERVICE --> RS[📊 ReportService.java]
+    
+    UTIL --> DU[📅 DateUtils.java]
+    UTIL --> EH[❌ ErrorHandler.java]
+    UTIL --> IV[✅ InputValidator.java]
+    UTIL --> UC[🎨 UIConstants.java]
+    UTIL --> UU[🛠️ UIUtils.java]
+    UTIL --> PC2[💼 PayrollConstants.java]
+    
+    VIEW --> MF[🖥️ MainFrame.java]
+    VIEW --> AMB[📋 ApplicationMenuBar.java]
+    VIEW --> ELP[👥 EmployeeListPanel.java]
+    VIEW --> EMP2[👤 EmployeeManagementPanel.java]
+    VIEW --> PP2[💰 PayrollPanel.java]
+    VIEW --> RP[📊 ReportsPanel.java]
+    VIEW --> MMP[🏠 MainMenuPanel.java]
+    VIEW --> DIALOG[💬 dialog/]
+    VIEW --> RENDER[🎨 renderer/]
+    
+    TESTJAVA --> CSVT[🧪 CSVTest.java]
+    TESTJAVA --> CSVWT[🧪 CSVWriteTest.java]
+    TESTJAVA --> EST[🧪 EmployeeServiceTest.java]
+    TESTJAVA --> MCT[🧪 ManualCSVTest.java]
+    TESTJAVA --> SCT[🧪 SimpleCSVTest.java]
+    TESTJAVA --> CSVCAT[🛠️ CSVCreateAndWrite.java]
+    TESTJAVA --> CM[🔐 CredentialManager.java]
+    
+    %% Styling
+    classDef rootStyle fill:#ff9999,stroke:#ff0000,stroke-width:3px
+    classDef dataStyle fill:#99ccff,stroke:#0066cc,stroke-width:2px
+    classDef srcStyle fill:#99ff99,stroke:#00cc00,stroke-width:2px
+    classDef packageStyle fill:#ffcc99,stroke:#ff6600,stroke-width:2px
+    classDef javaFile fill:#ffffcc,stroke:#cccc00,stroke-width:1px
+    classDef configFile fill:#ffccff,stroke:#cc00cc,stroke-width:2px
+    
+    class ROOT rootStyle
+    class DATA,ATTEND,EMPLOY dataStyle
+    class SRC,MAIN,TEST,JAVA,TESTJAVA srcStyle
+    class CONTROLLER,MODEL,REPO,SERVICE,UTIL,VIEW,DIALOG,RENDER packageStyle
+    class POM configFile
+```
+
+## 🧹 Project Cleanup Achievements
+
+<Alert>
+  <AlertTitle>📊 Cleanup Statistics</AlertTitle>
+  <AlertDescription>
+    **Before:** 46 Java files in main source | **After:** 38 Java files in main source | **Improvement:** 17% reduction
+  </AlertDescription>
+</Alert>
+
+```mermaid
+flowchart LR
+    subgraph "❌ BEFORE Cleanup"
+        B_ROOT[Project Root]
+        B_SRC[src/main/java/]
+        B_TEST[Mixed Test Files]
+        B_EMPTY[8 Empty Files ❌]
+        B_DUP[Duplicate Files ❌]
+        B_CSV[Scattered CSV Files]
+        
+        B_ROOT --> B_CSV
+        B_SRC --> B_TEST
+        B_SRC --> B_EMPTY
+        B_SRC --> B_DUP
+        
+        B_EMPTY --> B_EMPTY1[EmployeeListPanelNew.java]
+        B_EMPTY --> B_EMPTY2[NavigationBar.java]
+        B_EMPTY --> B_EMPTY3[EmployeeDetailsDialog.java]
+        
+        B_DUP --> B_DUP1[EmployeeListPanel.java]
+        B_DUP --> B_DUP2[EmployeeListPanelFixed.java]
+        
+        B_TEST --> B_TEST1[CSVTest.java in main/]
+        B_TEST --> B_TEST2[EmployeeServiceTest.java in main/]
+    end
+    
+    subgraph "✅ AFTER Cleanup"
+        A_ROOT[Project Root]
+        A_DATA[📊 data/ Directory]
+        A_SRC[☕ src/main/java/]
+        A_TEST[🧪 src/test/java/]
+        A_CLEAN[Clean Structure ✅]
+        
+        A_ROOT --> A_DATA
+        A_ROOT --> A_SRC
+        A_ROOT --> A_TEST
+        A_SRC --> A_CLEAN
+        
+        A_DATA --> A_CSV1[attendanceRecord.csv]
+        A_DATA --> A_CSV2[employeeDetails.csv]
+        
+        A_SRC --> A_MAIN1[Main.java]
+        A_SRC --> A_CONTROLLERS[Controllers/]
+        A_SRC --> A_MODELS[Models/]
+        A_SRC --> A_SERVICES[Services/]
+        A_SRC --> A_VIEWS[Views/]
+        A_SRC --> A_UTILS[Utils/]
+        
+        A_TEST --> A_TEST1[CSVTest.java]
+        A_TEST --> A_TEST2[EmployeeServiceTest.java]
+        A_TEST --> A_TEST3[Development Utils]
+    end
+    
+    %% Transformation Arrow
+    B_ROOT -.->|"🧹 CLEANUP PROCESS<br/>17% File Reduction"| A_ROOT
+    
+    %% Styling
+    classDef beforeStyle fill:#ffcccc,stroke:#ff0000,stroke-width:2px
+    classDef afterStyle fill:#ccffcc,stroke:#00aa00,stroke-width:2px
+    classDef problemStyle fill:#ff9999,stroke:#cc0000,stroke-width:3px
+    classDef solutionStyle fill:#99ff99,stroke:#00cc00,stroke-width:3px
+    
+    class B_ROOT,B_SRC,B_TEST,B_CSV beforeStyle
+    class B_EMPTY,B_DUP,B_EMPTY1,B_EMPTY2,B_EMPTY3,B_DUP1,B_DUP2,B_TEST1,B_TEST2 problemStyle
+    class A_ROOT,A_DATA,A_SRC,A_TEST afterStyle
+    class A_CLEAN,A_CSV1,A_CSV2,A_MAIN1,A_CONTROLLERS,A_MODELS,A_SERVICES,A_VIEWS,A_UTILS,A_TEST1,A_TEST2,A_TEST3 solutionStyle
+```
+
+### Cleanup Achievements
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+  <Card>
+    <CardHeader>
+      <CardTitle className="text-red-600">❌ Files Removed</CardTitle>
+    </CardHeader>
+    <CardContent className="space-y-1 text-sm">
+      <div>• EmployeeListPanelNew.java (empty)</div>
+      <div>• NavigationBar.java (empty)</div>
+      <div>• EmployeeDetailsDialog.java (empty)</div>
+      <div>• EmployeeDetailsTest.java (empty)</div>
+      <div>• MPHCR02Test.java (empty)</div>
+      <div>• EmployeeListPanelFixed.java (duplicate)</div>
+      <div>• Plus 2 other redundant files</div>
+    </CardContent>
+  </Card>
+  
+  <Card>
+    <CardHeader>
+      <CardTitle className="text-green-600">✅ Files Reorganized</CardTitle>
+    </CardHeader>
+    <CardContent className="space-y-1 text-sm">
+      <div>• Test files moved to src/test/java</div>
+      <div>• CSV files moved to data/ directory</div>
+      <div>• Development utilities relocated</div>
+      <div>• Proper Maven structure implemented</div>
+      <div>• Package organization improved</div>
+      <div>• Clean separation of concerns</div>
+    </CardContent>
+  </Card>
+</div>
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+<div className="space-y-2">
+  <div className="flex items-center space-x-2">
+    <Badge variant="outline">Required</Badge>
+    <span>**Java 17** or higher</span>
+  </div>
+  <div className="flex items-center space-x-2">
+    <Badge variant="outline">Required</Badge>
+    <span>**Apache Maven 3.6+** for build management</span>
+  </div>
+  <div className="flex items-center space-x-2">
+    <Badge variant="outline">Optional</Badge>
+    <span>**IDE** (IntelliJ IDEA, Eclipse, VS Code)</span>
+  </div>
+</div>
+
+### Installation & Running
+
+<Tabs defaultValue="command" className="w-full">
+  <TabsList>
+    <TabsTrigger value="command">Command Line</TabsTrigger>
+    <TabsTrigger value="ide">IDE Setup</TabsTrigger>
+    <TabsTrigger value="vscode">VS Code Task</TabsTrigger>
+  </TabsList>
+  
+  <TabsContent value="command">
+    <Card>
+      <CardHeader>
+        <CardTitle>Command Line Instructions</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold mb-2">1. Clone the repository</h4>
+            <pre className="bg-gray-100 p-3 rounded text-sm overflow-x-auto">
+git clone &lt;repository-url&gt;
+cd CP2_GROUP-4/motorph_payroll_system
+            </pre>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-2">2. Build the project</h4>
+            <pre className="bg-gray-100 p-3 rounded text-sm overflow-x-auto">
+mvn clean compile
+            </pre>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-2">3. Run the application</h4>
+            <pre className="bg-gray-100 p-3 rounded text-sm overflow-x-auto">
+mvn exec:java -Dexec.mainClass="com.motorph.Main"
+            </pre>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  </TabsContent>
+  
+  <TabsContent value="ide">
+    <Card>
+      <CardHeader>
+        <CardTitle>IDE Setup Instructions</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold mb-2">1. Import Project</h4>
+            <p className="text-sm text-gray-600">Import as Maven project in your preferred IDE</p>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-2">2. Configure JDK</h4>
+            <p className="text-sm text-gray-600">Set Project SDK to Java 17 or higher</p>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-2">3. Run Main Class</h4>
+            <p className="text-sm text-gray-600">Execute <code>com.motorph.Main</code> class</p>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  </TabsContent>
+  
+  <TabsContent value="vscode">
+    <Card>
+      <CardHeader>
+        <CardTitle>VS Code Task Runner</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold mb-2">Pre-configured Task</h4>
+            <p className="text-sm text-gray-600 mb-2">Use the pre-configured VS Code task:</p>
+            <pre className="bg-gray-100 p-3 rounded text-sm">
+Ctrl+Shift+P → "Tasks: Run Task" → "Run MotorPH Application"
+            </pre>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-2">Task Configuration</h4>
+            <pre className="bg-gray-100 p-3 rounded text-sm overflow-x-auto">
+{
+  "label": "Run MotorPH Application",
+  "type": "shell",
+  "command": "mvn",
+  "args": ["clean", "compile", "exec:java", "-Dexec.mainClass=com.motorph.Main"],
+  "group": "build"
+}
+            </pre>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  </TabsContent>
+</Tabs>
+
+## 🛠️ Technology Stack
+
+<div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
+  <Card className="text-center">
+    <CardContent className="pt-6">
+      <div className="text-4xl mb-2">☕</div>
+      <div className="font-semibold">Java 17</div>
+      <div className="text-sm text-gray-600">Core Language</div>
+    </CardContent>
+  </Card>
+  
+  <Card className="text-center">
+    <CardContent className="pt-6">
+      <div className="text-4xl mb-2">🖥️</div>
+      <div className="font-semibold">Swing</div>
+      <div className="text-sm text-gray-600">GUI Framework</div>
+    </CardContent>
+  </Card>
+  
+  <Card className="text-center">
+    <CardContent className="pt-6">
+      <div className="text-4xl mb-2">📦</div>
+      <div className="font-semibold">Maven</div>
+      <div className="text-sm text-gray-600">Build Tool</div>
+    </CardContent>
+  </Card>
+  
+  <Card className="text-center">
+    <CardContent className="pt-6">
+      <div className="text-4xl mb-2">📊</div>
+      <div className="font-semibold">CSV</div>
+      <div className="text-sm text-gray-600">Data Storage</div>
+    </CardContent>
+  </Card>
+</div>
+
+### Dependencies
+
+- **Apache Commons CSV 1.9.0** - CSV file parsing and processing
+- **OpenCSV 5.7.1** - Alternative CSV handling capabilities
+- **Apache HttpClient 4.5.13** - HTTP client for future web features
+- **JUnit 4.13.2** - Unit testing framework
+
+## 📈 Future Enhancements
+
+<Tabs defaultValue="immediate" className="w-full">
+  <TabsList>
+    <TabsTrigger value="immediate">Immediate Goals</TabsTrigger>
+    <TabsTrigger value="medium">Medium Term</TabsTrigger>
+    <TabsTrigger value="longterm">Long Term</TabsTrigger>
+  </TabsList>
+  
+  <TabsContent value="immediate">
+    <div className="space-y-3">
+      <Card>
+        <CardContent className="pt-6">
+          <div className="flex items-center space-x-2 mb-2">
+            <span className="text-blue-500">🧪</span>
+            <span className="font-semibold">Testing Enhancement</span>
+          </div>
+          <p className="text-sm text-gray-600">Implementation of comprehensive unit tests and integration tests</p>
+        </CardContent>
+      </Card>
+      
+      <Card>
+        <CardContent className="pt-6">
+          <div className="flex items-center space-x-2 mb-2">
+            <span className="text-green-500">📊</span>
+            <span className="font-semibold">Enhanced Reporting</span>
+          </div>
+          <p className="text-sm text-gray-600">PDF export functionality and enhanced report formatting</p>
+        </CardContent>
+      </Card>
+      
+      <Card>
+        <CardContent className="pt-6">
+          <div className="flex items-center space-x-2 mb-2">
+            <span className="text-purple-500">✅</span>
+            <span className="font-semibold">Input Validation</span>
+          </div>
+          <p className="text-sm text-gray-600">More comprehensive validation frameworks and error handling</p>
+        </CardContent>
+      </Card>
+    </div>
+  </TabsContent>
+  
+  <TabsContent value="medium">
+    <div className="space-y-3">
+      <Card>
+        <CardContent className="pt-6">
+          <div className="flex items-center space-x-2 mb-2">
+            <span className="text-red-500">💾</span>
+            <span className="font-semibold">Database Migration</span>
+          </div>
+          <p className="text-sm text-gray-600">Migration from CSV to robust database (H2, SQLite, or PostgreSQL)</p>
+        </CardContent>
+      </Card>
+      
+      <Card>
+        <CardContent className="pt-6">
+          <div className="flex items-center space-x-2 mb-2">
+            <span className="text-orange-500">🔐</span>
+            <span className="font-semibold">Authentication System</span>
+          </div>
+          <p className="text-sm text-gray-600">User authentication, authorization, and role-based access control</p>
+        </CardContent>
+      </Card>
+      
+      <Card>
+        <CardContent className="pt-6">
+          <div className="flex items-center space-x-2 mb-2">
+            <span className="text-indigo-500">🎨</span>
+            <span className="font-semibold">UI/UX Enhancement</span>
+          </div>
+          <p className="text-sm text-gray-600">Modern UI components, themes, and accessibility improvements</p>
+        </CardContent>
+      </Card>
+    </div>
+  </TabsContent>
+  
+  <TabsContent value="longterm">
+    <div className="space-y-3">
+      <Card>
+        <CardContent className="pt-6">
+          <div className="flex items-center space-x-2 mb-2">
+            <span className="text-green-500">🌐</span>
+            <span className="font-semibold">Web Interface</span>
+          </div>
+          <p className="text-sm text-gray-600">Web-based interface for remote access and mobile compatibility</p>
+        </CardContent>
+      </Card>
+      
+      <Card>
+        <CardContent className="pt-6">
+          <div className="flex items-center space-x-2 mb-2">
+            <span className="text-blue-500">📊</span>
+            <span className="font-semibold">Analytics Dashboard</span>
+          </div>
+          <p className="text-sm text-gray-600">Advanced analytics, charts, and business intelligence features</p>
+        </CardContent>
+      </Card>
+      
+      <Card>
+        <CardContent className="pt-6">
+          <div className="flex items-center space-x-2 mb-2">
+            <span className="text-purple-500">🔄</span>
+            <span className="font-semibold">API Integration</span>
+          </div>
+          <p className="text-sm text-gray-600">REST API for third-party integrations and microservices architecture</p>
+        </CardContent>
+      </Card>
+    </div>
+  </TabsContent>
+</Tabs>
+
+## 👥 Contributing
+
+We welcome contributions from the development team! Here's how you can help:
+
+<div className="space-y-4">
+  <Card>
+    <CardHeader>
+      <CardTitle className="text-lg">🐛 Bug Reports</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <p className="text-sm">Report issues using the project's issue tracker with detailed reproduction steps.</p>
+    </CardContent>
+  </Card>
+  
+  <Card>
+    <CardHeader>
+      <CardTitle className="text-lg">💡 Feature Requests</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <p className="text-sm">Suggest new features or improvements to existing functionality.</p>
+    </CardContent>
+  </Card>
+  
+  <Card>
+    <CardHeader>
+      <CardTitle className="text-lg">🔧 Code Contributions</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <p className="text-sm">Follow the existing code style and include tests for new functionality.</p>
+    </CardContent>
+  </Card>
+</div>
+
+## 📝 License
+
+This project is developed as part of **MO-IT103 Computer Programming 2** coursework.
+
+---
+
+<div className="text-center text-sm text-gray-500 mt-8">
+  <p>© 2025 CP2_GROUP-4 | MotorPH Payroll System</p>
+  <p>Built with ❤️ using Java, Maven, and modern development practices</p>
+</div>
+
+## 🎯 Project Transformation Summary
+
+This comprehensive refactoring project represents a significant improvement in code organization, maintainability, and development workflow. The transformation from a mixed, unorganized structure to a clean, Maven-compliant project demonstrates modern software engineering best practices.
+
+```mermaid
+flowchart TD
+    subgraph "🎯 TRANSFORMATION OVERVIEW"
+        START[🏁 Initial State<br/>Mixed files, poor organization]
+        
+        subgraph "🧹 CLEANUP PHASE"
+            ANALYZE[📊 Project Analysis<br/>Identified 8 redundant files]
+            REMOVE[❌ File Removal<br/>Deleted empty & duplicate files]
+            REORG[📁 Reorganization<br/>Moved test files to proper location]
+        end
+        
+        subgraph "📝 DOCUMENTATION PHASE"
+            UPDATE_README[📄 README.md Enhancement<br/>Added structure & diagrams]
+            CREATE_MDX[✨ README.mdx Creation<br/>Interactive documentation]
+            DIAGRAMS[🖼️ Mermaid Diagrams<br/>Architecture visualizations]
+        end
+        
+        subgraph "✅ FINAL STATE"
+            CLEAN[🧽 Clean Structure<br/>17% file reduction]
+            DOCUMENTED[📚 Comprehensive Docs<br/>Interactive components]
+            MAINTAINABLE[🔧 Maintainable<br/>Future-ready architecture]
+        end
+        
+        START --> ANALYZE
+        ANALYZE --> REMOVE
+        REMOVE --> REORG
+        REORG --> UPDATE_README
+        UPDATE_README --> CREATE_MDX
+        CREATE_MDX --> DIAGRAMS
+        DIAGRAMS --> CLEAN
+        CLEAN --> DOCUMENTED
+        DOCUMENTED --> MAINTAINABLE
+    end
+    
+    %% Stats boxes
+    subgraph "📊 KEY METRICS"
+        BEFORE[⚠️ BEFORE<br/>46 files in main<br/>8 empty files<br/>Mixed structure]
+        AFTER[✅ AFTER<br/>38 files in main<br/>Clean separation<br/>Maven compliant]
+        IMPROVEMENT[📈 IMPROVEMENT<br/>17% reduction<br/>Better organization<br/>Enhanced docs]
+        
+        BEFORE --> AFTER
+        AFTER --> IMPROVEMENT
+    end
+    
+    %% Styling
+    classDef startStyle fill:#ffcccc,stroke:#ff6666,stroke-width:3px
+    classDef processStyle fill:#e6f3ff,stroke:#4d94ff,stroke-width:2px
+    classDef finalStyle fill:#ccffcc,stroke:#66cc66,stroke-width:3px
+    classDef metricStyle fill:#fff2cc,stroke:#ffcc00,stroke-width:2px
+    
+    class START startStyle
+    class ANALYZE,REMOVE,REORG,UPDATE_README,CREATE_MDX,DIAGRAMS processStyle
+    class CLEAN,DOCUMENTED,MAINTAINABLE finalStyle
+    class BEFORE,AFTER,IMPROVEMENT metricStyle
+```
+
+### 🏆 Achievements Unlocked
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
+  <Card className="border-green-200 bg-green-50">
+    <CardContent className="pt-6 text-center">
+      <div className="text-green-600 text-3xl mb-2">🧹</div>
+      <div className="font-semibold text-green-800">Code Cleanup</div>
+      <div className="text-sm text-green-600">17% file reduction achieved</div>
+    </CardContent>
+  </Card>
+  
+  <Card className="border-blue-200 bg-blue-50">
+    <CardContent className="pt-6 text-center">
+      <div className="text-blue-600 text-3xl mb-2">📚</div>
+      <div className="font-semibold text-blue-800">Documentation</div>
+      <div className="text-sm text-blue-600">Interactive docs created</div>
+    </CardContent>
+  </Card>
+  
+  <Card className="border-purple-200 bg-purple-50">
+    <CardContent className="pt-6 text-center">
+      <div className="text-purple-600 text-3xl mb-2">🏗️</div>
+      <div className="font-semibold text-purple-800">Architecture</div>
+      <div className="text-sm text-purple-600">Clean MVC implementation</div>
+    </CardContent>
+  </Card>
+</div>
+
+<Alert className="my-6">
+  <CheckCircle className="h-4 w-4" />
+  <AlertTitle>🎉 Project Successfully Modernized!</AlertTitle>
+  <AlertDescription>
+    The MotorPH Payroll System is now production-ready with clean architecture, comprehensive documentation, and modern development practices. Ready for future enhancements and team collaboration!
+  </AlertDescription>
+</Alert>

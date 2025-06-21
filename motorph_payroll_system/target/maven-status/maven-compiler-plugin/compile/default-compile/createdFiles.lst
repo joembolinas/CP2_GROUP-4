@@ -2,8 +2,11 @@ com\motorph\view\ApplicationMenuBar.class
 com\motorph\model\PaySlip.class
 com\motorph\util\PayrollConstants.class
 com\motorph\view\dialog\EmployeeDetailsFrame.class
+<<<<<<< HEAD
 com\motorph\view\EmployeeListPanelFixed$1.class
 com\motorph\repository\CSVCreateAndWrite.class
+=======
+>>>>>>> 773d8b41b45a38ab3deadf437d31bf3d323c8f07
 com\motorph\view\dialog\SearchResultDialog.class
 com\motorph\view\EmployeeListPanelFixed$ActionButtonEditor.class
 com\motorph\view\MainFrame.class
@@ -12,8 +15,11 @@ com\motorph\util\ErrorHandler.class
 com\motorph\util\UIUtils.class
 com\motorph\view\renderer\ActionButtonRenderer.class
 com\motorph\view\EmployeeListPanel$1.class
+<<<<<<< HEAD
 com\motorph\view\EmployeeListPanelFixed$ActionButtonRenderer.class
 com\motorph\view\EmployeeListPanelFixed.class
+=======
+>>>>>>> 773d8b41b45a38ab3deadf437d31bf3d323c8f07
 com\motorph\view\PayrollPanel.class
 com\motorph\util\InputValidator.class
 com\motorph\controller\EmployeeController.class

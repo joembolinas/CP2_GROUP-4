@@ -27,6 +27,7 @@ import com.motorph.view.MainFrame;
  * and starting the user interface.
  */
 public class Main {
+<<<<<<< HEAD
     private static final Logger logger = Logger.getLogger(Main.class.getName()); // File paths for data sources
                                                                                  // (relative to project root directory)
     private static final String EMPLOYEES_FILE_PATH = getDataFilePath("employeeDetails.csv");
@@ -65,6 +66,13 @@ public class Main {
             return "motorph_payroll_system/" + fileName;
         }
     }
+=======
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
+
+    // File paths for data sources
+    private static final String EMPLOYEES_FILE_PATH = "motorph_payroll_system/data/employeeDetails.csv";
+    private static final String ATTENDANCE_FILE_PATH = "motorph_payroll_system/data/attendanceRecord.csv";
+>>>>>>> 773d8b41b45a38ab3deadf437d31bf3d323c8f07
 
     /**
      * Main entry point for the application
@@ -127,11 +135,18 @@ public class Main {
 
         // Get employees and attendance records
         List<Employee> employees = dataRepository.getAllEmployees();
+<<<<<<< HEAD
         List<AttendanceRecord> attendanceRecords = dataRepository.getAllAttendanceRecords(); // Initialize the payroll
                                                                                              // calculator
         PayrollProcessor payrollCalculator = new PayrollProcessor();
 
         // Initialize services
+=======
+        List<AttendanceRecord> attendanceRecords = dataRepository.getAllAttendanceRecords();
+
+        // Initialize the payroll calculator
+        PayrollProcessor payrollCalculator = new PayrollProcessor(); // Initialize services
+>>>>>>> 773d8b41b45a38ab3deadf437d31bf3d323c8f07
         EmployeeService employeeService = new EmployeeService(employees, attendanceRecords, EMPLOYEES_FILE_PATH);
         PayrollService payrollService = new PayrollService(employees, attendanceRecords, payrollCalculator);
         ReportService reportService = new ReportService(employeeService, payrollService);
@@ -139,8 +154,12 @@ public class Main {
         // Initialize controllers
         EmployeeController employeeController = new EmployeeController(employeeService);
         PayrollController payrollController = new PayrollController(payrollService);
+<<<<<<< HEAD
         ReportController reportController = new ReportController(reportService);
         // Initialize and show the main frame
+=======
+        ReportController reportController = new ReportController(reportService); // Initialize and show the main frame
+>>>>>>> 773d8b41b45a38ab3deadf437d31bf3d323c8f07
         MainFrame mainFrame = new MainFrame(employeeController, payrollController, reportController);
         mainFrame.setVisible(true);
 
