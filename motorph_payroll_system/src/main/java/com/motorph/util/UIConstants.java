@@ -7,16 +7,19 @@ import java.awt.Font;
  * Constants for UI components to maintain consistent styling.
  * Updated to match modern prototype design.
  */
-public class UIConstants {
-    // Colors
-    public static final Color BACKGROUND_COLOR = new Color(240, 240, 240); // #f0f0f0 - Light gray
+public class UIConstants { // Colors - Modern Professional Color Scheme
+    public static final Color BACKGROUND_COLOR = new Color(248, 249, 250); // #F8F9FA - Very light gray
     public static final Color PANEL_BACKGROUND = Color.WHITE; // #FFFFFF - White panels
-    public static final Color NAVIGATION_BACKGROUND = new Color(233, 233, 233); // #E9E9E9 - Light gray navigation
+    public static final Color NAVIGATION_BACKGROUND = new Color(233, 236, 239); // #E9ECEF - Light gray navigation
     public static final Color TABLE_HEADER_BACKGROUND = new Color(240, 240, 240); // #F0F0F0 - Very light gray
-    public static final Color BUTTON_COLOR = new Color(0, 123, 255); // #007BFF - Bootstrap blue
-    public static final Color SECONDARY_BUTTON_COLOR = new Color(108, 117, 125); // #6C757D - Bootstrap gray
+    public static final Color BUTTON_COLOR = new Color(0, 123, 255); // #007BFF - Professional blue
+    public static final Color BUTTON_HOVER_COLOR = new Color(0, 86, 179); // #0056B3 - Darker blue for hover
+    public static final Color SECONDARY_BUTTON_COLOR = new Color(108, 117, 125); // #6C757D - Professional gray
+    public static final Color SECONDARY_BUTTON_HOVER_COLOR = new Color(90, 98, 104); // #5A6268 - Darker gray for hover
     public static final Color BUTTON_TEXT_COLOR = Color.WHITE; // #FFFFFF - White text on buttons
-    public static final Color DELETE_BUTTON_COLOR = new Color(220, 53, 69); // #DC3545 - Bootstrap red
+    public static final Color DELETE_BUTTON_COLOR = new Color(220, 53, 69); // #DC3545 - Professional red
+    public static final Color SUCCESS_COLOR = new Color(40, 167, 69); // #28A745 - Professional green
+    public static final Color WARNING_COLOR = new Color(255, 193, 7); // #FFC107 - Professional yellow
 
     public static final Color TEXT_COLOR = new Color(51, 51, 51); // #333333 - Dark gray text
     public static final Color BORDER_COLOR = new Color(224, 224, 224); // #e0e0e0 - Light gray border

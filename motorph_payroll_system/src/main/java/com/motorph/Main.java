@@ -19,6 +19,7 @@ import com.motorph.service.EmployeeService;
 import com.motorph.service.PayrollProcessor;
 import com.motorph.service.PayrollService;
 import com.motorph.service.ReportService;
+import com.motorph.view.LoginFrame;
 import com.motorph.view.MainFrame;
 
 /**
@@ -41,13 +42,12 @@ public class Main {
     public static void main(String[] args) {
         try {
             // Set the look and feel to the system look and feel
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-
-            // Initialize and start the application on the Event Dispatch Thread
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); // Initialize and start the application
+                                                                                 // on the Event Dispatch Thread
             SwingUtilities.invokeLater(() -> {
                 try {
-                    // Initialize the application components
-                    initializeApplication();
+                    // Show login screen first
+                    showLoginScreen();
                 } catch (Exception e) {
                     logger.log(Level.SEVERE, "Failed to initialize application", e);
                     System.exit(1);
@@ -55,11 +55,10 @@ public class Main {
             });
         } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException
                 | IllegalAccessException e) {
-            logger.log(Level.WARNING, "Failed to set system look and feel", e);
-            // Continue with default look and feel
+            logger.log(Level.WARNING, "Failed to set system look and feel", e); // Continue with default look and feel
             SwingUtilities.invokeLater(() -> {
                 try {
-                    initializeApplication();
+                    showLoginScreen();
                 } catch (Exception ex) {
                     logger.log(Level.SEVERE, "Failed to initialize application", ex);
                     System.exit(1);
@@ -69,11 +68,44 @@ public class Main {
     }
 
     /**
+     * Show the login screen first
+     */
+    private static void showLoginScreen() {
+        showLoginScreen(null);
+    }
+
+    /**
+     * Show the login screen with optional callback
+     * 
+     * @param onLoginSuccess Callback to execute after successful login
+     */
+    public static void showLoginScreen(Runnable onLoginSuccess) {
+        logger.log(Level.INFO, "Starting MotorPH Payroll System with login screen");
+
+        // Create login frame with callback to initialize main application
+        LoginFrame loginFrame = new LoginFrame(() -> {
+            try {
+                if (onLoginSuccess != null) {
+                    onLoginSuccess.run();
+                } else {
+                    initializeApplication();
+                }
+            } catch (IOException e) {
+                logger.log(Level.SEVERE, "Failed to initialize main application after login", e);
+                System.exit(1);
+            }
+        });
+
+        // Show login screen
+        loginFrame.showLogin();
+    }
+
+    /**
      * Initialize the application components and start the UI
      * 
      * @throws IOException If there's an error loading data
      */
-    private static void initializeApplication() throws IOException {
+    public static void initializeApplication() throws IOException {
         // Log working directory and file paths for debugging
         String workingDir = System.getProperty("user.dir");
         logger.log(Level.INFO, "Working directory: {0}", workingDir);
