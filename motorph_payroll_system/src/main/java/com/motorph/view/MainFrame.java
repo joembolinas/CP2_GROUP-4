@@ -23,12 +23,10 @@ public class MainFrame extends JFrame {
     private final PayrollController payrollController;
     private final ReportController reportController;
     private CardLayout cardLayout;
-    private JPanel cardPanel;
-
-    // Panels
+    private JPanel cardPanel; // Panels
     private MainMenuPanel mainMenuPanel;
     private EmployeeManagementPanel employeePanel;
-    private EmployeeListPanel employeeListPanel;
+    private ModernEmployeeListPanel employeeListPanel;
     private PayrollPanel payrollPanel;
     private ReportsPanel reportsPanel;
 
@@ -66,11 +64,10 @@ public class MainFrame extends JFrame {
 
         // Set up the card layout
         cardLayout = new CardLayout();
-        cardPanel = new JPanel(cardLayout);
-        // Initialize panels
+        cardPanel = new JPanel(cardLayout); // Initialize panels
         mainMenuPanel = new MainMenuPanel(this);
         employeePanel = new EmployeeManagementPanel(this, employeeController);
-        employeeListPanel = new EmployeeListPanel(this, employeeController, payrollController);
+        employeeListPanel = new ModernEmployeeListPanel(this, employeeController);
         payrollPanel = new PayrollPanel(this, payrollController);
         reportsPanel = new ReportsPanel(this, reportController);
 
