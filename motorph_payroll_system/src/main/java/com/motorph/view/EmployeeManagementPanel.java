@@ -13,8 +13,10 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import com.motorph.controller.EmployeeController;
+import com.motorph.model.Employee;
 import com.motorph.util.UIConstants;
 import com.motorph.view.dialog.DateRangeDialog;
+import com.motorph.view.dialog.EmployeeFormDialog;
 import com.motorph.view.dialog.EmployeeNumberInputDialog;
 import com.motorph.view.dialog.SearchResultDialog;
 
@@ -51,16 +53,22 @@ public class EmployeeManagementPanel extends JPanel {
         add(titlePanel, BorderLayout.NORTH);
         
         // Center panel with buttons
-        JPanel buttonPanel = new JPanel(new GridLayout(4, 1, 10, 10));
+        JPanel buttonPanel = new JPanel(new GridLayout(7, 1, 10, 10));
         buttonPanel.setBackground(UIConstants.BACKGROUND_COLOR);
         
         JButton searchEmployeeButton = createStyledButton("Search Employee");
         JButton listAllEmployeesButton = createStyledButton("List All Employees");
+        JButton addEmployeeButton = createStyledButton("Add Employee");
+        JButton editEmployeeButton = createStyledButton("Edit Employee");
+        JButton deleteEmployeeButton = createStyledButton("Delete Employee");
         JButton attendanceButton = createStyledButton("Attendance");
         JButton backButton = createStyledButton("Back to Main Menu");
         
         buttonPanel.add(searchEmployeeButton);
         buttonPanel.add(listAllEmployeesButton);
+        buttonPanel.add(addEmployeeButton);
+        buttonPanel.add(editEmployeeButton);
+        buttonPanel.add(deleteEmployeeButton);
         buttonPanel.add(attendanceButton);
         buttonPanel.add(backButton);
         
@@ -73,6 +81,9 @@ public class EmployeeManagementPanel extends JPanel {
         // Add action listeners for buttons
         searchEmployeeButton.addActionListener(e -> searchEmployee());
         listAllEmployeesButton.addActionListener(e -> listAllEmployees());
+        addEmployeeButton.addActionListener(e -> addEmployee());
+        editEmployeeButton.addActionListener(e -> editEmployee());
+        deleteEmployeeButton.addActionListener(e -> deleteEmployee());
         attendanceButton.addActionListener(e -> viewAttendance());
         backButton.addActionListener(e -> mainFrame.showMainMenu());
     }
@@ -146,7 +157,119 @@ public class EmployeeManagementPanel extends JPanel {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
+    /**
+     * Add a new employee
+     */
+    private void addEmployee() {
+        EmployeeFormDialog dialog = new EmployeeFormDialog(mainFrame, "Add Employee", null);
+        dialog.setVisible(true);
+
+        if (!dialog.isConfirmed()) {
+            return; // User canceled
+        }
+
+        Employee newEmployee = dialog.getEmployee();
+
+        try {
+            employeeController.addEmployee(newEmployee);
+            JOptionPane.showMessageDialog(mainFrame,
+                    "Employee added successfully.",
+                    "Success",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(mainFrame,
+                    "Error adding employee: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * Edit an existing employee
+     */
+    private void editEmployee() {
+        // Show employee number input dialog
+        EmployeeNumberInputDialog employeeDialog = new EmployeeNumberInputDialog(mainFrame, "Edit Employee");
+        employeeDialog.setVisible(true);
+
+        if (!employeeDialog.isConfirmed()) {
+            return; // User canceled
+        }
+
+        int employeeId = employeeDialog.getEmployeeNumber();
+
+        try {
+            // Find employee by ID
+            Employee employee = employeeController.findEmployeeById(employeeId);
+
+            // Open edit dialog
+            EmployeeFormDialog dialog = new EmployeeFormDialog(mainFrame, "Edit Employee", employee);
+            dialog.setVisible(true);
+
+            if (!dialog.isConfirmed()) {
+                return; // User canceled
+            }
+
+            Employee updatedEmployee = dialog.getEmployee();
+
+            // Update employee details
+            employeeController.updateEmployee(updatedEmployee);
+
+            JOptionPane.showMessageDialog(mainFrame,
+                    "Employee details updated successfully.",
+                    "Success",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(mainFrame,
+                    "Error editing employee: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * Delete an employee
+     */
+    private void deleteEmployee() {
+        // Show employee number input dialog
+        EmployeeNumberInputDialog employeeDialog = new EmployeeNumberInputDialog(mainFrame, "Delete Employee");
+        employeeDialog.setVisible(true);
+
+        if (!employeeDialog.isConfirmed()) {
+            return; // User canceled
+        }
+
+        int employeeId = employeeDialog.getEmployeeNumber();
+
+        try {
+            // Confirm deletion
+            int confirm = JOptionPane.showConfirmDialog(mainFrame,
+                    "Are you sure you want to delete this employee?",
+                    "Confirm Deletion",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Delete employee
+                employeeController.deleteEmployee(employeeId);
+
+                JOptionPane.showMessageDialog(mainFrame,
+                        "Employee deleted successfully.",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(mainFrame,
+                    "Error deleting employee: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     /**
      * View attendance records for an employee
      */
