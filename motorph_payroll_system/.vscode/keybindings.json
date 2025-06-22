@@ -1,0 +1,24 @@
+[
+    {
+        "key": "ctrl+alt+r",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Run MotorPH Application",
+        "when": "resourceExtname == .java"
+    },
+    {
+        "key": "ctrl+alt+b",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Full Build",
+        "when": "resourceExtname == .java"
+    },
+    {
+        "key": "ctrl+alt+t",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Test Application",
+        "when": "resourceExtname == .java"
+    },
+    {
+        "key": "f6",
+        "command": "workbench.action.debug.selectandstart"
+    }
+]
