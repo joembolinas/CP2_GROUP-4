@@ -85,3 +85,27 @@ Jun 22, 2025 5:12:14 PM com.motorph.repository.DataRepository loadAttendanceReco
 INFO: Using sample attendance data
 Jun 22, 2025 5:12:14 PM com.motorph.repository.DataRepository loadSampleAttendanceRecords
 INFO: Loaded sample attendance data
+Jun 22, 2025 10:24:12 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 22, 2025 10:24:12 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: data/employeeDetails.csv
+Jun 22, 2025 10:35:34 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 22, 2025 10:35:34 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: data/employeeDetails.csv
+Jun 22, 2025 10:35:34 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Successfully loaded 36 of 36 employee records
+Jun 22, 2025 10:35:34 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Employee 10001 details: ID=10,001, Name=Manuel III Garcia, Birthday=1983-10-11, Address=Valero Carpark Building Valero Street 1227, Makati City, SSS=44-4506057-3
+Jun 22, 2025 10:35:34 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: data/attendanceRecord.csv
+Jun 22, 2025 10:35:34 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Successfully loaded 5,168 of 5,168 attendance records
+Jun 22, 2025 11:02:29 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 22, 2025 11:02:29 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: data/employeeDetails.csv
+Jun 22, 2025 11:06:54 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jun 22, 2025 11:06:54 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: data/employeeDetails.csv

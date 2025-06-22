@@ -19,32 +19,33 @@ import com.motorph.service.EmployeeService;
 import com.motorph.service.PayrollProcessor;
 import com.motorph.service.PayrollService;
 import com.motorph.service.ReportService;
-import com.motorph.view.LoginFrame;
 import com.motorph.view.MainFrame;
 
 /**
- * Entry point for the MotorPH Payroll System application.
- * This class is responsible for initializing the application components
- * and starting the user interface.
+ * Test entry point for the MotorPH Payroll System application without login.
+ * This bypasses the login screen for testing the modernized UI.
  */
-public class Main {
-    private static final Logger logger = Logger.getLogger(Main.class.getName()); // File paths for data sources
+public class TestMain {
+    private static final Logger logger = Logger.getLogger(TestMain.class.getName());
+
+    // File paths for data sources
     private static final String EMPLOYEES_FILE_PATH = "data/employeeDetails.csv";
     private static final String ATTENDANCE_FILE_PATH = "data/attendanceRecord.csv";
 
     /**
-     * Main entry point for the application
+     * Main entry point for testing
      * 
      * @param args Command line arguments (not used)
      */
     public static void main(String[] args) {
         try {
             // Set the look and feel to the system look and feel
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); // Initialize and start the application
-                                                                                 // on the Event Dispatch Thread
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
             SwingUtilities.invokeLater(() -> {
                 try {
-                    showLoginScreen();
+                    // Skip login and go directly to main application
+                    initializeApplication();
                 } catch (Exception e) {
                     logger.log(Level.SEVERE, "Failed to initialize application", e);
                     System.exit(1);
@@ -52,63 +53,16 @@ public class Main {
             });
         } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException
                 | IllegalAccessException e) {
-            logger.log(Level.WARNING, "Failed to set system look and feel", e); // Continue with default look and feel
+            logger.log(Level.WARNING, "Failed to set system look and feel", e);
             SwingUtilities.invokeLater(() -> {
                 try {
-                    showLoginScreen();
+                    initializeApplication();
                 } catch (Exception ex) {
                     logger.log(Level.SEVERE, "Failed to initialize application", ex);
                     System.exit(1);
                 }
             });
         }
-    }
-
-    /**
-     * Initialize a default session for bypassed login
-     * This allows the dashboard to display user information during testing
-     */
-    private static void initializeDefaultSession() {
-        try {
-            // Create a default admin user for testing
-            com.motorph.model.User defaultUser = new com.motorph.model.User("admin", "password", 1, "ADMIN", true);
-            com.motorph.util.SessionManager sessionManager = com.motorph.util.SessionManager.getInstance();
-            sessionManager.setCurrentUser(defaultUser);
-            logger.log(Level.INFO, "Default session initialized for user: {0}", defaultUser.getUsername());
-        } catch (Exception e) {
-            logger.log(Level.WARNING, "Failed to initialize default session", e);
-        }
-    }
-
-    /**
-     * Show the login screen
-     */
-    private static void showLoginScreen() {
-        showLoginScreen(null);
-    }
-
-    /**
-     * Show the login screen with a callback for successful login
-     * 
-     * @param onLoginSuccess Callback to run after successful login
-     */
-    public static void showLoginScreen(Runnable onLoginSuccess) {
-        logger.log(Level.INFO, "Starting MotorPH Payroll System with login screen");
-
-        LoginFrame loginFrame = new LoginFrame(() -> {
-            try {
-                if (onLoginSuccess != null) {
-                    onLoginSuccess.run();
-                } else {
-                    initializeApplication();
-                }
-            } catch (IOException e) {
-                logger.log(Level.SEVERE, "Failed to initialize main application after login", e);
-                System.exit(1);
-            }
-        });
-
-        loginFrame.showLogin();
     }
 
     /**
@@ -140,7 +94,9 @@ public class Main {
         List<AttendanceRecord> attendanceRecords = dataRepository.getAllAttendanceRecords();
 
         // Initialize the payroll calculator
-        PayrollProcessor payrollCalculator = new PayrollProcessor(); // Initialize services
+        PayrollProcessor payrollCalculator = new PayrollProcessor();
+
+        // Initialize services
         EmployeeService employeeService = new EmployeeService(employees, attendanceRecords, EMPLOYEES_FILE_PATH);
         PayrollService payrollService = new PayrollService(employees, attendanceRecords, payrollCalculator);
         ReportService reportService = new ReportService(employeeService, payrollService);
@@ -148,10 +104,12 @@ public class Main {
         // Initialize controllers
         EmployeeController employeeController = new EmployeeController(employeeService);
         PayrollController payrollController = new PayrollController(payrollService);
-        ReportController reportController = new ReportController(reportService); // Initialize and show the main frame
+        ReportController reportController = new ReportController(reportService);
+
+        // Initialize and show the main frame
         MainFrame mainFrame = new MainFrame(employeeController, payrollController, reportController);
         mainFrame.setVisible(true);
 
-        logger.info("MotorPH Payroll System started successfully");
+        logger.info("MotorPH Payroll System (Test Mode) started successfully");
     }
 }

@@ -1,9 +1,9 @@
 package com.motorph.view;
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 
 import javax.swing.JFrame;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -18,13 +18,14 @@ import com.motorph.util.UIConstants;
  * This serves as the container for all panels in the application.
  */
 public class MainFrame extends JFrame {
-
     private final EmployeeController employeeController;
     private final PayrollController payrollController;
     private final ReportController reportController;
     private CardLayout cardLayout;
-    private JPanel cardPanel; // Panels
-    private MainMenuPanel mainMenuPanel;
+    private JPanel cardPanel;
+    private SideNavigationPanel sideNavPanel;
+    private HeaderPanel headerPanel; // Panels
+    private DashboardPanel dashboardPanel;
     private EmployeeManagementPanel employeePanel;
     private ModernEmployeeListPanel employeeListPanel;
     private PayrollPanel payrollPanel;
@@ -58,41 +59,39 @@ public class MainFrame extends JFrame {
         }
 
         // Set up the JFrame
-        setSize(800, 600);
+        setSize(1200, 800); // Increased size for side navigation
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setLayout(new BorderLayout()); // Initialize side navigation and header
+        sideNavPanel = new SideNavigationPanel(this);
+        headerPanel = new HeaderPanel();
 
-        // Set up the card layout
+        // Set up the card layout for main content
         cardLayout = new CardLayout();
-        cardPanel = new JPanel(cardLayout); // Initialize panels
-        mainMenuPanel = new MainMenuPanel(this);
+        cardPanel = new JPanel(cardLayout);
+        cardPanel.setBackground(UIConstants.BACKGROUND_COLOR); // Initialize panels
+        dashboardPanel = new DashboardPanel(this, employeeController);
         employeePanel = new EmployeeManagementPanel(this, employeeController);
         employeeListPanel = new ModernEmployeeListPanel(this, employeeController);
         payrollPanel = new PayrollPanel(this, payrollController);
         reportsPanel = new ReportsPanel(this, reportController);
 
         // Add panels to card layout
-        cardPanel.add(mainMenuPanel, "MainMenu");
+        cardPanel.add(dashboardPanel, "MainMenu");
         cardPanel.add(employeePanel, "EmployeeManagement");
         cardPanel.add(employeeListPanel, "EmployeeList");
         cardPanel.add(payrollPanel, "PayrollManagement");
-        cardPanel.add(reportsPanel, "Reports");
-
-        // Show the main menu panel initially
+        cardPanel.add(reportsPanel, "Reports");// Show the main menu panel initially
         cardLayout.show(cardPanel, "MainMenu");
 
-        // Add the card panel to the frame
-        add(cardPanel);
+        // Create main content area with header and content
+        JPanel mainContentPanel = new JPanel(new BorderLayout());
+        mainContentPanel.add(headerPanel, BorderLayout.NORTH);
+        mainContentPanel.add(cardPanel, BorderLayout.CENTER);
 
-        // Initialize menu bar
-        setJMenuBar(createMenuBar());
-    }
-
-    /**
-     * Create the application menu bar
-     */
-    private JMenuBar createMenuBar() {
-        return new ApplicationMenuBar(this, employeeController, payrollController, reportController);
+        // Add components to main frame
+        add(sideNavPanel, BorderLayout.WEST);
+        add(mainContentPanel, BorderLayout.CENTER);
     }
 
     /**
@@ -153,18 +152,8 @@ public class MainFrame extends JFrame {
             // Close current window
             this.dispose();
 
-            // Show login screen again
-            javax.swing.SwingUtilities.invokeLater(() -> {
-                com.motorph.Main.showLoginScreen(() -> {
-                    try {
-                        com.motorph.Main.initializeApplication();
-                    } catch (Exception e) {
-                        java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(
-                                java.util.logging.Level.SEVERE, "Failed to restart application after logout", e);
-                        System.exit(1);
-                    }
-                });
-            });
+            // Exit application since login is bypassed
+            System.exit(0);
         }
     }
 }

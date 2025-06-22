@@ -5,27 +5,33 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.motorph.controller.EmployeeController;
+import com.motorph.model.AttendanceRecord;
 import com.motorph.model.Employee;
 import com.motorph.util.UIConstants;
 import com.motorph.util.UIUtils;
+import com.motorph.view.dialog.EditEmployeeDialog;
 import com.motorph.view.dialog.EmployeeDetailsFrame;
 import com.motorph.view.dialog.NewEmployeeDialog;
 
@@ -521,14 +527,137 @@ public class ModernEmployeeListPanel extends JPanel {
         if (selectedEmployeeRow >= 0) {
             try {
                 int employeeNumber = Integer.parseInt(tableModel.getValueAt(selectedEmployeeRow, 0).toString());
-                // For now, show a placeholder message - this would link to attendance view
-                JOptionPane.showMessageDialog(this,
-                        "Viewing attendance for Employee #" + employeeNumber + "\n" +
-                                "This feature will show detailed attendance records.",
-                        "Employee Attendance",
-                        JOptionPane.INFORMATION_MESSAGE);
+                Employee employee = employeeController.findEmployeeById(employeeNumber);
+
+                // First try to get records for the last 30 days
+                LocalDate endDate = LocalDate.now();
+                LocalDate startDate = endDate.minusDays(30);
+
+                List<AttendanceRecord> records = employeeController.getAttendanceRecords(employeeNumber, startDate,
+                        endDate);
+
+                // If no recent records found, get all available records for this employee
+                if (records.isEmpty()) {
+                    // Try to get any available records (broader range)
+                    startDate = LocalDate.of(2020, 1, 1); // Start from 2020 to catch historical data
+                    endDate = LocalDate.of(2030, 12, 31); // Extend to future
+                    records = employeeController.getAttendanceRecords(employeeNumber, startDate, endDate);
+                }
+
+                if (records.isEmpty()) {
+                    JOptionPane.showMessageDialog(this,
+                            "No attendance records found for Employee #" + employeeNumber + ".",
+                            "Employee Attendance",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+
+                // Determine the time period being shown
+                String periodDescription;
+                if (records.size() > 0) {
+                    // Get the date range of actual records
+                    LocalDate earliestDate = records.stream()
+                            .map(AttendanceRecord::getDate)
+                            .min(LocalDate::compareTo)
+                            .orElse(LocalDate.now());
+                    LocalDate latestDate = records.stream()
+                            .map(AttendanceRecord::getDate)
+                            .max(LocalDate::compareTo)
+                            .orElse(LocalDate.now());
+
+                    if (earliestDate.equals(latestDate)) {
+                        periodDescription = "Records for " + earliestDate.toString();
+                    } else {
+                        periodDescription = "Records from " + earliestDate.toString() + " to " + latestDate.toString();
+                    }
+                } else {
+                    periodDescription = "All Available Records";
+                }
+
+                // Prepare data for the attendance table
+                String[] columnNames = { "Date", "Time In", "Time Out", "Total Hours", "Status" };
+                Object[][] data = new Object[records.size()][5];
+
+                for (int i = 0; i < records.size(); i++) {
+                    AttendanceRecord record = records.get(i);
+                    data[i][0] = record.getDate().toString();
+                    data[i][1] = record.getTimeIn().toString();
+                    data[i][2] = record.getTimeOut().toString();
+                    data[i][3] = String.format("%.2f", record.getTotalHours());
+                    data[i][4] = record.isLate() ? "Late" : "On Time";
+                }
+
+                // Create and style the attendance table
+                JTable attendanceTable = new JTable(data, columnNames);
+                attendanceTable.setFillsViewportHeight(true);
+                attendanceTable.setAutoCreateRowSorter(true);
+
+                // Style the table
+                attendanceTable.getTableHeader().setBackground(UIConstants.PRIMARY_BUTTON_COLOR);
+                attendanceTable.getTableHeader().setForeground(Color.WHITE);
+                attendanceTable.getTableHeader().setFont(UIConstants.BUTTON_FONT);
+
+                JScrollPane scrollPane = new JScrollPane(attendanceTable);
+                scrollPane.setPreferredSize(new java.awt.Dimension(600, 300));
+
+                // Show in a custom dialog
+                JDialog attendanceDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this),
+                        "Attendance Records - " + employee.getFullName(), true);
+                attendanceDialog.setLayout(new BorderLayout());
+
+                // Add title panel
+                JPanel titlePanel = new JPanel();
+                titlePanel.setBackground(UIConstants.PRIMARY_BUTTON_COLOR);
+                titlePanel.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
+                JLabel titleLabel = new JLabel("📅 " + employee.getFullName() + " - " + periodDescription);
+                titleLabel.setFont(UIConstants.TITLE_FONT);
+                titleLabel.setForeground(Color.WHITE);
+                titlePanel.add(titleLabel);
+
+                attendanceDialog.add(titlePanel, BorderLayout.NORTH);
+                attendanceDialog.add(scrollPane, BorderLayout.CENTER);
+
+                // Add summary panel
+                JPanel summaryPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                summaryPanel.setBackground(UIConstants.PANEL_BACKGROUND);
+                summaryPanel.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 15));
+
+                // Calculate summary statistics
+                int totalRecords = records.size();
+                long lateCount = records.stream().mapToLong(r -> r.isLate() ? 1 : 0).sum();
+                double totalHours = records.stream().mapToDouble(AttendanceRecord::getTotalHours).sum();
+                double avgHours = totalRecords > 0 ? totalHours / totalRecords : 0;
+
+                JLabel summaryLabel = new JLabel(String.format(
+                        "Summary: %d records | %d late arrivals | %.1f total hours | %.1f avg hours/day",
+                        totalRecords, lateCount, totalHours, avgHours));
+                summaryLabel.setFont(UIConstants.SMALL_FONT);
+                summaryLabel.setForeground(UIConstants.TEXT_SECONDARY);
+                summaryPanel.add(summaryLabel);
+
+                // Add close button panel
+                JPanel buttonPanel = new JPanel();
+                buttonPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
+                JButton closeButton = UIUtils.createPrimaryButton("Close");
+                closeButton.addActionListener(e -> attendanceDialog.dispose());
+                buttonPanel.add(closeButton);
+
+                // Combine summary and button panels
+                JPanel bottomPanel = new JPanel(new BorderLayout());
+                bottomPanel.add(summaryPanel, BorderLayout.CENTER);
+                bottomPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+                attendanceDialog.add(bottomPanel, BorderLayout.SOUTH);
+
+                attendanceDialog.pack();
+                attendanceDialog.setLocationRelativeTo(this);
+                attendanceDialog.setVisible(true);
+
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Error accessing employee data: " + e.getMessage());
+                JOptionPane.showMessageDialog(this,
+                        "Error loading attendance data: " + e.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -599,20 +728,69 @@ public class ModernEmployeeListPanel extends JPanel {
      * Edit employee at the specified row
      */
     private void editEmployeeAtRow(int row) {
-        JOptionPane.showMessageDialog(this, "Edit functionality not yet implemented.");
+        try {
+            int employeeNumber = Integer.parseInt(tableModel.getValueAt(row, 0).toString());
+            Employee employee = employeeController.findEmployeeById(employeeNumber);
+
+            if (employee != null) {
+                EditEmployeeDialog dialog = new EditEmployeeDialog(mainFrame, employeeController, employee);
+                dialog.setVisible(true);
+
+                if (dialog.isEmployeeUpdated()) {
+                    loadEmployeeData(); // Refresh the table to show updated data
+                    JOptionPane.showMessageDialog(this,
+                            "Employee information updated successfully!",
+                            "Success",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Employee not found: ID " + employeeNumber,
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Error loading employee for editing: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
      * Delete employee at the specified row
      */
     private void deleteEmployeeAtRow(int row) {
-        int confirm = JOptionPane.showConfirmDialog(this,
-                "Are you sure you want to delete this employee?",
-                "Confirm Delete",
-                JOptionPane.YES_NO_OPTION);
+        try {
+            int employeeNumber = Integer.parseInt(tableModel.getValueAt(row, 0).toString());
+            Employee employee = employeeController.findEmployeeById(employeeNumber);
 
-        if (confirm == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(this, "Delete functionality not yet implemented.");
+            if (employee != null) {
+                int confirm = JOptionPane.showConfirmDialog(this,
+                        "Are you sure you want to delete employee:\n" +
+                                employee.getFullName() + " (ID: " + employeeNumber + ")?",
+                        "Confirm Delete",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE);
+
+                if (confirm == JOptionPane.YES_OPTION) {
+                    // TODO: Implement actual delete functionality when available
+                    JOptionPane.showMessageDialog(this,
+                            "Delete functionality will be implemented in a future update.",
+                            "Feature Coming Soon",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Employee not found: ID " + employeeNumber,
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Error accessing employee data: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 }

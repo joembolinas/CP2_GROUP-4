@@ -5,7 +5,7 @@ import java.awt.Font;
 
 /**
  * Constants for UI components to maintain consistent styling.
- * Updated to match modern HTML mockup design with Inter font styling.
+ * Updated to match in wireframe
  */
 public class UIConstants {
 
@@ -18,7 +18,7 @@ public class UIConstants {
     public static final Color TABLE_ROW_HOVER = new Color(248, 250, 252); // #F8FAFC - slate-50
     public static final Color TABLE_ALT_ROW = new Color(248, 250, 252); // #F8FAFC - slate-50
 
-    // Button Colors - Modern Professional Palette
+    // Button Colors
     public static final Color PRIMARY_BUTTON_COLOR = new Color(99, 102, 241); // #6366F1 - indigo-600
     public static final Color PRIMARY_BUTTON_HOVER = new Color(79, 70, 229); // #4F46E5 - indigo-700
     public static final Color SECONDARY_BUTTON_COLOR = new Color(107, 114, 128); // #6B7280 - gray-500

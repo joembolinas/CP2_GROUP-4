@@ -1,6 +1,5 @@
 {
-    "version": "0.2.0",
-    "configurations": [
+    "version": "0.2.0",    "configurations": [
         {
             "type": "java",
             "name": "▶️ Run MotorPH Payroll System",
@@ -10,8 +9,27 @@
             "cwd": "${workspaceFolder}",
             "args": [],
             "vmArgs": [
-                "-Xmx512m",
-                "-Djava.awt.headless=false"
+                "-Xmx1024m",
+                "-Djava.awt.headless=false",
+                "-Dfile.encoding=UTF-8"
+            ],
+            "env": {},
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "preLaunchTask": "Full Build"
+        },
+        {
+            "type": "java",
+            "name": "🚀 Run MotorPH (Direct Access)",
+            "request": "launch",
+            "mainClass": "com.motorph.TestMain",
+            "projectName": "motorph_payroll_system",
+            "cwd": "${workspaceFolder}",
+            "args": [],
+            "vmArgs": [
+                "-Xmx1024m",
+                "-Djava.awt.headless=false",
+                "-Dfile.encoding=UTF-8"
             ],
             "env": {},
             "console": "integratedTerminal",
@@ -25,10 +43,10 @@
             "mainClass": "com.motorph.Main",
             "projectName": "motorph_payroll_system",
             "cwd": "${workspaceFolder}",
-            "args": [],
-            "vmArgs": [
-                "-Xmx512m",
-                "-Djava.awt.headless=false"
+            "args": [],            "vmArgs": [
+                "-Xmx1024m",
+                "-Djava.awt.headless=false",
+                "-Dfile.encoding=UTF-8"
             ],
             "env": {},
             "console": "integratedTerminal",

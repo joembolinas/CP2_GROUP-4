@@ -1,5 +1,4 @@
-{
-    "java.configuration.updateBuildConfiguration": "automatic",
+{    "java.configuration.updateBuildConfiguration": "automatic",
     "java.compile.nullAnalysis.mode": "automatic",
     "java.debug.settings.enableRunDebugCodeLens": true,
     "java.debug.settings.showHex": false,
@@ -16,7 +15,8 @@
     "maven.terminal.useJavaHome": true,
     "maven.executable.path": "mvn",
     "java.import.maven.enabled": true,
-    "java.saveActions.organizeImports": true,    "java.cleanup.actions": [
+    "java.saveActions.organizeImports": true,
+    "java.cleanup.actions": [
         "addOverride",
         "addDeprecated",
         "stringConcatToTextBlock",
@@ -59,6 +59,10 @@
     "java.maxConcurrentBuilds": 1,
     "java.autobuild.enabled": true,
     "java.errors.incompleteClasspath.severity": "warning",
+    "java.test.config": {
+        "workingDirectory": "${workspaceFolder}",
+        "vmArgs": ["-Xmx1024m", "-Dfile.encoding=UTF-8"]
+    },
     "files.exclude": {
         "**/target/**": true,
         "**/.classpath": true,

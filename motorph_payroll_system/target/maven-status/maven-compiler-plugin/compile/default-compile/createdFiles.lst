@@ -6,16 +6,20 @@ com\motorph\view\EmployeeListPanelFixed$1.class
 com\motorph\util\UIUtils$5.class
 com\motorph\repository\CSVCreateAndWrite.class
 com\motorph\view\dialog\SearchResultDialog.class
+com\motorph\view\HeaderPanel.class
 com\motorph\view\MainFrame.class
 com\motorph\view\dialog\EmployeeFormDialog.class
 com\motorph\view\ModernEmployeeListPanel$3.class
 com\motorph\view\ReportsPanel.class
 com\motorph\util\UIUtils$2.class
+com\motorph\view\DashboardPanel$1.class
 com\motorph\util\ErrorHandler.class
 com\motorph\view\renderer\ActionButtonRenderer.class
 com\motorph\view\PayrollPanel.class
 com\motorph\util\InputValidator.class
+com\motorph\view\SideNavigationPanel$2.class
 com\motorph\controller\EmployeeController.class
+com\motorph\view\SideNavigationPanel.class
 com\motorph\model\AttendanceRecord.class
 com\motorph\view\ModernEmployeeListPanel$5.class
 com\motorph\view\dialog\NewEmployeeDialog.class
@@ -24,7 +28,9 @@ com\motorph\service\PayrollProcessor.class
 com\motorph\model\User.class
 com\motorph\test\LoginTest.class
 com\motorph\controller\AuthenticationController.class
+com\motorph\TestMain.class
 com\motorph\util\UIUtils$3.class
+com\motorph\view\DashboardPanel.class
 com\motorph\view\LoginPanel$1.class
 com\motorph\view\ModernEmployeeListPanel$2.class
 com\motorph\controller\ReportController.class
@@ -35,6 +41,7 @@ com\motorph\model\Employee.class
 com\motorph\test\LoginVisualTest$1.class
 com\motorph\view\dialog\EditEmployeeDialog.class
 com\motorph\view\ApplicationMenuBar.class
+com\motorph\view\HeaderPanel$1.class
 com\motorph\view\ModernEmployeeListPanel$1.class
 com\motorph\view\EmployeeListPanelFixed$ActionButtonEditor.class
 com\motorph\view\LoginPanel$EnterKeyListener.class
@@ -58,6 +65,7 @@ com\motorph\util\SessionManager.class
 com\motorph\util\UIUtils$1.class
 com\motorph\service\PayrollService.class
 com\motorph\view\LoginPanel$2.class
+com\motorph\view\SideNavigationPanel$1.class
 com\motorph\util\DateUtils.class
 com\motorph\view\dialog\DateRangeDialog.class
 com\motorph\service\ReportService.class

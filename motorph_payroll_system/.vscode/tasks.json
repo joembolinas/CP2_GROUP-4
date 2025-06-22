@@ -76,8 +76,7 @@
             "options": {
                 "cwd": "${workspaceFolder}"
             }
-        },
-        {
+        },        {
             "label": "Test Application",
             "type": "shell",
             "command": "mvn",
@@ -91,6 +90,54 @@
                 "panel": "shared",
                 "showReuseMessage": true,
                 "clear": false
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "Quick Run",
+            "type": "shell",
+            "command": "java",
+            "args": [
+                "-cp",
+                "target/classes;target/dependency/*",
+                "com.motorph.Main"
+            ],
+            "group": "test",
+            "dependsOn": "Build with Maven",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "Run MotorPH (Direct Access)",
+            "type": "shell",
+            "command": "java",
+            "args": [
+                "-cp",
+                "target/classes;target/dependency/*",
+                "com.motorph.TestMain"
+            ],
+            "group": "test",
+            "dependsOn": "Build with Maven",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
             },
             "options": {
                 "cwd": "${workspaceFolder}"
