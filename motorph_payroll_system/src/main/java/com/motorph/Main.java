@@ -19,6 +19,7 @@ import com.motorph.service.EmployeeService;
 import com.motorph.service.PayrollProcessor;
 import com.motorph.service.PayrollService;
 import com.motorph.service.ReportService;
+import com.motorph.view.LoginFrame;
 import com.motorph.view.MainFrame;
 
 /**
@@ -27,52 +28,9 @@ import com.motorph.view.MainFrame;
  * and starting the user interface.
  */
 public class Main {
-<<<<<<< HEAD
     private static final Logger logger = Logger.getLogger(Main.class.getName()); // File paths for data sources
-                                                                                 // (relative to project root directory)
-    private static final String EMPLOYEES_FILE_PATH = getDataFilePath("employeeDetails.csv");
-    private static final String ATTENDANCE_FILE_PATH = getDataFilePath("attendanceRecord.csv");
-
-    /**
-     * Get the correct path for data files, checking multiple possible locations
-     * 
-     * @param fileName The name of the CSV file
-     * @return The full path to the file
-     */
-    private static String getDataFilePath(String fileName) {
-        // Try current working directory first
-        java.io.File file = new java.io.File(fileName);
-        if (file.exists()) {
-            return fileName;
-        }
-
-        // Try project root directory
-        file = new java.io.File("motorph_payroll_system/" + fileName);
-        if (file.exists()) {
-            return "motorph_payroll_system/" + fileName;
-        }
-
-        // Try parent directory
-        file = new java.io.File("../" + fileName);
-        if (file.exists()) {
-            return "../" + fileName;
-        }
-
-        // Try absolute path based on typical project structure
-        String projectRoot = System.getProperty("user.dir");
-        if (projectRoot.endsWith("motorph_payroll_system")) {
-            return fileName;
-        } else {
-            return "motorph_payroll_system/" + fileName;
-        }
-    }
-=======
-    private static final Logger logger = Logger.getLogger(Main.class.getName());
-
-    // File paths for data sources
-    private static final String EMPLOYEES_FILE_PATH = "motorph_payroll_system/data/employeeDetails.csv";
-    private static final String ATTENDANCE_FILE_PATH = "motorph_payroll_system/data/attendanceRecord.csv";
->>>>>>> 773d8b41b45a38ab3deadf437d31bf3d323c8f07
+    private static final String EMPLOYEES_FILE_PATH = "data/employeeDetails.csv";
+    private static final String ATTENDANCE_FILE_PATH = "data/attendanceRecord.csv";
 
     /**
      * Main entry point for the application
@@ -82,13 +40,11 @@ public class Main {
     public static void main(String[] args) {
         try {
             // Set the look and feel to the system look and feel
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-
-            // Initialize and start the application on the Event Dispatch Thread
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); // Initialize and start the application
+                                                                                 // on the Event Dispatch Thread
             SwingUtilities.invokeLater(() -> {
                 try {
-                    // Initialize the application components
-                    initializeApplication();
+                    showLoginScreen();
                 } catch (Exception e) {
                     logger.log(Level.SEVERE, "Failed to initialize application", e);
                     System.exit(1);
@@ -96,11 +52,10 @@ public class Main {
             });
         } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException
                 | IllegalAccessException e) {
-            logger.log(Level.WARNING, "Failed to set system look and feel", e);
-            // Continue with default look and feel
+            logger.log(Level.WARNING, "Failed to set system look and feel", e); // Continue with default look and feel
             SwingUtilities.invokeLater(() -> {
                 try {
-                    initializeApplication();
+                    showLoginScreen();
                 } catch (Exception ex) {
                     logger.log(Level.SEVERE, "Failed to initialize application", ex);
                     System.exit(1);
@@ -110,11 +65,58 @@ public class Main {
     }
 
     /**
+     * Initialize a default session for bypassed login
+     * This allows the dashboard to display user information during testing
+     */
+    private static void initializeDefaultSession() {
+        try {
+            // Create a default admin user for testing
+            com.motorph.model.User defaultUser = new com.motorph.model.User("admin", "password", 1, "ADMIN", true);
+            com.motorph.util.SessionManager sessionManager = com.motorph.util.SessionManager.getInstance();
+            sessionManager.setCurrentUser(defaultUser);
+            logger.log(Level.INFO, "Default session initialized for user: {0}", defaultUser.getUsername());
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Failed to initialize default session", e);
+        }
+    }
+
+    /**
+     * Show the login screen
+     */
+    private static void showLoginScreen() {
+        showLoginScreen(null);
+    }
+
+    /**
+     * Show the login screen with a callback for successful login
+     * 
+     * @param onLoginSuccess Callback to run after successful login
+     */
+    public static void showLoginScreen(Runnable onLoginSuccess) {
+        logger.log(Level.INFO, "Starting MotorPH Payroll System with login screen");
+
+        LoginFrame loginFrame = new LoginFrame(() -> {
+            try {
+                if (onLoginSuccess != null) {
+                    onLoginSuccess.run();
+                } else {
+                    initializeApplication();
+                }
+            } catch (IOException e) {
+                logger.log(Level.SEVERE, "Failed to initialize main application after login", e);
+                System.exit(1);
+            }
+        });
+
+        loginFrame.showLogin();
+    }
+
+    /**
      * Initialize the application components and start the UI
      * 
      * @throws IOException If there's an error loading data
      */
-    private static void initializeApplication() throws IOException {
+    public static void initializeApplication() throws IOException {
         // Log working directory and file paths for debugging
         String workingDir = System.getProperty("user.dir");
         logger.log(Level.INFO, "Working directory: {0}", workingDir);
@@ -135,18 +137,10 @@ public class Main {
 
         // Get employees and attendance records
         List<Employee> employees = dataRepository.getAllEmployees();
-<<<<<<< HEAD
-        List<AttendanceRecord> attendanceRecords = dataRepository.getAllAttendanceRecords(); // Initialize the payroll
-                                                                                             // calculator
-        PayrollProcessor payrollCalculator = new PayrollProcessor();
-
-        // Initialize services
-=======
         List<AttendanceRecord> attendanceRecords = dataRepository.getAllAttendanceRecords();
 
         // Initialize the payroll calculator
         PayrollProcessor payrollCalculator = new PayrollProcessor(); // Initialize services
->>>>>>> 773d8b41b45a38ab3deadf437d31bf3d323c8f07
         EmployeeService employeeService = new EmployeeService(employees, attendanceRecords, EMPLOYEES_FILE_PATH);
         PayrollService payrollService = new PayrollService(employees, attendanceRecords, payrollCalculator);
         ReportService reportService = new ReportService(employeeService, payrollService);
@@ -154,12 +148,7 @@ public class Main {
         // Initialize controllers
         EmployeeController employeeController = new EmployeeController(employeeService);
         PayrollController payrollController = new PayrollController(payrollService);
-<<<<<<< HEAD
-        ReportController reportController = new ReportController(reportService);
-        // Initialize and show the main frame
-=======
         ReportController reportController = new ReportController(reportService); // Initialize and show the main frame
->>>>>>> 773d8b41b45a38ab3deadf437d31bf3d323c8f07
         MainFrame mainFrame = new MainFrame(employeeController, payrollController, reportController);
         mainFrame.setVisible(true);
 
