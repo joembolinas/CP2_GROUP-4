@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea67d5ce-2183-4741-8308-276a76d084db" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/view/dialog/EmployeeFormDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/motorph-payroll.code-workspace" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/.vscode/tasks.json" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/.vscode/tasks.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/data/employeeDetails.csv" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/data/employeeDetails.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/view/EmployeeManagementPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/view/EmployeeManagementPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/EmployeeManagementPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/EmployeeManagementPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/DashboardPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/DashboardPanel$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/MainMenuPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/MainMenuPanel$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/ModernEmployeeListPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/ModernEmployeeListPanel$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/SideNavigationPanel$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/SideNavigationPanel$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/payroll_system.log" beforeDir="false" afterPath="$PROJECT_DIR$/payroll_system.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -21,18 +20,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "joembolinas"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;joembolinas&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/joembolinas/CP2_GROUP-4.git",
-    "accountId": "33f72374-9b5f-42b2-a2aa-33827b828dee"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/joembolinas/CP2_GROUP-4.git&quot;,
+    &quot;accountId&quot;: &quot;33f72374-9b5f-42b2-a2aa-33827b828dee&quot;
   }
-}]]></component>
+}</component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -45,23 +44,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;fix/enhancement-GUI&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -81,6 +80,7 @@
       <workItem from="1750588299837" duration="321000" />
       <workItem from="1750588633437" duration="94000" />
       <workItem from="1750588737676" duration="2709000" />
+      <workItem from="1751401918346" duration="967000" />
     </task>
     <servers />
   </component>
