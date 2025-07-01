@@ -4,7 +4,6 @@ com\motorph\util\PayrollConstants.class
 com\motorph\view\dialog\EmployeeDetailsFrame.class
 com\motorph\view\EmployeeListPanelFixed$1.class
 com\motorph\util\UIUtils$5.class
-com\motorph\repository\CSVCreateAndWrite.class
 com\motorph\view\dialog\SearchResultDialog.class
 com\motorph\view\HeaderPanel.class
 com\motorph\view\MainFrame.class
@@ -26,9 +25,7 @@ com\motorph\view\dialog\NewEmployeeDialog.class
 com\motorph\view\LoginPanel$LoginCallback.class
 com\motorph\service\PayrollProcessor.class
 com\motorph\model\User.class
-com\motorph\test\LoginTest.class
 com\motorph\controller\AuthenticationController.class
-com\motorph\TestMain.class
 com\motorph\util\UIUtils$3.class
 com\motorph\view\DashboardPanel.class
 com\motorph\view\LoginPanel$1.class
@@ -38,7 +35,6 @@ com\motorph\view\EmployeeManagementPanel.class
 com\motorph\view\LoginFrame.class
 com\motorph\controller\PayrollController.class
 com\motorph\model\Employee.class
-com\motorph\test\LoginVisualTest$1.class
 com\motorph\view\dialog\EditEmployeeDialog.class
 com\motorph\view\ApplicationMenuBar.class
 com\motorph\view\HeaderPanel$1.class
@@ -46,7 +42,6 @@ com\motorph\view\ModernEmployeeListPanel$1.class
 com\motorph\view\EmployeeListPanelFixed$ActionButtonEditor.class
 com\motorph\view\LoginPanel$EnterKeyListener.class
 com\motorph\view\ModernEmployeeListPanel.class
-com\motorph\test\LoginIntegrationTest.class
 com\motorph\util\UIUtils$1HoverButton.class
 com\motorph\util\UIUtils.class
 com\motorph\util\UIUtils$4.class
@@ -56,7 +51,6 @@ com\motorph\view\MainMenuPanel$1.class
 com\motorph\service\AuthenticationService.class
 com\motorph\util\UIUtils$1HoverPanel.class
 com\motorph\view\LoginPanel.class
-com\motorph\test\LoginVisualTest.class
 com\motorph\view\MainMenuPanel.class
 com\motorph\view\renderer\ActionButtonRenderer$ActionButtonListener.class
 com\motorph\repository\DataRepository.class
