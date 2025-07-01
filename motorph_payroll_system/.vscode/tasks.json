@@ -2,54 +2,59 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "java: clean workspace",
+            "label": "Build with Maven",
             "type": "shell",
-            "command": "rmdir",
-            "args": ["/s", "/q", "target\\classes"],
+            "command": "mvn",
+            "args": ["clean", "compile"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
             "options": {
                 "cwd": "${workspaceFolder}"
-            },
-            "windows": {
-                "command": "rmdir",
-                "args": ["/s", "/q", "target\\classes"]
-            },
+            }
+        },        {
+            "label": "Copy Dependencies",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["dependency:copy-dependencies", "-DoutputDirectory=target/dependency"],
             "group": "build",
             "problemMatcher": [],
             "presentation": {
                 "echo": true,
                 "reveal": "silent",
                 "focus": false,
-                "panel": "shared"
-            }
-        },
-        {
-            "label": "java: compile",
-            "type": "shell",
-            "command": "javac",
-            "args": [
-                "-cp",
-                "target/dependency/*",
-                "-d",
-                "target/classes",
-                "src/main/java/com/motorph/*.java",
-                "src/main/java/com/motorph/**/*.java"
-            ],
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
             "options": {
                 "cwd": "${workspaceFolder}"
-            },
-            "group": "build",
-            "problemMatcher": ["$javac"],
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": false
             }
+        },        {
+            "label": "Full Build",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Build with Maven",
+                "Copy Dependencies"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": []
         },
         {
-            "label": "java: run application",
+            "label": "Run MotorPH Application",
             "type": "shell",
             "command": "java",
             "args": [
@@ -57,68 +62,86 @@
                 "target/classes;target/dependency/*",
                 "com.motorph.Main"
             ],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
             "group": "test",
-            "dependsOn": "java: compile",
+            "dependsOn": "Full Build",
             "problemMatcher": [],
             "presentation": {
                 "echo": true,
                 "reveal": "always",
                 "focus": true,
-                "panel": "shared",
+                "panel": "dedicated",
                 "showReuseMessage": false,
-                "clear": false
-            }
-        },
-        {
-            "label": "compile java",
-            "type": "shell",
-            "command": "javac",
-            "args": [
-                "-cp",
-                "src/main/java",
-                "-d",
-                "target/classes",
-                "src/main/java/com/motorph/*.java",
-                "src/main/java/com/motorph/**/*.java"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
+                "clear": true
             },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },        {
+            "label": "Test Application",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["test"],
+            "group": "test",
+            "problemMatcher": [],
             "presentation": {
                 "echo": true,
                 "reveal": "always",
                 "focus": false,
-                "panel": "shared"
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
             },
-            "problemMatcher": "$javac",
             "options": {
                 "cwd": "${workspaceFolder}"
             }
         },
         {
-            "label": "run java application",
+            "label": "Quick Run",
             "type": "shell",
             "command": "java",
             "args": [
                 "-cp",
-                "target/classes",
+                "target/classes;target/dependency/*",
                 "com.motorph.Main"
             ],
             "group": "test",
+            "dependsOn": "Build with Maven",
+            "problemMatcher": [],
             "presentation": {
                 "echo": true,
                 "reveal": "always",
-                "focus": false,
-                "panel": "shared"
+                "focus": true,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
             },
             "options": {
                 "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "Run MotorPH (Direct Access)",
+            "type": "shell",
+            "command": "java",
+            "args": [
+                "-cp",
+                "target/classes;target/dependency/*",
+                "com.motorph.TestMain"
+            ],
+            "group": "test",
+            "dependsOn": "Build with Maven",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
             },
-            "dependsOn": "compile java"
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
         }
     ]
 }

@@ -245,6 +245,40 @@ public class EmployeeService {
     }
 
     /**
+     * Get all attendance records
+     * 
+     * @return List of all attendance records
+     */
+    public List<AttendanceRecord> getAllAttendanceRecords() {
+        return new ArrayList<>(attendanceRecords);
+    }
+
+    /**
+     * Get attendance records for a specific date
+     * 
+     * @param date The date to filter by
+     * @return List of attendance records for the specified date
+     */
+    public List<AttendanceRecord> getAttendanceRecordsForDate(LocalDate date) {
+        return attendanceRecords.stream()
+                .filter(record -> record.getDate().equals(date))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Get attendance records within a date range
+     * 
+     * @param startDate Start date
+     * @param endDate   End date
+     * @return List of attendance records within the range
+     */
+    public List<AttendanceRecord> getAttendanceRecordsInRange(LocalDate startDate, LocalDate endDate) {
+        return attendanceRecords.stream()
+                .filter(record -> !record.getDate().isBefore(startDate) && !record.getDate().isAfter(endDate))
+                .collect(Collectors.toList());
+    }
+
+    /**
      * Format a LocalDate to match the CSV format (MM/dd/yyyy)
      */
     private String formatDateForCSV(LocalDate date) {
