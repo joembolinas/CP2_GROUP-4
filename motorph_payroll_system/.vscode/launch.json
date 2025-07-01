@@ -20,9 +20,9 @@
         },
         {
             "type": "java",
-            "name": "🚀 Run MotorPH (Direct Access)",
+            "name": "🚀 Run MotorPH (Login Flow)",
             "request": "launch",
-            "mainClass": "com.motorph.TestMain",
+            "mainClass": "com.motorph.Main",
             "projectName": "motorph_payroll_system",
             "cwd": "${workspaceFolder}",
             "args": [],
