@@ -328,6 +328,24 @@ public class ModernEmployeeListPanel extends JPanel {
             }
         });
 
+        // Add search functionality
+        searchField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                filterEmployees();
+            }
+
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                filterEmployees();
+            }
+
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                filterEmployees();
+            }
+        });
+
         // Container for search field with icon overlay
         JPanel searchContainer = new JPanel();
         searchContainer.setLayout(new BorderLayout());
@@ -481,6 +499,9 @@ public class ModernEmployeeListPanel extends JPanel {
         // Get all employees
         List<Employee> employees = employeeController.getAllEmployees();
 
+        // Debug: Log the total number of employees loaded
+        System.out.println("DEBUG: Loading " + employees.size() + " employees into table");
+
         // Add employees to table (updated for new column structure)
         for (Employee employee : employees) {
             Object[] rowData = {
@@ -492,6 +513,9 @@ public class ModernEmployeeListPanel extends JPanel {
             };
             tableModel.addRow(rowData);
         }
+
+        // Debug: Log the final table row count
+        System.out.println("DEBUG: Table now has " + tableModel.getRowCount() + " rows");
     }
 
     /**
@@ -774,11 +798,28 @@ public class ModernEmployeeListPanel extends JPanel {
                         JOptionPane.WARNING_MESSAGE);
 
                 if (confirm == JOptionPane.YES_OPTION) {
-                    // TODO: Implement actual delete functionality when available
-                    JOptionPane.showMessageDialog(this,
-                            "Delete functionality will be implemented in a future update.",
-                            "Feature Coming Soon",
-                            JOptionPane.INFORMATION_MESSAGE);
+                    // Delete the employee
+                    boolean success = employeeController.deleteEmployee(employeeNumber);
+
+                    if (success) {
+                        JOptionPane.showMessageDialog(this,
+                                "Employee " + employee.getFullName() + " (ID: " + employeeNumber
+                                        + ") deleted successfully!",
+                                "Delete Successful",
+                                JOptionPane.INFORMATION_MESSAGE);
+
+                        // Refresh the table
+                        loadEmployeeData();
+
+                        // Clear selection and disable buttons
+                        employeeTable.clearSelection();
+                        updateRibbonButtons(false);
+                    } else {
+                        JOptionPane.showMessageDialog(this,
+                                "Failed to delete employee. Please try again.",
+                                "Delete Failed",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             } else {
                 JOptionPane.showMessageDialog(this,
@@ -791,6 +832,56 @@ public class ModernEmployeeListPanel extends JPanel {
                     "Error accessing employee data: " + e.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * Filter employees based on search text
+     */
+    private void filterEmployees() {
+        String searchText = searchField.getText().toLowerCase().trim();
+
+        // Don't filter if placeholder text is showing (fixed case sensitivity)
+        if (searchText.isEmpty() || searchText.equals("search by name or employee no...")) {
+            loadEmployeeData(); // Show all employees
+            return;
+        }
+
+        // Clear existing data
+        tableModel.setRowCount(0);
+
+        // Get all employees and filter
+        List<Employee> employees = employeeController.getAllEmployees();
+        for (Employee employee : employees) {
+            boolean matches = false;
+
+            // Check employee ID
+            if (String.valueOf(employee.getEmployeeId()).toLowerCase().contains(searchText)) {
+                matches = true;
+            }
+
+            // Check employee name
+            if (employee.getFullName() != null &&
+                    employee.getFullName().toLowerCase().contains(searchText)) {
+                matches = true;
+            }
+
+            // Check position
+            if (employee.getPosition() != null &&
+                    employee.getPosition().toLowerCase().contains(searchText)) {
+                matches = true;
+            }
+
+            if (matches) {
+                Object[] rowData = {
+                        employee.getEmployeeId(),
+                        employee.getFullName(),
+                        employee.getPosition() != null ? employee.getPosition() : "N/A",
+                        getDepartmentFromPosition(employee.getPosition()),
+                        employee.getStatus() != null ? employee.getStatus() : "Active"
+                };
+                tableModel.addRow(rowData);
+            }
         }
     }
 }
