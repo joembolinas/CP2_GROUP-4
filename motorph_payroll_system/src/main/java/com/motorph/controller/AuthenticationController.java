@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 import com.motorph.model.User;
 import com.motorph.service.AuthenticationService;
-import com.motorph.util.SessionManager;
+import com.motorph.util.AppUtils;
 
 /**
  * Controller for handling authentication operations.
@@ -15,14 +15,12 @@ public class AuthenticationController {
     private static final Logger logger = Logger.getLogger(AuthenticationController.class.getName());
 
     private final AuthenticationService authService;
-    private final SessionManager sessionManager;
 
     /**
      * Constructor for AuthenticationController
      */
     public AuthenticationController() {
         this.authService = new AuthenticationService();
-        this.sessionManager = SessionManager.getInstance();
     }
 
     /**
@@ -32,7 +30,6 @@ public class AuthenticationController {
      */
     public AuthenticationController(AuthenticationService authService) {
         this.authService = authService;
-        this.sessionManager = SessionManager.getInstance();
     }
 
     /**
@@ -57,7 +54,7 @@ public class AuthenticationController {
 
             if (user != null) {
                 // Set the current user in session
-                sessionManager.setCurrentUser(user);
+                AppUtils.setCurrentUser(user);
                 logger.log(Level.INFO, "Login successful for user: {0}", username);
                 return true;
             } else {
@@ -78,10 +75,10 @@ public class AuthenticationController {
      */
     public boolean logout() {
         try {
-            User currentUser = sessionManager.getCurrentUser();
+            User currentUser = AppUtils.getCurrentUser();
             if (currentUser != null) {
                 logger.log(Level.INFO, "User {0} logging out", currentUser.getUsername());
-                sessionManager.clearSession();
+                AppUtils.clearSession();
                 logger.log(Level.INFO, "Logout successful for user: {0}", currentUser.getUsername());
                 return true;
             } else {
@@ -100,7 +97,7 @@ public class AuthenticationController {
      * @return true if user is logged in, false otherwise
      */
     public boolean isLoggedIn() {
-        return sessionManager.isLoggedIn();
+        return AppUtils.getCurrentUser() != null;
     }
 
     /**
@@ -109,7 +106,7 @@ public class AuthenticationController {
      * @return Current user or null if no user is logged in
      */
     public User getCurrentUser() {
-        return sessionManager.getCurrentUser();
+        return AppUtils.getCurrentUser();
     }
 
     /**
@@ -118,7 +115,8 @@ public class AuthenticationController {
      * @return Username or "Guest" if no user is logged in
      */
     public String getCurrentUsername() {
-        return sessionManager.getCurrentUsername();
+        User currentUser = AppUtils.getCurrentUser();
+        return currentUser != null ? currentUser.getUsername() : null;
     }
 
     /**
@@ -127,7 +125,8 @@ public class AuthenticationController {
      * @return true if current user is admin, false otherwise
      */
     public boolean isCurrentUserAdmin() {
-        return sessionManager.isCurrentUserAdmin();
+        User currentUser = AppUtils.getCurrentUser();
+        return currentUser != null && "admin".equals(currentUser.getRole());
     }
 
     /**
@@ -136,7 +135,11 @@ public class AuthenticationController {
      * @return Session information string
      */
     public String getSessionInfo() {
-        return sessionManager.getSessionInfo();
+        User currentUser = AppUtils.getCurrentUser();
+        if (currentUser != null) {
+            return "User: " + currentUser.getUsername() + " (Role: " + currentUser.getRole() + ")";
+        }
+        return "No user logged in";
     }
 
     /**

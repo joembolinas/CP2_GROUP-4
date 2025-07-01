@@ -19,7 +19,8 @@ import com.motorph.service.EmployeeService;
 import com.motorph.service.PayrollProcessor;
 import com.motorph.service.PayrollService;
 import com.motorph.service.ReportService;
-import com.motorph.view.LoginFrame;
+import com.motorph.util.AppUtils;
+import com.motorph.view.Login;
 import com.motorph.view.MainFrame;
 
 /**
@@ -72,8 +73,7 @@ public class Main {
         try {
             // Create a default admin user for testing
             com.motorph.model.User defaultUser = new com.motorph.model.User("admin", "password", 1, "ADMIN", true);
-            com.motorph.util.SessionManager sessionManager = com.motorph.util.SessionManager.getInstance();
-            sessionManager.setCurrentUser(defaultUser);
+            AppUtils.setCurrentUser(defaultUser);
             logger.log(Level.INFO, "Default session initialized for user: {0}", defaultUser.getUsername());
         } catch (Exception e) {
             logger.log(Level.WARNING, "Failed to initialize default session", e);
@@ -95,7 +95,7 @@ public class Main {
     public static void showLoginScreen(Runnable onLoginSuccess) {
         logger.log(Level.INFO, "Starting MotorPH Payroll System with login screen");
 
-        LoginFrame loginFrame = new LoginFrame(() -> {
+        Login loginFrame = new Login(() -> {
             try {
                 if (onLoginSuccess != null) {
                     onLoginSuccess.run();

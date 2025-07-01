@@ -11,7 +11,7 @@ import javax.swing.UIManager;
 import com.motorph.controller.EmployeeController;
 import com.motorph.controller.PayrollController;
 import com.motorph.controller.ReportController;
-import com.motorph.util.UIConstants;
+import com.motorph.util.AppConstants;
 
 /**
  * Main frame for the MotorPH Payroll System.
@@ -23,13 +23,11 @@ public class MainFrame extends JFrame {
     private final ReportController reportController;
     private CardLayout cardLayout;
     private JPanel cardPanel;
-    private SideNavigationPanel sideNavPanel;
     private HeaderPanel headerPanel; // Panels
-    private DashboardPanel dashboardPanel;
-    private EmployeeManagementPanel employeePanel;
-    private ModernEmployeeListPanel employeeListPanel;
-    private PayrollPanel payrollPanel;
-    private ReportsPanel reportsPanel;
+    private Dashboard dashboardPanel;
+    private EmployeePanel employeePanel;
+    private Payroll payrollPanel;
+    private Reports reportsPanel;
 
     /**
      * Constructor for the main frame
@@ -37,7 +35,7 @@ public class MainFrame extends JFrame {
     public MainFrame(EmployeeController employeeController,
             PayrollController payrollController,
             ReportController reportController) {
-        super(UIConstants.APP_TITLE);
+        super(AppConstants.APP_TITLE);
 
         this.employeeController = employeeController;
         this.payrollController = payrollController;
@@ -62,24 +60,21 @@ public class MainFrame extends JFrame {
         setSize(1200, 800); // Increased size for side navigation
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new BorderLayout()); // Initialize side navigation and header
-        sideNavPanel = new SideNavigationPanel(this);
+        setLayout(new BorderLayout()); // Initialize header (removed side navigation for minimalism)
         headerPanel = new HeaderPanel();
 
         // Set up the card layout for main content
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
-        cardPanel.setBackground(UIConstants.BACKGROUND_COLOR); // Initialize panels
-        dashboardPanel = new DashboardPanel(this, employeeController);
-        employeePanel = new EmployeeManagementPanel(this, employeeController);
-        employeeListPanel = new ModernEmployeeListPanel(this, employeeController);
-        payrollPanel = new PayrollPanel(this, payrollController);
-        reportsPanel = new ReportsPanel(this, reportController);
+        cardPanel.setBackground(AppConstants.BACKGROUND_COLOR); // Initialize panels
+        dashboardPanel = new Dashboard(this, employeeController);
+        employeePanel = new EmployeePanel(this, employeeController);
+        payrollPanel = new Payroll(this, payrollController);
+        reportsPanel = new Reports(this, reportController);
 
         // Add panels to card layout
         cardPanel.add(dashboardPanel, "MainMenu");
-        cardPanel.add(employeePanel, "EmployeeManagement");
-        cardPanel.add(employeeListPanel, "EmployeeList");
+        cardPanel.add(employeePanel, "EmployeeList");
         cardPanel.add(payrollPanel, "PayrollManagement");
         cardPanel.add(reportsPanel, "Reports");// Show the main menu panel initially
         cardLayout.show(cardPanel, "MainMenu");
@@ -89,8 +84,7 @@ public class MainFrame extends JFrame {
         mainContentPanel.add(headerPanel, BorderLayout.NORTH);
         mainContentPanel.add(cardPanel, BorderLayout.CENTER);
 
-        // Add components to main frame
-        add(sideNavPanel, BorderLayout.WEST);
+        // Add components to main frame (no side navigation for clean design)
         add(mainContentPanel, BorderLayout.CENTER);
     }
 
