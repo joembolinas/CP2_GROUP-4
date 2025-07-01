@@ -73,13 +73,13 @@ public class LoginPanel extends JPanel {
         mainPanel.setBorder(new EmptyBorder(50, 50, 50, 50));
 
         GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.CENTER;
 
         // Logo panel
         JPanel logoPanel = createLogoPanel();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.gridwidth = 1;
         gbc.insets = new Insets(0, 0, 30, 0);
         mainPanel.add(logoPanel, gbc);
 
@@ -94,7 +94,7 @@ public class LoginPanel extends JPanel {
         // Subtitle label
         JLabel subtitleLabel = new JLabel("Please login to continue", SwingConstants.CENTER);
         subtitleLabel.setFont(UIConstants.NORMAL_FONT);
-        subtitleLabel.setForeground(UIConstants.TEXT_COLOR);
+        subtitleLabel.setForeground(UIConstants.TEXT_SECONDARY);
         gbc.gridy = 2;
         gbc.insets = new Insets(0, 0, 30, 0);
         mainPanel.add(subtitleLabel, gbc);
@@ -103,6 +103,9 @@ public class LoginPanel extends JPanel {
         JPanel formPanel = createFormPanel();
         gbc.gridy = 3;
         gbc.insets = new Insets(0, 0, 20, 0);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+        gbc.weighty = 0.0;
         mainPanel.add(formPanel, gbc);
 
         // Status label
@@ -110,6 +113,9 @@ public class LoginPanel extends JPanel {
         statusLabel.setFont(UIConstants.SMALL_FONT);
         statusLabel.setForeground(UIConstants.DELETE_BUTTON_COLOR);
         gbc.gridy = 4;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+        gbc.weighty = 0.0;
         gbc.insets = new Insets(0, 0, 20, 0);
         mainPanel.add(statusLabel, gbc);
 
@@ -122,7 +128,9 @@ public class LoginPanel extends JPanel {
         add(mainPanel, BorderLayout.CENTER);
 
         // Set focus to username field
-        usernameField.requestFocusInWindow();
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            usernameField.requestFocusInWindow();
+        });
     }
 
     /**
@@ -183,9 +191,13 @@ public class LoginPanel extends JPanel {
     private JPanel createFormPanel() {
         JPanel formPanel = new JPanel(new GridBagLayout());
         formPanel.setBackground(UIConstants.PANEL_BACKGROUND);
-        formPanel.setBorder(new EmptyBorder(20, 30, 20, 30));
+        formPanel.setBorder(new EmptyBorder(30, 40, 30, 40));
+        // Remove fixed size constraint to allow natural sizing
 
         GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+        gbc.anchor = GridBagConstraints.WEST;
 
         // Username label
         JLabel usernameLabel = new JLabel("Username:");
@@ -193,17 +205,28 @@ public class LoginPanel extends JPanel {
         usernameLabel.setForeground(UIConstants.TEXT_COLOR);
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(5, 5, 5, 10);
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(0, 0, 5, 0);
         formPanel.add(usernameLabel, gbc);
 
         // Username field
-        usernameField = new JTextField(20);
-        usernameField.setFont(UIConstants.NORMAL_FONT);
-        usernameField.setPreferredSize(new Dimension(200, UIConstants.FIELD_HEIGHT));
+        usernameField = new JTextField(20); // Set columns for proper sizing
+        usernameField.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 16));
+        usernameField.setPreferredSize(new Dimension(350, 45));
+        usernameField.setMinimumSize(new Dimension(350, 45));
+        usernameField.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createLineBorder(UIConstants.BORDER_COLOR, 1),
+                javax.swing.BorderFactory.createEmptyBorder(10, 15, 10, 15)));
+        usernameField.setBackground(java.awt.Color.WHITE);
+        usernameField.setForeground(UIConstants.TEXT_COLOR);
+        usernameField.setOpaque(true);
+        usernameField.setEditable(true);
+        usernameField.setEnabled(true);
         usernameField.addKeyListener(new EnterKeyListener());
-        gbc.gridx = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(0, 0, 20, 0);
         formPanel.add(usernameField, gbc);
 
         // Password label
@@ -211,18 +234,29 @@ public class LoginPanel extends JPanel {
         passwordLabel.setFont(UIConstants.NORMAL_FONT);
         passwordLabel.setForeground(UIConstants.TEXT_COLOR);
         gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.NONE;
-        gbc.insets = new Insets(15, 5, 5, 10);
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(0, 0, 5, 0);
         formPanel.add(passwordLabel, gbc);
 
         // Password field
-        passwordField = new JPasswordField(20);
-        passwordField.setFont(UIConstants.NORMAL_FONT);
-        passwordField.setPreferredSize(new Dimension(200, UIConstants.FIELD_HEIGHT));
+        passwordField = new JPasswordField(20); // Set columns for proper sizing
+        passwordField.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 16));
+        passwordField.setPreferredSize(new Dimension(350, 45));
+        passwordField.setMinimumSize(new Dimension(350, 45));
+        passwordField.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createLineBorder(UIConstants.BORDER_COLOR, 1),
+                javax.swing.BorderFactory.createEmptyBorder(10, 15, 10, 15)));
+        passwordField.setBackground(java.awt.Color.WHITE);
+        passwordField.setForeground(UIConstants.TEXT_COLOR);
+        passwordField.setOpaque(true);
+        passwordField.setEditable(true);
+        passwordField.setEnabled(true);
         passwordField.addKeyListener(new EnterKeyListener());
-        gbc.gridx = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(0, 0, 0, 0);
         formPanel.add(passwordField, gbc);
 
         return formPanel;
@@ -276,7 +310,7 @@ public class LoginPanel extends JPanel {
         exitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                exitButton.setBackground(UIConstants.SECONDARY_BUTTON_HOVER_COLOR);
+                exitButton.setBackground(UIConstants.SECONDARY_BUTTON_HOVER);
             }
 
             @Override

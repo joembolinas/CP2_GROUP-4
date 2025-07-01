@@ -173,4 +173,34 @@ public class EmployeeController {
 
         return employeeService.getAttendanceRecords(employeeId, startDate, endDate);
     }
+
+    /**
+     * Get all attendance records
+     * 
+     * @return List of all attendance records
+     */
+    public List<AttendanceRecord> getAllAttendanceRecords() {
+        return employeeService.getAllAttendanceRecords();
+    }
+
+    /**
+     * Get attendance records for a specific date
+     * 
+     * @param date The date to filter by
+     * @return List of attendance records for the specified date
+     */
+    public List<AttendanceRecord> getAttendanceRecordsForDate(LocalDate date) {
+        return employeeService.getAttendanceRecordsForDate(date);
+    }
+
+    /**
+     * Get attendance records within a date range
+     * 
+     * @param startDate Start date
+     * @param endDate   End date
+     * @return List of attendance records within the range
+     */
+    public List<AttendanceRecord> getAttendanceRecordsInRange(LocalDate startDate, LocalDate endDate) {
+        return employeeService.getAttendanceRecordsInRange(startDate, endDate);
+    }
 }

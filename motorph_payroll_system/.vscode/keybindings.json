@@ -1,0 +1,36 @@
+[
+    {
+        "key": "ctrl+alt+r",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Run MotorPH Application",
+        "when": "resourceExtname == .java"
+    },
+    {
+        "key": "ctrl+shift+r",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Quick Run",
+        "when": "resourceExtname == .java"
+    },
+    {
+        "key": "ctrl+alt+d",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Run MotorPH (Direct Access)",
+        "when": "resourceExtname == .java"
+    },
+    {
+        "key": "ctrl+alt+b",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Full Build",
+        "when": "resourceExtname == .java"
+    },
+    {
+        "key": "ctrl+alt+t",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Test Application",
+        "when": "resourceExtname == .java"
+    },
+    {
+        "key": "f6",
+        "command": "workbench.action.debug.selectandstart"
+    }
+]

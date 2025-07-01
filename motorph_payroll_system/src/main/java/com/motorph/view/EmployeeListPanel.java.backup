@@ -1,0 +1,794 @@
+package com.motorph.view;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.util.List;
+
+import javax.swing.AbstractCellEditor;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+
+import com.motorph.controller.EmployeeController;
+import com.motorph.model.Employee;
+import com.motorph.util.UIConstants;
+import com.motorph.util.UIUtils;
+import com.motorph.view.dialog.EmployeeDetailsFrame;
+import com.motorph.view.dialog.NewEmployeeDialog;
+
+/**
+ * Modern Employee List Panel matching HTML mockup design.
+ * Features clean table layout, search functionality, and action buttons.
+ */
+public class EmployeeListPanel extends JPanel {
+
+    private final MainFrame mainFrame;
+    private final EmployeeController employeeController;
+    private JTable employeeTable;
+    private DefaultTableModel tableModel;
+    private JTextField searchField;
+
+    private static final String[] COLUMN_NAMES = {
+            "Emp. No.", "Name", "Position", "Department", "Status", "Actions"
+    };
+
+    /**
+     * Constructor for the employee list panel
+     */
+    public EmployeeListPanel(MainFrame mainFrame, EmployeeController employeeController) {
+        this.mainFrame = mainFrame;
+        this.employeeController = employeeController;
+        initPanel();
+        loadEmployeeData();
+    }
+
+    /**
+     * Constructor for the employee list panel with payroll controller (legacy
+     * support)
+     */
+    public EmployeeListPanel(MainFrame mainFrame, EmployeeController employeeController, Object payrollController) {
+        this(mainFrame, employeeController);
+    }
+
+    /**
+     * Initialize the modern panel layout
+     */
+    private void initPanel() {
+        setLayout(new BorderLayout());
+        setBackground(UIConstants.BACKGROUND_COLOR);
+
+        // Main container with proper spacing
+        JPanel container = new JPanel(new BorderLayout());
+        container.setBackground(UIConstants.BACKGROUND_COLOR);
+        container.setBorder(BorderFactory.createEmptyBorder(24, 32, 24, 32));
+
+        // Content card that wraps everything
+        JPanel contentCard = UIUtils.createCardPanel();
+        contentCard.setLayout(new BorderLayout(0, 24));
+
+        // Header section
+        JPanel headerPanel = createHeaderPanel();
+        contentCard.add(headerPanel, BorderLayout.NORTH);
+
+        // Table section
+        JPanel tablePanel = createTablePanel();
+        contentCard.add(tablePanel, BorderLayout.CENTER);
+
+        container.add(contentCard, BorderLayout.CENTER);
+        add(container, BorderLayout.CENTER);
+    }
+
+    /**
+     * Create the header section with navigation and controls
+     */
+    private JPanel createHeaderPanel() {
+        JPanel header = new JPanel(new BorderLayout());
+        header.setBackground(Color.WHITE);
+
+        // Top section with title and navigation
+        JPanel titleSection = new JPanel(new BorderLayout());
+        titleSection.setBackground(Color.WHITE);
+        titleSection.setBorder(BorderFactory.createEmptyBorder(0, 0, 24, 0));
+
+        // Title
+        JLabel titleLabel = new JLabel("Employee Management System");
+        titleLabel.setFont(UIConstants.HEADING_FONT);
+        titleLabel.setForeground(UIConstants.TEXT_COLOR);
+
+        // Back button
+        JButton backButton = UIUtils.createSecondaryButton("← Back to Main Menu");
+        backButton.addActionListener(e -> backToMainMenu());
+
+        titleSection.add(titleLabel, BorderLayout.WEST);
+        titleSection.add(backButton, BorderLayout.EAST);
+
+        // Controls section
+        JPanel controlsSection = new JPanel(new BorderLayout());
+        controlsSection.setBackground(Color.WHITE);
+
+        // Search field
+        JPanel searchPanel = createSearchPanel();
+
+        // Add Employee button
+        JButton addButton = UIUtils.createPrimaryButton("+ Add New Employee");
+        addButton.addActionListener(e -> openNewEmployeeDialog());
+
+        controlsSection.add(searchPanel, BorderLayout.WEST);
+        controlsSection.add(addButton, BorderLayout.EAST);
+
+        header.add(titleSection, BorderLayout.NORTH);
+        header.add(controlsSection, BorderLayout.SOUTH);
+
+        return header;
+    }
+
+    /**
+     * Create modern search panel
+     */
+    private JPanel createSearchPanel() {
+        JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        searchPanel.setBackground(Color.WHITE);
+
+        // Search icon (using text as placeholder for icon)
+        JLabel searchIcon = new JLabel("🔍");
+        searchIcon.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
+        searchIcon.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 8));
+
+        // Search field
+        searchField = new JTextField(25) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                // Paint rounded background
+                g2.setColor(getBackground());
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
+
+                // Paint border
+                g2.setColor(UIConstants.BORDER_COLOR);
+                g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 8, 8);
+
+                g2.dispose();
+                super.paintComponent(g);
+            }
+        };
+
+        searchField.setFont(UIConstants.NORMAL_FONT);
+        searchField.setBorder(BorderFactory.createEmptyBorder(8, 40, 8, 12));
+        searchField.setOpaque(false);
+        searchField.setText("Search by name or employee no...");
+        searchField.setForeground(UIConstants.TEXT_MUTED);
+
+        // Add focus listeners for placeholder behavior
+        searchField.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+                if (searchField.getText().equals("Search by name or employee no...")) {
+                    searchField.setText("");
+                    searchField.setForeground(UIConstants.TEXT_COLOR);
+                }
+            }
+
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                if (searchField.getText().isEmpty()) {
+                    searchField.setText("Search by name or employee no...");
+                    searchField.setForeground(UIConstants.TEXT_MUTED);
+                }
+            }
+        });
+
+        // Container for search field with icon overlay
+        JPanel searchContainer = new JPanel();
+        searchContainer.setLayout(new BorderLayout());
+        searchContainer.setBackground(Color.WHITE);
+        searchContainer.add(searchField, BorderLayout.CENTER);
+        searchContainer.add(searchIcon, BorderLayout.WEST);
+
+        searchPanel.add(searchContainer);
+        return searchPanel;
+    }
+
+    /**
+     * Create the modern table panel
+     */
+    private JPanel createTablePanel() {
+        JPanel tablePanel = new JPanel(new BorderLayout());
+        tablePanel.setBackground(Color.WHITE);
+
+        createEmployeeTable();
+
+        JScrollPane scrollPane = new JScrollPane(employeeTable);
+        scrollPane.setBorder(BorderFactory.createLineBorder(UIConstants.BORDER_COLOR, 1));
+        scrollPane.getViewport().setBackground(Color.WHITE);
+
+        tablePanel.add(scrollPane, BorderLayout.CENTER);
+        return tablePanel;
+    }
+
+    /**
+     * Create the modern employee table
+     */
+    private void createEmployeeTable() {
+        // Create table model
+        tableModel = new DefaultTableModel(COLUMN_NAMES, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 5; // Only Actions column is editable
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                if (columnIndex == 5)
+                    return Object.class; // Actions column
+                return String.class;
+            }
+        };
+
+        employeeTable = new JTable(tableModel);
+        employeeTable.setFont(UIConstants.TABLE_FONT);
+        employeeTable.setRowHeight(UIConstants.TABLE_ROW_HEIGHT);
+        employeeTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        employeeTable.setFillsViewportHeight(true);
+        employeeTable.getTableHeader().setReorderingAllowed(false);
+        employeeTable.setShowGrid(true);
+        employeeTable.setGridColor(UIConstants.TABLE_BORDER_COLOR);
+        employeeTable.setIntercellSpacing(new java.awt.Dimension(1, 1));
+
+        // Style table header
+        employeeTable.getTableHeader().setBackground(UIConstants.TABLE_HEADER_BACKGROUND);
+        employeeTable.getTableHeader().setForeground(UIConstants.TEXT_COLOR);
+        employeeTable.getTableHeader().setFont(UIConstants.TABLE_HEADER_FONT);
+        employeeTable.getTableHeader().setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, UIConstants.BORDER_COLOR));
+
+        // Set column widths
+        employeeTable.getColumnModel().getColumn(0).setPreferredWidth(80); // Emp. No.
+        employeeTable.getColumnModel().getColumn(1).setPreferredWidth(200); // Name
+        employeeTable.getColumnModel().getColumn(2).setPreferredWidth(180); // Position
+        employeeTable.getColumnModel().getColumn(3).setPreferredWidth(120); // Department
+        employeeTable.getColumnModel().getColumn(4).setPreferredWidth(100); // Status
+        employeeTable.getColumnModel().getColumn(5).setPreferredWidth(200); // Actions
+
+        // Set up custom renderers
+        setupTableRenderers();
+        setupActionColumn();
+    }
+
+    /**
+     * Set up custom table renderers for modern appearance
+     */
+    private void setupTableRenderers() {
+        // Default renderer for most columns
+        DefaultTableCellRenderer defaultRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                // Alternate row colors
+                if (!isSelected) {
+                    setBackground(row % 2 == 0 ? Color.WHITE : UIConstants.TABLE_ALT_ROW);
+                } else {
+                    setBackground(table.getSelectionBackground());
+                }
+
+                setFont(UIConstants.TABLE_FONT);
+                setBorder(BorderFactory.createEmptyBorder(8, 12, 8, 12));
+
+                return this;
+            }
+        };
+
+        // Status column renderer with badges
+        DefaultTableCellRenderer statusRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+
+                JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 8));
+                panel.setBackground(row % 2 == 0 ? Color.WHITE : UIConstants.TABLE_ALT_ROW);
+
+                if (value != null) {
+                    String status = value.toString();
+                    boolean isActive = "Active".equalsIgnoreCase(status);
+                    JLabel statusBadge = UIUtils.createStatusBadge(status, isActive);
+                    panel.add(statusBadge);
+                }
+
+                return panel;
+            }
+        };
+
+        // Apply renderers
+        for (int i = 0; i < 4; i++) {
+            employeeTable.getColumnModel().getColumn(i).setCellRenderer(defaultRenderer);
+        }
+        employeeTable.getColumnModel().getColumn(4).setCellRenderer(statusRenderer); // Status column
+    }
+
+    /**
+     * Setup action column with modern button styling
+     */
+    private void setupActionColumn() {
+        employeeTable.getColumn("Actions").setCellRenderer(new ActionButtonRenderer());
+        employeeTable.getColumn("Actions").setCellEditor(new ActionButtonEditor());
+    }
+
+    /**
+     * Load employee data into the table
+     */
+    private void loadEmployeeData() {
+        // Clear existing data
+        tableModel.setRowCount(0);
+
+        // Get all employees
+        List<Employee> employees = employeeController.getAllEmployees();
+
+        // Add employees to table
+        for (Employee employee : employees) {
+            Object[] rowData = {
+                    employee.getEmployeeNumber(),
+                    employee.getFullName(),
+                    employee.getPosition() != null ? employee.getPosition() : "N/A",
+                    employee.getDepartment() != null ? employee.getDepartment() : "N/A",
+                    employee.getStatus() != null ? employee.getStatus() : "Active",
+                    "Actions" // Placeholder for action buttons
+            };
+            tableModel.addRow(rowData);
+        }
+    }
+
+    /**
+     * Open new employee dialog
+     */
+    private void openNewEmployeeDialog() {
+        NewEmployeeDialog dialog = new NewEmployeeDialog(mainFrame, employeeController);
+        dialog.setVisible(true);
+        if (dialog.isEmployeeAdded()) {
+            loadEmployeeData(); // Refresh the table
+            JOptionPane.showMessageDialog(this,
+                    "New employee added successfully!",
+                    "Success",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    /**
+     * Navigate back to the main menu
+     */
+    private void backToMainMenu() {
+        mainFrame.showMainMenu();
+    }
+
+    /**
+     * Custom renderer for action buttons in table
+     */
+    private class ActionButtonRenderer extends DefaultTableCellRenderer {
+        private final JPanel panel;
+        private final JButton viewButton, editButton, deleteButton;
+
+        public ActionButtonRenderer() {
+            panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 8));
+            panel.setOpaque(true);
+
+            viewButton = UIUtils.createActionButton("View", false);
+            editButton = UIUtils.createActionButton("Edit", false);
+            deleteButton = UIUtils.createActionButton("Delete", true);
+
+            panel.add(viewButton);
+            panel.add(editButton);
+            panel.add(deleteButton);
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+            // Set background based on row
+            Color bgColor = row % 2 == 0 ? Color.WHITE : UIConstants.TABLE_ALT_ROW;
+            panel.setBackground(bgColor);
+            return panel;
+        }
+    }
+
+    /**
+     * Custom editor for action buttons in table
+     */
+    private class ActionButtonEditor extends AbstractCellEditor implements TableCellEditor {
+        private final JPanel panel;
+        private final JButton viewButton, editButton, deleteButton;
+        private int currentRow;
+
+        public ActionButtonEditor() {
+            panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 8));
+            panel.setOpaque(true);
+
+            viewButton = UIUtils.createActionButton("View", false);
+            editButton = UIUtils.createActionButton("Edit", false);
+            deleteButton = UIUtils.createActionButton("Delete", true);
+
+            // Add action listeners
+            viewButton.addActionListener(e -> {
+                stopCellEditing();
+                viewEmployeeAtRow(currentRow);
+            });
+
+            editButton.addActionListener(e -> {
+                stopCellEditing();
+                editEmployeeAtRow(currentRow);
+            });
+
+            deleteButton.addActionListener(e -> {
+                stopCellEditing();
+                deleteEmployeeAtRow(currentRow);
+            });
+
+            panel.add(viewButton);
+            panel.add(editButton);
+            panel.add(deleteButton);
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value,
+                boolean isSelected, int row, int column) {
+            currentRow = row;
+            // Set background based on row
+            Color bgColor = row % 2 == 0 ? Color.WHITE : UIConstants.TABLE_ALT_ROW;
+            panel.setBackground(bgColor);
+            return panel;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return "Actions";
+        }
+    }
+
+    /**
+     * View employee details for the specified row
+     */
+    private void viewEmployeeAtRow(int row) {
+        try {
+            int employeeNumber = Integer.parseInt(tableModel.getValueAt(row, 0).toString());
+            Employee employee = employeeController.findEmployeeById(employeeNumber);
+            new EmployeeDetailsFrame(mainFrame, employee).setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error viewing employee: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Edit employee at the specified row
+     */
+    private void editEmployeeAtRow(int row) {
+        JOptionPane.showMessageDialog(this, "Edit functionality not yet implemented.");
+    }
+
+    /**
+     * Delete employee at the specified row
+     */
+    private void deleteEmployeeAtRow(int row) {
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to delete this employee?",
+                "Confirm Delete",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(this, "Delete functionality not yet implemented.");
+        }
+    }}
+
+    // Center panel with employee table
+    createEmployeeTable();
+
+    JScrollPane scrollPane = new JScrollPane(employeeTable);scrollPane.setBackground(UIConstants.BACKGROUND_COLOR);
+
+    add(scrollPane, BorderLayout.CENTER);
+        // Add action listeners
+        newEmployeeButton.addActionListener(e -> openNewEmployeeDialog());
+        backButton.addActionListener(e -> backToMainMenu());
+    }
+
+    /**
+     * Create the employee table
+     */
+    private void createEmployeeTable() {
+        tableModel = new DefaultTableModel(COLUMN_NAMES, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 5; // Only Actions column is editable
+            }
+        };
+
+        employeeTable = new JTable(tableModel);
+        employeeTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        employeeTable.setFillsViewportHeight(true);
+        employeeTable.getTableHeader().setReorderingAllowed(false);
+
+        // Set column widths to match prototype
+        employeeTable.getColumnModel().getColumn(0).setPreferredWidth(80); // Emp. No.
+        employeeTable.getColumnModel().getColumn(1).setPreferredWidth(200); // Name
+        employeeTable.getColumnModel().getColumn(2).setPreferredWidth(150); // Position
+        employeeTable.getColumnModel().getColumn(3).setPreferredWidth(100); // Department
+        employeeTable.getColumnModel().getColumn(4).setPreferredWidth(80); // Status
+        employeeTable.getColumnModel().getColumn(5).setPreferredWidth(180); // Actions
+
+        // Set up the Actions column with custom renderer and editor
+        setupActionColumn();
+    }
+
+    /**
+     * Load employee data into the table
+     */
+    private void loadEmployeeData() {
+        try {
+            List<Employee> employees = employeeController.getAllEmployees();
+
+            // Clear existing data
+            tableModel.setRowCount(0);
+
+            // Add employee data to table (matching prototype columns)
+            for (Employee employee : employees) {
+                Object[] row = {
+                        employee.getEmployeeId(),
+                        employee.getFullName(), // Combined name for cleaner display
+                        employee.getPosition(),
+                        "IT", // Default department - could be enhanced later
+                        "Active", // Default status - could be enhanced later
+                        "Actions" // Placeholder - will be handled by custom renderer
+                };
+                tableModel.addRow(row);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Error loading employee data: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * Open new employee dialog
+     */
+    private void openNewEmployeeDialog() {
+        NewEmployeeDialog dialog = new NewEmployeeDialog(mainFrame, employeeController);
+        dialog.setVisible(true);
+        if (dialog.isEmployeeAdded()) {
+            loadEmployeeData(); // Refresh the table
+            JOptionPane.showMessageDialog(this,
+                    "New employee added successfully!",
+                    "Success",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    /**
+     * Navigate back to the main menu
+     */
+    private void backToMainMenu() {
+        mainFrame.showMainMenu();
+    }
+
+    /**
+     * Create a primary button (matching prototype style)
+     */
+    private JButton createPrimaryButton(String text) {
+        JButton button = new JButton(text);
+        button.setBackground(UIConstants.BUTTON_COLOR);
+        button.setForeground(UIConstants.BUTTON_TEXT_COLOR);
+        button.setFont(UIConstants.BUTTON_FONT);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setPreferredSize(new java.awt.Dimension(150, UIConstants.BUTTON_HEIGHT));
+        return button;
+    }
+
+    /**
+     * Setup action column with custom renderer and editor
+     */
+    private void setupActionColumn() {
+        employeeTable.getColumn("Actions").setCellRenderer(new ActionButtonRenderer());
+        employeeTable.getColumn("Actions").setCellEditor(new ActionButtonEditor());
+        employeeTable.setRowHeight(40); // Increase row height for buttons
+    }
+
+    /**
+     * Custom renderer for action buttons in table
+     */
+    private class ActionButtonRenderer extends DefaultTableCellRenderer {
+        private final JPanel panel;
+        private final JButton viewButton, editButton, deleteButton;
+
+        public ActionButtonRenderer() {
+            panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 2, 2));
+            panel.setBackground(UIConstants.PANEL_BACKGROUND);
+
+            viewButton = createActionButton("View", UIConstants.BUTTON_COLOR);
+            editButton = createActionButton("Edit", UIConstants.BUTTON_COLOR);
+            deleteButton = createActionButton("Delete", UIConstants.DELETE_BUTTON_COLOR);
+
+            panel.add(viewButton);
+            panel.add(editButton);
+            panel.add(deleteButton);
+        }
+
+        private JButton createActionButton(String text, java.awt.Color bgColor) {
+            JButton button = new JButton(text);
+            button.setBackground(bgColor);
+            button.setForeground(UIConstants.BUTTON_TEXT_COLOR);
+            button.setFont(UIConstants.SMALL_FONT);
+            button.setFocusPainted(false);
+            button.setBorderPainted(false);
+            button.setPreferredSize(new java.awt.Dimension(55, 25));
+            return button;
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+            return panel;
+        }
+    }
+
+    /**
+     * Custom editor for action buttons in table
+     */
+    private class ActionButtonEditor extends AbstractCellEditor implements TableCellEditor {
+        private final JPanel panel;
+        private final JButton viewButton, editButton, deleteButton;
+        private int currentRow;
+
+        public ActionButtonEditor() {
+            panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 2, 2));
+            panel.setBackground(UIConstants.PANEL_BACKGROUND);
+
+            viewButton = createActionButton("View", UIConstants.BUTTON_COLOR);
+            editButton = createActionButton("Edit", UIConstants.BUTTON_COLOR);
+            deleteButton = createActionButton("Delete", UIConstants.DELETE_BUTTON_COLOR);
+            // Add action listeners
+            viewButton.addActionListener(e -> {
+                stopCellEditing();
+                viewEmployeeAtRow(currentRow);
+            });
+
+            editButton.addActionListener(e -> {
+                stopCellEditing();
+                editEmployeeAtRow(currentRow);
+            });
+
+            deleteButton.addActionListener(e -> {
+                stopCellEditing();
+                deleteEmployeeAtRow(currentRow);
+            });
+
+            panel.add(viewButton);
+            panel.add(editButton);
+            panel.add(deleteButton);
+        }
+
+        private JButton createActionButton(String text, java.awt.Color bgColor) {
+            JButton button = new JButton(text);
+            button.setBackground(bgColor);
+            button.setForeground(UIConstants.BUTTON_TEXT_COLOR);
+            button.setFont(UIConstants.SMALL_FONT);
+            button.setFocusPainted(false);
+            button.setBorderPainted(false);
+            button.setPreferredSize(new java.awt.Dimension(55, 25));
+            return button;
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value,
+                boolean isSelected, int row, int column) {
+            currentRow = row;
+            return panel;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return "Actions";
+        }
+    }
+
+    /**
+     * View employee details for the specified row
+     */
+    private void viewEmployeeAtRow(int row) {
+        try {
+            int employeeId = (Integer) tableModel.getValueAt(row, 0);
+            Employee employee = employeeController.findEmployeeById(employeeId);
+            new EmployeeDetailsFrame(mainFrame, employee).setVisible(true);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(this,
+                    "Error viewing employee details: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * Edit employee at the specified row
+     */
+    private void editEmployeeAtRow(int row) {
+        try {
+            int employeeId = (Integer) tableModel.getValueAt(row, 0);
+            Employee employee = employeeController.findEmployeeById(employeeId);
+
+            // Create and show edit dialog
+            com.motorph.view.dialog.EditEmployeeDialog dialog = new com.motorph.view.dialog.EditEmployeeDialog(
+                    mainFrame, employeeController, employee);
+            dialog.setVisible(true);
+
+            // If employee was updated, refresh the table
+            if (dialog.isEmployeeUpdated()) {
+                loadEmployeeData();
+                JOptionPane.showMessageDialog(this,
+                        "Employee updated successfully!",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(this,
+                    "Error editing employee: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * Delete employee at the specified row
+     */
+    private void deleteEmployeeAtRow(int row) {
+        try {
+            int employeeId = (Integer) tableModel.getValueAt(row, 0);
+            Employee employee = employeeController.findEmployeeById(employeeId);
+
+            int confirm = JOptionPane.showConfirmDialog(this,
+                    "Are you sure you want to delete employee: " + employee.getFullName() + "?\n" +
+                            "This action cannot be undone.",
+                    "Confirm Delete",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Delete the employee
+                boolean success = employeeController.deleteEmployee(employeeId);
+
+                if (success) {
+                    loadEmployeeData(); // Refresh the table
+                    JOptionPane.showMessageDialog(this,
+                            "Employee deleted successfully!",
+                            "Success",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "Failed to delete employee. Employee may not exist.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(this,
+                    "Error deleting employee: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}

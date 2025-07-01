@@ -17,7 +17,11 @@ import com.opencsv.exceptions.CsvException;
  */
 public class AuthenticationService {
     private static final Logger logger = Logger.getLogger(AuthenticationService.class.getName());
-    private static final String CREDENTIALS_FILE_PATH = "userCredentials.csv";
+    private static final String CREDENTIALS_FILE_PATH = "data/userCredentials.csv"; // If running from
+                                                                                    // motorph_payroll_system directory
+    // If you run from the parent directory, use:
+    // private static final String CREDENTIALS_FILE_PATH =
+    // "motorph_payroll_system/userCredentials.csv";
 
     private final List<User> users;
 

@@ -28,11 +28,9 @@ import com.motorph.view.MainFrame;
  * and starting the user interface.
  */
 public class Main {
-    private static final Logger logger = Logger.getLogger(Main.class.getName());
-
-    // File paths for data sources
-    private static final String EMPLOYEES_FILE_PATH = "motorph_payroll_system/data/employeeDetails.csv";
-    private static final String ATTENDANCE_FILE_PATH = "motorph_payroll_system/data/attendanceRecord.csv";
+    private static final Logger logger = Logger.getLogger(Main.class.getName()); // File paths for data sources
+    private static final String EMPLOYEES_FILE_PATH = "data/employeeDetails.csv";
+    private static final String ATTENDANCE_FILE_PATH = "data/attendanceRecord.csv";
 
     /**
      * Main entry point for the application
@@ -46,7 +44,6 @@ public class Main {
                                                                                  // on the Event Dispatch Thread
             SwingUtilities.invokeLater(() -> {
                 try {
-                    // Show login screen first
                     showLoginScreen();
                 } catch (Exception e) {
                     logger.log(Level.SEVERE, "Failed to initialize application", e);
@@ -68,21 +65,36 @@ public class Main {
     }
 
     /**
-     * Show the login screen first
+     * Initialize a default session for bypassed login
+     * This allows the dashboard to display user information during testing
+     */
+    private static void initializeDefaultSession() {
+        try {
+            // Create a default admin user for testing
+            com.motorph.model.User defaultUser = new com.motorph.model.User("admin", "password", 1, "ADMIN", true);
+            com.motorph.util.SessionManager sessionManager = com.motorph.util.SessionManager.getInstance();
+            sessionManager.setCurrentUser(defaultUser);
+            logger.log(Level.INFO, "Default session initialized for user: {0}", defaultUser.getUsername());
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Failed to initialize default session", e);
+        }
+    }
+
+    /**
+     * Show the login screen
      */
     private static void showLoginScreen() {
         showLoginScreen(null);
     }
 
     /**
-     * Show the login screen with optional callback
+     * Show the login screen with a callback for successful login
      * 
-     * @param onLoginSuccess Callback to execute after successful login
+     * @param onLoginSuccess Callback to run after successful login
      */
     public static void showLoginScreen(Runnable onLoginSuccess) {
         logger.log(Level.INFO, "Starting MotorPH Payroll System with login screen");
 
-        // Create login frame with callback to initialize main application
         LoginFrame loginFrame = new LoginFrame(() -> {
             try {
                 if (onLoginSuccess != null) {
@@ -96,7 +108,6 @@ public class Main {
             }
         });
 
-        // Show login screen
         loginFrame.showLogin();
     }
 
