@@ -32,3 +32,4 @@ planner.md
 # Ignore all mcp.json files
 mcp.json
 
+.vscode/settings.json
