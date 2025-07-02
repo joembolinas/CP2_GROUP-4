@@ -58,7 +58,7 @@ import com.motorph.view.dialog.DateRangeDialog;
  * - Approval and posting workflow
  * - Report generation
  */
-public class Payroll extends JPanel {
+public class PayrollNew extends JPanel {
 
     private final MainFrame mainFrame;
     private final PayrollController payrollController;
@@ -86,7 +86,7 @@ public class Payroll extends JPanel {
     /**
      * Constructor for the payroll panel
      */
-    public Payroll(MainFrame mainFrame, PayrollController payrollController) {
+    public PayrollNew(MainFrame mainFrame, PayrollController payrollController) {
         this.mainFrame = mainFrame;
         this.payrollController = payrollController;
         this.currencyFormat = NumberFormat.getCurrencyInstance(new Locale("en", "PH"));
@@ -542,10 +542,10 @@ public class Payroll extends JPanel {
                     String.format("%.2f", paySlip.getRegularHours()),
                     String.format("%.2f", paySlip.getOvertimeHours()),
                     currencyFormat.format(paySlip.getGrossPay()),
-                    currencyFormat.format(paySlip.getSssContribution()),
-                    currencyFormat.format(paySlip.getPhilhealthContribution()),
-                    currencyFormat.format(paySlip.getPagibigContribution()),
-                    currencyFormat.format(paySlip.getWithholdingTax()),
+                    currencyFormat.format(paySlip.getDeductions().getOrDefault("sss", 0.0)),
+                    currencyFormat.format(paySlip.getDeductions().getOrDefault("philhealth", 0.0)),
+                    currencyFormat.format(paySlip.getDeductions().getOrDefault("pagibig", 0.0)),
+                    currencyFormat.format(paySlip.getDeductions().getOrDefault("withholdingTax", 0.0)),
                     currencyFormat.format(paySlip.getTotalDeductions()),
                     currencyFormat.format(paySlip.getNetPay()),
                     "Calculated"
