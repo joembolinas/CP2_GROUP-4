@@ -698,22 +698,14 @@ public class EmployeePanel extends JPanel {
     }
 
     /**
-     * Show employee details in a formatted dialog
+     * Show employee details in a modern comprehensive dialog
      */
     private void showEmployeeDetails(Employee employee) {
-        StringBuilder details = new StringBuilder();
-        details.append("Employee Details:\n\n");
-        details.append("ID: ").append(employee.getEmployeeId()).append("\n");
-        details.append("Name: ").append(employee.getFullName()).append("\n");
-        details.append("Position: ").append(employee.getPosition() != null ? employee.getPosition() : "N/A")
-                .append("\n");
-        details.append("Status: ").append(employee.getStatus() != null ? employee.getStatus() : "N/A").append("\n");
-        details.append("Basic Salary: ₱").append(String.format("%,.2f", employee.getBasicSalary())).append("\n");
-        details.append("Phone: ").append(employee.getPhoneNumber() != null ? employee.getPhoneNumber() : "N/A")
-                .append("\n");
-        details.append("Address: ").append(employee.getAddress() != null ? employee.getAddress() : "N/A");
-
-        JOptionPane.showMessageDialog(this, details.toString(), "Employee Details", JOptionPane.INFORMATION_MESSAGE);
+        com.motorph.view.dialog.EmployeeDetailsDialog dialog = new com.motorph.view.dialog.EmployeeDetailsDialog(
+                (javax.swing.JFrame) javax.swing.SwingUtilities.getWindowAncestor(this),
+                employee,
+                employeeController);
+        dialog.setVisible(true);
     }
 
     /**

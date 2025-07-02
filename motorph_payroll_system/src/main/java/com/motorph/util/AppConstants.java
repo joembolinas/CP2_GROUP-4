@@ -58,12 +58,20 @@ public final class AppConstants {
     public static final Color EDIT_BUTTON_COLOR = new Color(251, 146, 60); // #FB923C - orange-400
     public static final Color BORDER_SOLID = new Color(203, 213, 225); // #CBD5E1 - slate-300
     public static final Color ACCENT_PRIMARY = new Color(99, 102, 241); // #6366F1 - indigo-600
-    
+
     // Payroll Status Colors
+    public static final Color PAYROLL_DRAFT_COLOR = new Color(107, 114, 128); // #6B7280 - gray-500
+    public static final Color PAYROLL_LOADED_COLOR = new Color(59, 130, 246); // #3B82F6 - blue-500
+    public static final Color PAYROLL_CALCULATED_COLOR = new Color(245, 158, 11); // #F59E0B - amber-500
+    public static final Color PAYROLL_REVIEW_COLOR = new Color(168, 85, 247); // #A855F7 - purple-500
     public static final Color PAYROLL_PENDING_COLOR = new Color(245, 158, 11); // #F59E0B - amber-500
     public static final Color PAYROLL_APPROVED_COLOR = new Color(34, 197, 94); // #22C55E - green-500
     public static final Color PAYROLL_REJECTED_COLOR = new Color(239, 68, 68); // #EF4444 - red-500
     public static final Color PAYROLL_POSTED_COLOR = new Color(99, 102, 241); // #6366F1 - indigo-600
+
+    // Additional UI Colors
+    public static final Color PRIMARY_COLOR = PRIMARY_BUTTON_COLOR; // Alias for consistency
+    public static final Color SELECTION_COLOR = new Color(219, 234, 254); // #DBEAFE - blue-100
 
     // Component Sizing
     public static final int FRAME_WIDTH = 1200;
