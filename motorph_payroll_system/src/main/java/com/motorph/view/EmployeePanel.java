@@ -9,13 +9,11 @@ import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,10 +25,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.motorph.controller.EmployeeController;
-import com.motorph.model.AttendanceRecord;
 import com.motorph.model.Employee;
 import com.motorph.util.AppConstants;
 import com.motorph.util.AppUtils;
+import com.motorph.view.dialog.AttendanceViewerDialog;
 import com.motorph.view.dialog.EmployeeDialog;
 
 /**
@@ -135,12 +133,12 @@ public class EmployeePanel extends JPanel {
         topPanel.setBackground(Color.WHITE);
         topPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 16, 0));
 
-        // Logo placeholder (matching HTML mockup)
+        // Logo placeholder 
         JLabel logoLabel = new JLabel("MotorPH");
         logoLabel.setFont(AppConstants.SUBHEADING_FONT);
         logoLabel.setForeground(Color.WHITE);
         logoLabel.setOpaque(true);
-        logoLabel.setBackground(AppConstants.TEXT_COLOR); // Using consistent color from AppConstants
+        logoLabel.setBackground(AppConstants.TEXT_COLOR);
         logoLabel.setBorder(BorderFactory.createEmptyBorder(8, 16, 8, 16));
 
         // Back button
@@ -504,129 +502,18 @@ public class EmployeePanel extends JPanel {
                 int employeeNumber = Integer.parseInt(tableModel.getValueAt(selectedEmployeeRow, 0).toString());
                 Employee employee = employeeController.findEmployeeById(employeeNumber);
 
-                // First try to get records for the last 30 days
-                LocalDate endDate = LocalDate.now();
-                LocalDate startDate = endDate.minusDays(30);
-
-                List<AttendanceRecord> records = employeeController.getAttendanceRecords(employeeNumber, startDate,
-                        endDate);
-
-                // If no recent records found, get all available records for this employee
-                if (records.isEmpty()) {
-                    // Try to get any available records (broader range)
-                    startDate = LocalDate.of(2020, 1, 1); // Start from 2020 to catch historical data
-                    endDate = LocalDate.of(2030, 12, 31); // Extend to future
-                    records = employeeController.getAttendanceRecords(employeeNumber, startDate, endDate);
-                }
-
-                if (records.isEmpty()) {
-                    JOptionPane.showMessageDialog(this,
-                            "No attendance records found for Employee #" + employeeNumber + ".",
-                            "Employee Attendance",
-                            JOptionPane.INFORMATION_MESSAGE);
-                    return;
-                }
-
-                // Determine the time period being shown
-                String periodDescription;
-                if (records.size() > 0) {
-                    // Get the date range of actual records
-                    LocalDate earliestDate = records.stream()
-                            .map(AttendanceRecord::getDate)
-                            .min(LocalDate::compareTo)
-                            .orElse(LocalDate.now());
-                    LocalDate latestDate = records.stream()
-                            .map(AttendanceRecord::getDate)
-                            .max(LocalDate::compareTo)
-                            .orElse(LocalDate.now());
-
-                    if (earliestDate.equals(latestDate)) {
-                        periodDescription = "Records for " + earliestDate.toString();
-                    } else {
-                        periodDescription = "Records from " + earliestDate.toString() + " to " + latestDate.toString();
-                    }
+                if (employee != null) {
+                    // Use the new professional attendance viewer dialog
+                    AttendanceViewerDialog.showAttendanceViewer(
+                            (Frame) SwingUtilities.getWindowAncestor(this),
+                            employee,
+                            employeeController);
                 } else {
-                    periodDescription = "All Available Records";
+                    JOptionPane.showMessageDialog(this,
+                            "Employee not found: ID " + employeeNumber,
+                            "Employee Not Found",
+                            JOptionPane.ERROR_MESSAGE);
                 }
-
-                // Prepare data for the attendance table
-                String[] columnNames = { "Date", "Time In", "Time Out", "Total Hours", "Status" };
-                Object[][] data = new Object[records.size()][5];
-
-                for (int i = 0; i < records.size(); i++) {
-                    AttendanceRecord record = records.get(i);
-                    data[i][0] = record.getDate().toString();
-                    data[i][1] = record.getTimeIn().toString();
-                    data[i][2] = record.getTimeOut().toString();
-                    data[i][3] = String.format("%.2f", record.getTotalHours());
-                    data[i][4] = record.isLate() ? "Late" : "On Time";
-                }
-
-                // Create and style the attendance table
-                JTable attendanceTable = new JTable(data, columnNames);
-                attendanceTable.setFillsViewportHeight(true);
-                attendanceTable.setAutoCreateRowSorter(true);
-
-                // Style the table
-                attendanceTable.getTableHeader().setBackground(AppConstants.PRIMARY_BUTTON_COLOR);
-                attendanceTable.getTableHeader().setForeground(Color.WHITE);
-                attendanceTable.getTableHeader().setFont(AppConstants.BUTTON_FONT);
-
-                JScrollPane scrollPane = new JScrollPane(attendanceTable);
-                scrollPane.setPreferredSize(new java.awt.Dimension(600, 300));
-
-                // Show in a custom dialog
-                JDialog attendanceDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this),
-                        "Attendance Records - " + employee.getFullName(), true);
-                attendanceDialog.setLayout(new BorderLayout());
-
-                // Add title panel
-                JPanel titlePanel = new JPanel();
-                titlePanel.setBackground(AppConstants.PRIMARY_BUTTON_COLOR);
-                titlePanel.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
-                JLabel titleLabel = new JLabel("📅 " + employee.getFullName() + " - " + periodDescription);
-                titleLabel.setFont(AppConstants.TITLE_FONT);
-                titleLabel.setForeground(Color.WHITE);
-                titlePanel.add(titleLabel);
-
-                attendanceDialog.add(titlePanel, BorderLayout.NORTH);
-                attendanceDialog.add(scrollPane, BorderLayout.CENTER);
-
-                // Add summary panel
-                JPanel summaryPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-                summaryPanel.setBackground(AppConstants.PANEL_BACKGROUND);
-                summaryPanel.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 15));
-
-                // Calculate summary statistics
-                int totalRecords = records.size();
-                long lateCount = records.stream().mapToLong(r -> r.isLate() ? 1 : 0).sum();
-                double totalHours = records.stream().mapToDouble(AttendanceRecord::getTotalHours).sum();
-                double avgHours = totalRecords > 0 ? totalHours / totalRecords : 0;
-
-                JLabel summaryLabel = new JLabel(String.format(
-                        "Summary: %d records | %d late arrivals | %.1f total hours | %.1f avg hours/day",
-                        totalRecords, lateCount, totalHours, avgHours));
-                summaryLabel.setFont(AppConstants.SMALL_FONT);
-                summaryLabel.setForeground(AppConstants.TEXT_SECONDARY);
-                summaryPanel.add(summaryLabel);
-
-                // Add close button panel
-                JPanel buttonPanel = new JPanel();
-                buttonPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
-                JButton closeButton = AppUtils.createPrimaryButton("Close");
-                closeButton.addActionListener(e -> attendanceDialog.dispose());
-                buttonPanel.add(closeButton);
-
-                // Combine summary and button panels
-                JPanel bottomPanel = new JPanel(new BorderLayout());
-                bottomPanel.add(summaryPanel, BorderLayout.CENTER);
-                bottomPanel.add(buttonPanel, BorderLayout.SOUTH);
-
-                attendanceDialog.add(bottomPanel, BorderLayout.SOUTH);
-
-                attendanceDialog.pack();
-                attendanceDialog.setLocationRelativeTo(this);
-                attendanceDialog.setVisible(true);
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this,
@@ -698,22 +585,14 @@ public class EmployeePanel extends JPanel {
     }
 
     /**
-     * Show employee details in a formatted dialog
+     * Show employee details in a modern comprehensive dialog
      */
     private void showEmployeeDetails(Employee employee) {
-        StringBuilder details = new StringBuilder();
-        details.append("Employee Details:\n\n");
-        details.append("ID: ").append(employee.getEmployeeId()).append("\n");
-        details.append("Name: ").append(employee.getFullName()).append("\n");
-        details.append("Position: ").append(employee.getPosition() != null ? employee.getPosition() : "N/A")
-                .append("\n");
-        details.append("Status: ").append(employee.getStatus() != null ? employee.getStatus() : "N/A").append("\n");
-        details.append("Basic Salary: ₱").append(String.format("%,.2f", employee.getBasicSalary())).append("\n");
-        details.append("Phone: ").append(employee.getPhoneNumber() != null ? employee.getPhoneNumber() : "N/A")
-                .append("\n");
-        details.append("Address: ").append(employee.getAddress() != null ? employee.getAddress() : "N/A");
-
-        JOptionPane.showMessageDialog(this, details.toString(), "Employee Details", JOptionPane.INFORMATION_MESSAGE);
+        com.motorph.view.dialog.EmployeeDetailsDialog dialog = new com.motorph.view.dialog.EmployeeDetailsDialog(
+                (javax.swing.JFrame) javax.swing.SwingUtilities.getWindowAncestor(this),
+                employee,
+                employeeController);
+        dialog.setVisible(true);
     }
 
     /**

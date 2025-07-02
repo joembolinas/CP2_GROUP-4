@@ -682,3 +682,111 @@ Jul 02, 2025 11:40:37 AM com.motorph.repository.DataRepository loadAttendanceRec
 INFO: Loading attendance from: c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\data\attendanceRecord.csv
 Jul 02, 2025 11:40:37 AM com.motorph.repository.DataRepository loadAttendanceRecords
 INFO: Successfully loaded 5,168 of 5,168 attendance records
+Jul 02, 2025 2:07:05 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jul 02, 2025 2:07:05 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\data\employeeDetails.csv
+Jul 02, 2025 2:07:05 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Successfully loaded 35 of 35 employee records
+Jul 02, 2025 2:07:05 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Employee 10001 details: ID=10,001, Name=Manuel III Garcia, Birthday=1983-10-11, Address=Valero Carpark Building Valero Street 1227, Makati City, SSS=44-4506057-3
+Jul 02, 2025 2:07:05 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\data\attendanceRecord.csv
+Jul 02, 2025 2:07:05 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Successfully loaded 5,168 of 5,168 attendance records
+Jul 02, 2025 3:10:05 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jul 02, 2025 3:10:05 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\data\employeeDetails.csv
+Jul 02, 2025 3:10:05 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Successfully loaded 35 of 35 employee records
+Jul 02, 2025 3:10:05 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Employee 10001 details: ID=10,001, Name=Manuel III Garcia, Birthday=1983-10-11, Address=Valero Carpark Building Valero Street 1227, Makati City, SSS=44-4506057-3
+Jul 02, 2025 3:10:05 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\data\attendanceRecord.csv
+Jul 02, 2025 3:10:06 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Successfully loaded 5,168 of 5,168 attendance records
+Jul 02, 2025 3:17:04 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jul 02, 2025 3:17:04 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\data\employeeDetails.csv
+Jul 02, 2025 3:17:04 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Successfully loaded 35 of 35 employee records
+Jul 02, 2025 3:17:04 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Employee 10001 details: ID=10,001, Name=Manuel III Garcia, Birthday=1983-10-11, Address=Valero Carpark Building Valero Street 1227, Makati City, SSS=44-4506057-3
+Jul 02, 2025 3:17:04 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\data\attendanceRecord.csv
+Jul 02, 2025 3:17:04 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Successfully loaded 5,168 of 5,168 attendance records
+Jul 02, 2025 3:28:04 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jul 02, 2025 3:28:04 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\data\employeeDetails.csv
+Jul 02, 2025 3:28:05 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Successfully loaded 35 of 35 employee records
+Jul 02, 2025 3:28:05 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Employee 10001 details: ID=10,001, Name=Manuel III Garcia, Birthday=1983-10-11, Address=Valero Carpark Building Valero Street 1227, Makati City, SSS=44-4506057-3
+Jul 02, 2025 3:28:05 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\data\attendanceRecord.csv
+Jul 02, 2025 3:28:05 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Successfully loaded 5,168 of 5,168 attendance records
+Jul 02, 2025 3:40:58 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jul 02, 2025 3:40:58 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\data\employeeDetails.csv
+Jul 02, 2025 3:40:58 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Successfully loaded 35 of 35 employee records
+Jul 02, 2025 3:40:58 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Employee 10001 details: ID=10,001, Name=Manuel III Garcia, Birthday=1983-10-11, Address=Valero Carpark Building Valero Street 1227, Makati City, SSS=44-4506057-3
+Jul 02, 2025 3:40:58 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\data\attendanceRecord.csv
+Jul 02, 2025 3:40:58 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Successfully loaded 5,168 of 5,168 attendance records
+Jul 02, 2025 3:54:19 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jul 02, 2025 3:54:19 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\data\employeeDetails.csv
+Jul 02, 2025 3:54:19 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Successfully loaded 35 of 35 employee records
+Jul 02, 2025 3:54:19 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Employee 10001 details: ID=10,001, Name=Manuel III Garcia, Birthday=1983-10-11, Address=Valero Carpark Building Valero Street 1227, Makati City, SSS=44-4506057-3
+Jul 02, 2025 3:54:19 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\data\attendanceRecord.csv
+Jul 02, 2025 3:54:19 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Successfully loaded 5,168 of 5,168 attendance records
+Jul 02, 2025 8:52:29 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jul 02, 2025 8:52:29 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: C:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\data\employeeDetails.csv
+Jul 02, 2025 8:52:29 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Successfully loaded 35 of 35 employee records
+Jul 02, 2025 8:52:29 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Employee 10001 details: ID=10,001, Name=Manuel III Garcia, Birthday=1983-10-11, Address=Valero Carpark Building Valero Street 1227, Makati City, SSS=44-4506057-3
+Jul 02, 2025 8:52:29 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: C:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\data\attendanceRecord.csv
+Jul 02, 2025 8:52:29 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Successfully loaded 5,168 of 5,168 attendance records
+Jul 02, 2025 9:05:25 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jul 02, 2025 9:05:25 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\data\employeeDetails.csv
+Jul 02, 2025 9:05:25 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Successfully loaded 35 of 35 employee records
+Jul 02, 2025 9:05:25 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Employee 10001 details: ID=10,001, Name=Manuel III Garcia, Birthday=1983-10-11, Address=Valero Carpark Building Valero Street 1227, Makati City, SSS=44-4506057-3
+Jul 02, 2025 9:05:25 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\data\attendanceRecord.csv
+Jul 02, 2025 9:05:26 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Successfully loaded 5,168 of 5,168 attendance records
+Jul 02, 2025 11:02:17 PM com.motorph.repository.DataRepository <init>
+INFO: DataRepository initialized
+Jul 02, 2025 11:02:17 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Loading employees from: C:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\data\employeeDetails.csv
+Jul 02, 2025 11:02:18 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Successfully loaded 35 of 35 employee records
+Jul 02, 2025 11:02:18 PM com.motorph.repository.DataRepository loadEmployees
+INFO: Employee 10001 details: ID=10,001, Name=Manuel III Garcia, Birthday=1983-10-11, Address=Valero Carpark Building Valero Street 1227, Makati City, SSS=44-4506057-3
+Jul 02, 2025 11:02:18 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Loading attendance from: C:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\data\attendanceRecord.csv
+Jul 02, 2025 11:02:18 PM com.motorph.repository.DataRepository loadAttendanceRecords
+INFO: Successfully loaded 5,168 of 5,168 attendance records
