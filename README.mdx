@@ -1,34 +1,55 @@
 ---
 title: "MotorPH Payroll System"
-description: "A comprehensive Java-based payroll management system built with MVC architecture"
+description: "Enterprise-Grade Payroll Management System - Week 11 Terminal Assessment Ready"
 version: "2.0.0"
 author: "CP2 Group 4"
 lastUpdated: "2025-01-28"
-tags: ["Java", "Maven", "Swing", "Payroll", "MVC", "Enterprise"]
+status: "Week 11 - Terminal Assessment Phase"
+tags: ["Java", "Maven", "Swing", "Payroll", "MVC", "Enterprise", "Terminal-Assessment"]
 ---
 
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { CheckCircle, XCircle, FileText, Users, Calculator, BarChart3, Zap } from 'lucide-react'
+import { CheckCircle, XCircle, FileText, Users, Calculator, BarChart3, Zap, Calendar, Target } from 'lucide-react'
+
+<div className="text-center mb-8">
 
 # 🏢 MotorPH Payroll System
 
-<div className="flex flex-wrap gap-2 mb-6">
+<div className="flex flex-wrap justify-center gap-2 mb-6">
   <Badge variant="default">Java 17</Badge>
-  <Badge variant="secondary">Maven</Badge>
+  <Badge variant="secondary">Maven 3.9.0</Badge>
   <Badge variant="outline">Swing GUI</Badge>
   <Badge variant="destructive">MVC Architecture</Badge>
-  <Badge variant="secondary">CSV Data</Badge>
-  <Badge variant="outline">Enterprise Ready</Badge>
+  <Badge variant="secondary">CSV Integration</Badge>
+  <Badge className="bg-orange-500 text-white">Week 11 | Terminal Assessment</Badge>
 </div>
 
-<Alert className="mb-6">
-  <Zap className="h-4 w-4" />
-  <AlertTitle>Recently Refactored!</AlertTitle>
-  <AlertDescription>
-    This project has undergone comprehensive cleanup and restructuring, achieving a 17% reduction in source files while improving maintainability and organization.
+<div className="text-lg text-muted-foreground mb-4">
+  **Enterprise-Grade Payroll Management System | CP2 Group 4**
+</div>
+
+<div className="text-sm text-muted-foreground">
+  *A comprehensive Java-based application with modern UI/UX, workflow-based payroll processing, and professional employee management.*
+</div>
+
+</div>
+
+<Alert className="mb-6 border-orange-200 bg-orange-50">
+  <Target className="h-4 w-4 text-orange-600" />
+  <AlertTitle className="text-orange-800">Week 11 Status: Terminal Assessment Phase</AlertTitle>
+  <AlertDescription className="text-orange-700">
+    🎯 **95% Complete** - Production-ready system approaching final assessment. All major features implemented with modern UI/UX improvements and comprehensive workflow management.
+  </AlertDescription>
+</Alert>
+
+<Alert className="mb-6 border-green-200 bg-green-50">
+  <Zap className="h-4 w-4 text-green-600" />
+  <AlertTitle className="text-green-800">Recently Enhanced!</AlertTitle>
+  <AlertDescription className="text-green-700">
+    ✨ **Major UI/UX Overhaul** - Modern payroll workflow, professional attendance viewer, redesigned dashboard, and consolidated design system for enterprise-grade user experience.
   </AlertDescription>
 </Alert>
 
@@ -742,6 +763,161 @@ Ctrl+Shift+P → "Tasks: Run Task" → "Run MotorPH Application"
         </CardContent>
       </Card>
     </div>
+  </TabsContent>
+</Tabs>
+
+## 📊 Development Progress & Project Timeline
+
+<Tabs defaultValue="kanban" className="w-full">
+  <TabsList className="grid w-full grid-cols-3">
+    <TabsTrigger value="kanban">📋 Project Kanban</TabsTrigger>
+    <TabsTrigger value="timeline">⏰ Development Timeline</TabsTrigger>
+    <TabsTrigger value="workflow">🔄 Git Workflow</TabsTrigger>
+  </TabsList>
+  
+  <TabsContent value="kanban" className="space-y-4">
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <BarChart3 className="h-5 w-5" />
+          Current Project Status - Week 11
+        </CardTitle>
+        <CardDescription>
+          Task management and progress tracking for Terminal Assessment preparation
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+
+```mermaid
+---
+config:
+  kanban:
+    ticketBaseUrl: 'https://github.com/CP2-Group4/MotorPH-Payroll/issues/#TICKET#'
+---
+kanban
+  id1[✅ COMPLETED]
+    id11[MPHCR-02 Feature Implementation]@{ assigned: 'CP2-Group4', priority: 'High' }
+    id12[Employee Management System]@{ assigned: 'CP2-Group4', priority: 'High' }
+    id13[CSV Data Integration]@{ assigned: 'CP2-Group4', priority: 'High' }
+    id14[Modern Payroll Workflow]@{ assigned: 'CP2-Group4', priority: 'High' }
+    id15[Professional Attendance Viewer]@{ assigned: 'CP2-Group4', priority: 'Medium' }
+    id16[Dashboard Modernization]@{ assigned: 'CP2-Group4', priority: 'Medium' }
+    id17[UI/UX Consolidation]@{ assigned: 'CP2-Group4', priority: 'Medium' }
+  
+  id2[🔄 IN PROGRESS - Week 11]
+    id21[Final Documentation]@{ assigned: 'CP2-Group4', priority: 'High' }
+    id22[Terminal Assessment Prep]@{ assigned: 'CP2-Group4', priority: 'Very High' }
+    id23[Code Quality Review]@{ assigned: 'CP2-Group4', priority: 'Medium' }
+  
+  id3[📋 READY FOR ASSESSMENT]
+    id31[System Demonstration]@{ assigned: 'CP2-Group4', priority: 'Very High' }
+    id32[Feature Showcase]@{ assigned: 'CP2-Group4', priority: 'High' }
+    id33[Architecture Presentation]@{ assigned: 'CP2-Group4', priority: 'Medium' }
+  
+  id4[🎯 FUTURE ENHANCEMENTS]
+    id41[Export Functionality]@{ assigned: 'Future', priority: 'Low' }
+    id42[Advanced Analytics]@{ assigned: 'Future', priority: 'Low' }
+    id43[Integration APIs]@{ assigned: 'Future', priority: 'Very Low' }
+```
+
+      </CardContent>
+    </Card>
+  </TabsContent>
+  
+  <TabsContent value="timeline" className="space-y-4">
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <Calendar className="h-5 w-5" />
+          Development Timeline
+        </CardTitle>
+        <CardDescription>
+          Complete development journey from inception to Terminal Assessment
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+
+```mermaid
+gantt
+    title MotorPH Payroll System - Development Timeline (CP2 Group 4)
+    dateFormat YYYY-MM-DD
+    section Phase 1: Foundation
+    Initial Setup & Planning     :done, setup, 2024-11-01, 2024-11-15
+    MVC Architecture Design      :done, mvc, 2024-11-10, 2024-11-25
+    Basic UI Framework          :done, ui-base, 2024-11-20, 2024-12-05
+    
+    section Phase 2: Core Features
+    Employee Management         :done, emp-mgmt, 2024-12-01, 2024-12-20
+    CSV Integration            :done, csv, 2024-12-15, 2025-01-05
+    Authentication System      :done, auth, 2024-12-20, 2025-01-10
+    
+    section Phase 3: Advanced Features
+    Payroll Workflow          :done, payroll, 2025-01-05, 2025-01-20
+    Attendance Viewer         :done, attendance, 2025-01-15, 2025-01-25
+    Dashboard Modernization   :done, dashboard, 2025-01-20, 2025-01-28
+    
+    section Phase 4: Final Phase - Week 11
+    Documentation & Polish    :active, docs, 2025-01-25, 2025-02-05
+    Terminal Assessment Prep  :crit, terminal, 2025-01-28, 2025-02-07
+    Final Testing            :test, 2025-02-01, 2025-02-05
+    System Demonstration     :milestone, demo, 2025-02-07, 0d
+```
+
+      </CardContent>
+    </Card>
+  </TabsContent>
+  
+  <TabsContent value="workflow" className="space-y-4">
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <FileText className="h-5 w-5" />
+          Git Development Workflow
+        </CardTitle>
+        <CardDescription>
+          Branch strategy and development progression visualization
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+
+```mermaid
+---
+title: MotorPH Development Workflow
+---
+gitGraph
+   commit id: "Initial Setup"
+   commit id: "MVC Foundation"
+   branch feature/employee-mgmt
+   checkout feature/employee-mgmt
+   commit id: "Employee Model"
+   commit id: "Employee Views"
+   commit id: "CSV Integration"
+   checkout main
+   merge feature/employee-mgmt id: "Employee System Complete"
+   
+   branch feature/payroll-workflow
+   checkout feature/payroll-workflow
+   commit id: "Payroll Models"
+   commit id: "Workflow UI"
+   commit id: "Status Management"
+   checkout main
+   merge feature/payroll-workflow id: "Payroll Workflow Ready"
+   
+   branch feature/ui-modernization
+   checkout feature/ui-modernization
+   commit id: "Attendance Viewer"
+   commit id: "Dashboard Redesign"
+   commit id: "UI Consolidation"
+   checkout main
+   merge feature/ui-modernization id: "Modern UI Complete" tag: "v2.0.0"
+   
+   commit id: "Final Polish" type: HIGHLIGHT
+   commit id: "Documentation" type: HIGHLIGHT
+   commit id: "Assessment Ready" type: HIGHLIGHT tag: "Terminal-Assessment"
+```
+
+      </CardContent>
+    </Card>
   </TabsContent>
 </Tabs>
 

@@ -1,14 +1,40 @@
-# MotorPH Payroll System Overview
+<div align="center">
+
+# 🏢 MotorPH Payroll System
+
+[![Java](https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://openjdk.org/projects/jdk/17/)
+[![Maven](https://img.shields.io/badge/Maven-3.9.0-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white)](https://maven.apache.org/)
+[![Swing](https://img.shields.io/badge/Swing-GUI-4285F4?style=for-the-badge&logo=java&logoColor=white)](https://docs.oracle.com/javase/tutorial/uiswing/)
+[![MVC](https://img.shields.io/badge/Architecture-MVC-FF6B6B?style=for-the-badge&logo=architecture&logoColor=white)](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)
+[![CSV](https://img.shields.io/badge/Data-CSV-4ECDC4?style=for-the-badge&logo=files&logoColor=white)](https://opencsv.sourceforge.net/)
+[![Status](https://img.shields.io/badge/Status-Week%2011%20|%20Terminal%20Assessment-FF5722?style=for-the-badge&logo=calendar&logoColor=white)](#)
+
+**Enterprise-Grade Payroll Management System | CP2 Group 4**
+
+*A comprehensive Java-based application with modern UI/UX, workflow-based payroll processing, and professional employee management.*
+
+---
+
+</div>
+
+## 🎯 Project Status - Week 11: Approaching Terminal Assessment
+
+**Current Phase**: Final Implementation & Documentation  
+**Completion**: 95% - Production Ready  
+**Last Updated**: January 28, 2025  
+**Version**: 2.0.0
+
+### 🚀 Latest Major Updates ✅
+
+- ✅ **Modern Payroll Workflow**: Complete CSV upload → validation → calculation → review → approval workflow
+- ✅ **Professional Attendance Viewer**: Analytics dashboard with month/year filtering and export capabilities  
+- ✅ **Modernized Dashboard**: Personalized greeting, payroll cutoff countdown, interactive calendar
+- ✅ **Enhanced UI/UX**: Consolidated design system with consistent colors and modern interactions
+- ✅ **Code Consolidation**: Improved maintainability with centralized constants and utilities
 
 ## Project Summary
 
-The MotorPH Payroll System is a comprehensive Java-based application designed to streamline and automate payroll management for MotorPH company. This project has successfully implemented **MPHCR-02 Feature 2**, which includes advanced employee management capabilities with CSV persistence, modern UI design, and robust error handling.
-
-## 🚀 Latest Update: MPHCR-02 Feature 2 Implementation ✅
-
-**Status**: COMPLETE AND PRODUCTION-READY
-**Completion Date**: May 31, 2025
-**Version**: 1.0.0
+The MotorPH Payroll System is a sophisticated Java-based application designed to streamline and automate payroll management for MotorPH company. Built with enterprise-grade architecture patterns and modern UI/UX principles, this system demonstrates advanced software engineering practices while providing a robust solution for payroll processing and employee management.
 
 ### 🎯 Key MPHCR-02 Achievements:
 
@@ -81,7 +107,6 @@ The application has undergone significant refactoring to improve code organizati
    - Interactive dialogs for user input
    - Consistent styling and visual presentation
 
-<<<<<<< HEAD
 ## 🛠️ Technologies Used
 
 ### Core Technologies
@@ -118,19 +143,106 @@ The application has undergone significant refactoring to improve code organizati
 - **CSV Operations**: Full CRUD with data persistence
 - **Validation Rules**: Comprehensive input validation
 - **Error Recovery**: Robust error handling and recovery mechanisms
-=======
-## Project Cleanup Summary
 
-### Structural Improvements Made
+## 📊 Project Roadmap & Current Status
 
-The MotorPH Payroll System has undergone a comprehensive cleanup and restructuring process that has significantly improved the project's organization and maintainability:
+```mermaid
+---
+config:
+  kanban:
+    ticketBaseUrl: 'https://github.com/CP2-Group4/MotorPH-Payroll/issues/#TICKET#'
+---
+kanban
+  id1[✅ COMPLETED]
+    id11[MPHCR-02 Feature Implementation]@{ assigned: 'CP2-Group4', priority: 'High' }
+    id12[Employee Management System]@{ assigned: 'CP2-Group4', priority: 'High' }
+    id13[CSV Data Integration]@{ assigned: 'CP2-Group4', priority: 'High' }
+    id14[Modern Payroll Workflow]@{ assigned: 'CP2-Group4', priority: 'High' }
+    id15[Professional Attendance Viewer]@{ assigned: 'CP2-Group4', priority: 'Medium' }
+    id16[Dashboard Modernization]@{ assigned: 'CP2-Group4', priority: 'Medium' }
+    id17[UI/UX Consolidation]@{ assigned: 'CP2-Group4', priority: 'Medium' }
+  
+  id2[🔄 IN PROGRESS - Week 11]
+    id21[Final Documentation]@{ assigned: 'CP2-Group4', priority: 'High' }
+    id22[Terminal Assessment Prep]@{ assigned: 'CP2-Group4', priority: 'Very High' }
+    id23[Code Quality Review]@{ assigned: 'CP2-Group4', priority: 'Medium' }
+  
+  id3[📋 READY FOR ASSESSMENT]
+    id31[System Demonstration]@{ assigned: 'CP2-Group4', priority: 'Very High' }
+    id32[Feature Showcase]@{ assigned: 'CP2-Group4', priority: 'High' }
+    id33[Architecture Presentation]@{ assigned: 'CP2-Group4', priority: 'Medium' }
+  
+  id4[🎯 FUTURE ENHANCEMENTS]
+    id41[Export Functionality]@{ assigned: 'Future', priority: 'Low' }
+    id42[Advanced Analytics]@{ assigned: 'Future', priority: 'Low' }
+    id43[Integration APIs]@{ assigned: 'Future', priority: 'Very Low' }
+```
 
-#### **Files Reorganized** 📁
+## 🏗️ System Architecture & Development Timeline
 
-- **Test files properly separated:** All test classes moved from `src/main/java` to `src/test/java`
-- **Data files organized:** CSV files moved to dedicated `data/` directory
-- **Development utilities relocated:** Moved `CSVCreateAndWrite.java` and `CredentialManager.java` to test directory
->>>>>>> 773d8b41b45a38ab3deadf437d31bf3d323c8f07
+```mermaid
+gantt
+    title MotorPH Payroll System - Development Timeline (CP2 Group 4)
+    dateFormat YYYY-MM-DD
+    section Phase 1: Foundation
+    Initial Setup & Planning     :done, setup, 2024-11-01, 2024-11-15
+    MVC Architecture Design      :done, mvc, 2024-11-10, 2024-11-25
+    Basic UI Framework          :done, ui-base, 2024-11-20, 2024-12-05
+    
+    section Phase 2: Core Features
+    Employee Management         :done, emp-mgmt, 2024-12-01, 2024-12-20
+    CSV Integration            :done, csv, 2024-12-15, 2025-01-05
+    Authentication System      :done, auth, 2024-12-20, 2025-01-10
+    
+    section Phase 3: Advanced Features
+    Payroll Workflow          :done, payroll, 2025-01-05, 2025-01-20
+    Attendance Viewer         :done, attendance, 2025-01-15, 2025-01-25
+    Dashboard Modernization   :done, dashboard, 2025-01-20, 2025-01-28
+    
+    section Phase 4: Final Phase - Week 11
+    Documentation & Polish    :active, docs, 2025-01-25, 2025-02-05
+    Terminal Assessment Prep  :crit, terminal, 2025-01-28, 2025-02-07
+    Final Testing            :test, 2025-02-01, 2025-02-05
+    System Demonstration     :milestone, demo, 2025-02-07, 0d
+```
+
+## 🔄 Git Development Flow
+
+```mermaid
+---
+title: MotorPH Development Workflow
+---
+gitGraph
+   commit id: "Initial Setup"
+   commit id: "MVC Foundation"
+   branch feature/employee-mgmt
+   checkout feature/employee-mgmt
+   commit id: "Employee Model"
+   commit id: "Employee Views"
+   commit id: "CSV Integration"
+   checkout main
+   merge feature/employee-mgmt id: "Employee System Complete"
+   
+   branch feature/payroll-workflow
+   checkout feature/payroll-workflow
+   commit id: "Payroll Models"
+   commit id: "Workflow UI"
+   commit id: "Status Management"
+   checkout main
+   merge feature/payroll-workflow id: "Payroll Workflow Ready"
+   
+   branch feature/ui-modernization
+   checkout feature/ui-modernization
+   commit id: "Attendance Viewer"
+   commit id: "Dashboard Redesign"
+   commit id: "UI Consolidation"
+   checkout main
+   merge feature/ui-modernization id: "Modern UI Complete" tag: "v2.0.0"
+   
+   commit id: "Final Polish" type: HIGHLIGHT
+   commit id: "Documentation" type: HIGHLIGHT
+   commit id: "Assessment Ready" type: HIGHLIGHT tag: "Terminal-Assessment"
+```
 
 ## Technical Architecture
 
@@ -188,7 +300,6 @@ User Action → UI Validation → Service Layer → Repository Layer → CSV Fil
 Error Recovery ← Error Handling ← Transaction ← File Operation ← Data Persistence
 ```
 
-<<<<<<< HEAD
 #### UI Constants Package Structure
 
 - **Color Scheme**: Professional Bootstrap-inspired colors
@@ -241,9 +352,6 @@ Error Recovery ← Error Handling ← Transaction ← File Operation ← Data Pe
    - Resource management and error recovery
 
 ### 🔧 System Refactoring Achievements
-=======
-### Major Refactoring and Cleanup (2025)
->>>>>>> 773d8b41b45a38ab3deadf437d31bf3d323c8f07
 
 1. **Project Structure Cleanup**
 
@@ -282,7 +390,6 @@ Error Recovery ← Error Handling ← Transaction ← File Operation ← Data Pe
 - **Maven 3.6+**: For dependency management and building
 - **IDE**: IntelliJ IDEA, Eclipse, or VS Code with Java extensions
 
-<<<<<<< HEAD
 ### Installation and Setup
 
 1. **Clone or download the project**
@@ -434,40 +541,6 @@ This project is part of the MO-IT103 Computer Programming 2 course assignment. A
   - Cris Gerald Tan
   - Karen Si
   - Abdullah Al Hadad
-=======
-1. **Code Quality**
->>>>>>> 773d8b41b45a38ab3deadf437d31bf3d323c8f07
-
-   - Implementation of comprehensive unit tests for key components
-   - Addition of integration tests for complete workflows
-   - Code coverage analysis and improvement
-2. **Data Management**
-
-   - Migration from CSV files to a more robust database solution (H2, SQLite, or PostgreSQL)
-   - Implementation of data backup and recovery mechanisms
-   - Addition of data validation and integrity checks
-3. **Security and Authentication**
-
-   - Implementation of user authentication and authorization features
-   - Role-based access control for different user types
-   - Secure password handling and session management
-4. **User Experience**
-
-   - Development of more comprehensive validation frameworks
-   - Addition of keyboard shortcuts and accessibility features
-   - Implementation of user preferences and settings
-5. **Reporting and Analytics**
-
-   - Enhanced reporting capabilities with charts and graphs
-   - Export functionality for reports (PDF, Excel)
-   - Data analytics and trends visualization
-6. **Performance and Scalability**
-
-   - Performance optimization for large datasets
-   - Memory usage optimization
-   - Concurrent processing capabilities
-
-
 
 ---
 
@@ -483,7 +556,6 @@ This project is part of the MO-IT103 Computer Programming 2 course assignment. A
 
 ```plaintext
 motorph_payroll_system/
-<<<<<<< HEAD
 ├── attendanceRecord.csv       # CSV file containing employee attendance data
 ├── employeeDetails.csv        # CSV file containing employee information  
 ├── pom.xml                    # Maven project configuration
@@ -527,63 +599,6 @@ motorph_payroll_system/
                             ├── EmployeeNumberInputDialog.java
                             ├── PayslipDialog.java
                             └── SearchResultDialog.java
-=======
-├── data/                          # CSV data files (organized)
-│   ├── attendanceRecord.csv       # Employee attendance data
-│   └── employeeDetails.csv        # Employee information
-├── pom.xml                        # Maven project configuration
-└── src/                           # Source code directory
-    ├── main/java/com/motorph/     # Main application code
-    │   ├── Main.java              # Application entry point
-    │   ├── controller/            # Controller layer (MVC)
-    │   │   ├── EmployeeController.java
-    │   │   ├── PayrollController.java
-    │   │   └── ReportController.java
-    │   ├── model/                 # Model layer (MVC)
-    │   │   ├── AttendanceRecord.java
-    │   │   ├── Employee.java
-    │   │   └── PaySlip.java
-    │   ├── repository/            # Data access layer (cleaned)
-    │   │   └── DataRepository.java
-    │   ├── service/               # Business logic layer
-    │   │   ├── EmployeeService.java
-    │   │   ├── PayrollProcessor.java
-    │   │   ├── PayrollService.java
-    │   │   └── ReportService.java
-    │   ├── util/                  # Utility classes
-    │   │   ├── DateUtils.java
-    │   │   ├── ErrorHandler.java
-    │   │   ├── InputValidator.java
-    │   │   ├── PayrollConstants.java
-    │   │   ├── UIConstants.java
-    │   │   └── UIUtils.java
-    │   └── view/                  # View layer (MVC)
-    │       ├── ApplicationMenuBar.java
-    │       ├── EmployeeListPanel.java
-    │       ├── EmployeeManagementPanel.java
-    │       ├── MainFrame.java
-    │       ├── MainMenuPanel.java
-    │       ├── PayrollPanel.java
-    │       ├── ReportsPanel.java
-    │       ├── dialog/            # Dialog components
-    │       │   ├── DateRangeDialog.java
-    │       │   ├── EditEmployeeDialog.java
-    │       │   ├── EmployeeDetailsFrame.java
-    │       │   ├── EmployeeNumberInputDialog.java
-    │       │   ├── NewEmployeeDialog.java
-    │       │   ├── PayslipDialog.java
-    │       │   └── SearchResultDialog.java
-    │       └── renderer/          # Custom UI renderers
-    │           └── ActionButtonRenderer.java
-    └── test/java/com/motorph/     # Test files (properly organized)
-        ├── CSVCreateAndWrite.java     # Development utilities
-        ├── CSVTest.java
-        ├── CSVWriteTest.java
-        ├── CredentialManager.java     # Future authentication
-        ├── EmployeeServiceTest.java
-        ├── ManualCSVTest.java
-        └── SimpleCSVTest.java
->>>>>>> 773d8b41b45a38ab3deadf437d31bf3d323c8f07
 ```
 
 ### Class Inventory
@@ -654,7 +669,7 @@ motorph_payroll_system/
 | tinNumber            | Employee   | String    | private         | TIN (Tax Identification Number) of the employee      |
 | pagibigNumber        | Employee   | String    | private         | Pag-IBIG (housing fund) number of the employee       |
 | status               | Employee   | String    | private         | Employment status (Regular, Probationary, etc.)      |
-| position             | Employee   | String    | private         | Job position or title of the employee                |
+| position             | Employee   | String    | private         | Job position or title of the employee                       |
 | supervisor           | Employee   | String    | private         | Name of the employee's immediate supervisor          |
 | basicSalary          | Employee   | double    | private         | Monthly basic salary of the employee                 |
 | riceSubsidy          | Employee   | double    | private         | Monthly rice subsidy allowance                       |
@@ -1342,7 +1357,6 @@ flowchart TB
     
     ES --> EC
     PS --> PC
-    PS --> PP
     RS --> RC
     
     EC --> ELP
