@@ -126,7 +126,7 @@
             "args": [
                 "-cp",
                 "target/classes;target/dependency/*",
-                "com.motorph.TestMain"
+                "com.motorph.Main"
             ],
             "group": "test",
             "dependsOn": "Build with Maven",

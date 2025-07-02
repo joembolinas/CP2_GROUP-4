@@ -9,8 +9,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.motorph.util.SessionManager;
-import com.motorph.util.UIConstants;
+import com.motorph.model.User;
+import com.motorph.util.AppConstants;
+import com.motorph.util.AppUtils;
 
 /**
  * Header panel for the MotorPH Payroll System.
@@ -26,7 +27,7 @@ public class HeaderPanel extends JPanel {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createMatteBorder(0, 0, 1, 0, UIConstants.BORDER_COLOR),
+                BorderFactory.createMatteBorder(0, 0, 1, 0, AppConstants.BORDER_COLOR),
                 BorderFactory.createEmptyBorder(15, 25, 15, 25)));
 
         // Left side - could show current page title (optional)
@@ -38,13 +39,13 @@ public class HeaderPanel extends JPanel {
         rightPanel.setOpaque(false);
 
         // User greeting - get from session
-        SessionManager sessionManager = SessionManager.getInstance();
-        String currentUsername = sessionManager.getCurrentUsername();
+        User currentUser = AppUtils.getCurrentUser();
+        String currentUsername = currentUser != null ? currentUser.getUsername() : "Guest";
         String displayName = formatDisplayName(currentUsername);
 
         JLabel userLabel = new JLabel(displayName);
         userLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        userLabel.setForeground(UIConstants.TEXT_COLOR);
+        userLabel.setForeground(AppConstants.TEXT_COLOR);
 
         // User initials circle - derive from username
         String initials = generateInitials(currentUsername);
@@ -54,7 +55,7 @@ public class HeaderPanel extends JPanel {
                 java.awt.Graphics2D g2 = (java.awt.Graphics2D) g.create();
                 g2.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
                         java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setColor(UIConstants.PRIMARY_BUTTON_COLOR);
+                g2.setColor(AppConstants.PRIMARY_BUTTON_COLOR);
                 g2.fillOval(0, 0, getWidth(), getHeight());
                 g2.dispose();
                 super.paintComponent(g);

@@ -9,60 +9,62 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
-import com.motorph.util.UIConstants;
-import com.motorph.util.UIUtils;
+import com.motorph.util.AppConstants;
+import com.motorph.util.AppUtils;
 
 /**
  * Custom table cell renderer for action buttons in employee table.
  * Displays View, Edit, and Delete buttons like in the prototype.
  */
 public class ActionButtonRenderer extends JPanel implements TableCellRenderer {
-    
+
     private JButton viewButton;
     private JButton editButton;
     private JButton deleteButton;
     private ActionButtonListener listener;
-    
+
     public interface ActionButtonListener {
         void onViewClicked(int row);
+
         void onEditClicked(int row);
+
         void onDeleteClicked(int row);
     }
-    
+
     public ActionButtonRenderer() {
         setLayout(new FlowLayout(FlowLayout.CENTER, 2, 2));
-        setBackground(UIConstants.PANEL_BACKGROUND);
-        
+        setBackground(AppConstants.PANEL_BACKGROUND);
+
         // Create action buttons
-        viewButton = UIUtils.createActionButton("View", false);
-        editButton = UIUtils.createActionButton("Edit", false);
-        deleteButton = UIUtils.createActionButton("Delete", true);
-        
+        viewButton = AppUtils.createActionButton("View", false);
+        editButton = AppUtils.createActionButton("Edit", false);
+        deleteButton = AppUtils.createActionButton("Delete", true);
+
         add(viewButton);
         add(editButton);
         add(deleteButton);
     }
-    
+
     public void setActionListener(ActionButtonListener listener) {
         this.listener = listener;
     }
-    
+
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, 
+    public Component getTableCellRendererComponent(JTable table, Object value,
             boolean isSelected, boolean hasFocus, int row, int column) {
-        
+
         // Update button listeners with current row
         removeAllActionListeners();
-        
+
         if (listener != null) {
             viewButton.addActionListener(e -> listener.onViewClicked(row));
             editButton.addActionListener(e -> listener.onEditClicked(row));
             deleteButton.addActionListener(e -> listener.onDeleteClicked(row));
         }
-        
+
         return this;
     }
-    
+
     private void removeAllActionListeners() {
         for (ActionListener al : viewButton.getActionListeners()) {
             viewButton.removeActionListener(al);

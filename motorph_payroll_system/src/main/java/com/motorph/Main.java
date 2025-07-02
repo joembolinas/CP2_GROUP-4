@@ -19,7 +19,9 @@ import com.motorph.service.EmployeeService;
 import com.motorph.service.PayrollProcessor;
 import com.motorph.service.PayrollService;
 import com.motorph.service.ReportService;
-import com.motorph.view.LoginFrame;
+import com.motorph.util.AppConstants;
+import com.motorph.util.AppUtils;
+import com.motorph.view.Login;
 import com.motorph.view.MainFrame;
 
 /**
@@ -28,9 +30,7 @@ import com.motorph.view.MainFrame;
  * and starting the user interface.
  */
 public class Main {
-    private static final Logger logger = Logger.getLogger(Main.class.getName()); // File paths for data sources
-    private static final String EMPLOYEES_FILE_PATH = "data/employeeDetails.csv";
-    private static final String ATTENDANCE_FILE_PATH = "data/attendanceRecord.csv";
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
 
     /**
      * Main entry point for the application
@@ -72,8 +72,7 @@ public class Main {
         try {
             // Create a default admin user for testing
             com.motorph.model.User defaultUser = new com.motorph.model.User("admin", "password", 1, "ADMIN", true);
-            com.motorph.util.SessionManager sessionManager = com.motorph.util.SessionManager.getInstance();
-            sessionManager.setCurrentUser(defaultUser);
+            AppUtils.setCurrentUser(defaultUser);
             logger.log(Level.INFO, "Default session initialized for user: {0}", defaultUser.getUsername());
         } catch (Exception e) {
             logger.log(Level.WARNING, "Failed to initialize default session", e);
@@ -95,7 +94,7 @@ public class Main {
     public static void showLoginScreen(Runnable onLoginSuccess) {
         logger.log(Level.INFO, "Starting MotorPH Payroll System with login screen");
 
-        LoginFrame loginFrame = new LoginFrame(() -> {
+        Login loginFrame = new Login(() -> {
             try {
                 if (onLoginSuccess != null) {
                     onLoginSuccess.run();
@@ -119,13 +118,16 @@ public class Main {
     public static void initializeApplication() throws IOException {
         // Log working directory and file paths for debugging
         String workingDir = System.getProperty("user.dir");
+        String employeesFilePath = AppConstants.getEmployeeFilePath();
+        String attendanceFilePath = AppConstants.getAttendanceFilePath();
+        
         logger.log(Level.INFO, "Working directory: {0}", workingDir);
-        logger.log(Level.INFO, "Looking for employee file: {0}", EMPLOYEES_FILE_PATH);
-        logger.log(Level.INFO, "Looking for attendance file: {0}", ATTENDANCE_FILE_PATH);
+        logger.log(Level.INFO, "Looking for employee file: {0}", employeesFilePath);
+        logger.log(Level.INFO, "Looking for attendance file: {0}", attendanceFilePath);
 
         // Check if files exist and log their status
-        java.io.File employeeFile = new java.io.File(EMPLOYEES_FILE_PATH);
-        java.io.File attendanceFile = new java.io.File(ATTENDANCE_FILE_PATH);
+        java.io.File employeeFile = new java.io.File(employeesFilePath);
+        java.io.File attendanceFile = new java.io.File(attendanceFilePath);
 
         logger.log(Level.INFO, "Employee file exists: {0} at {1}",
                 new Object[] { employeeFile.exists(), employeeFile.getAbsolutePath() });
@@ -133,15 +135,18 @@ public class Main {
                 new Object[] { attendanceFile.exists(), attendanceFile.getAbsolutePath() });
 
         // Initialize the data repository
-        DataRepository dataRepository = new DataRepository(EMPLOYEES_FILE_PATH, ATTENDANCE_FILE_PATH);
+        DataRepository dataRepository = new DataRepository(employeesFilePath, attendanceFilePath);
 
         // Get employees and attendance records
         List<Employee> employees = dataRepository.getAllEmployees();
+        
+        // Log employee count for confirmation
+        logger.log(Level.INFO, "Successfully loaded {0} employees from CSV", employees.size());
         List<AttendanceRecord> attendanceRecords = dataRepository.getAllAttendanceRecords();
 
         // Initialize the payroll calculator
-        PayrollProcessor payrollCalculator = new PayrollProcessor(); // Initialize services
-        EmployeeService employeeService = new EmployeeService(employees, attendanceRecords, EMPLOYEES_FILE_PATH);
+        PayrollProcessor payrollCalculator = new PayrollProcessor();        // Initialize services
+        EmployeeService employeeService = new EmployeeService(employees, attendanceRecords, employeesFilePath);
         PayrollService payrollService = new PayrollService(employees, attendanceRecords, payrollCalculator);
         ReportService reportService = new ReportService(employeeService, payrollService);
 

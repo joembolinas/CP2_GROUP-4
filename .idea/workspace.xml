@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea67d5ce-2183-4741-8308-276a76d084db" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/view/dialog/EmployeeFormDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/motorph-payroll.code-workspace" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/.vscode/tasks.json" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/.vscode/tasks.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/data/employeeDetails.csv" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/data/employeeDetails.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/view/EmployeeManagementPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/view/EmployeeManagementPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/EmployeeManagementPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/EmployeeManagementPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payroll_system.log" beforeDir="false" afterPath="$PROJECT_DIR$/payroll_system.log" afterDir="false" />
-    </list>
+    <list default="true" id="ea67d5ce-2183-4741-8308-276a76d084db" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,18 +13,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "joembolinas"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;joembolinas&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/joembolinas/CP2_GROUP-4.git",
-    "accountId": "33f72374-9b5f-42b2-a2aa-33827b828dee"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/joembolinas/CP2_GROUP-4.git&quot;,
+    &quot;accountId&quot;: &quot;33f72374-9b5f-42b2-a2aa-33827b828dee&quot;
   }
-}]]></component>
+}</component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -52,7 +44,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;fix/enhancement-GUI&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev/debug-and-testing&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -65,8 +57,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
-        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26927.53" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.26927.53" />
       </set>
     </attachedChunks>
   </component>
@@ -81,6 +73,9 @@
       <workItem from="1750588299837" duration="321000" />
       <workItem from="1750588633437" duration="94000" />
       <workItem from="1750588737676" duration="2709000" />
+      <workItem from="1751401918346" duration="1562000" />
+      <workItem from="1751413238035" duration="3611000" />
+      <workItem from="1751417731134" duration="500000" />
     </task>
     <servers />
   </component>

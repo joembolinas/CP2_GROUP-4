@@ -24,7 +24,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.motorph.controller.AuthenticationController;
-import com.motorph.util.UIConstants;
+import com.motorph.util.AppConstants;
 
 /**
  * Login panel for the MotorPH Payroll System.
@@ -65,11 +65,11 @@ public class LoginPanel extends JPanel {
      */
     private void initPanel() {
         setLayout(new BorderLayout());
-        setBackground(UIConstants.BACKGROUND_COLOR);
+        setBackground(AppConstants.BACKGROUND_COLOR);
 
         // Main content panel
         JPanel mainPanel = new JPanel(new GridBagLayout());
-        mainPanel.setBackground(UIConstants.BACKGROUND_COLOR);
+        mainPanel.setBackground(AppConstants.BACKGROUND_COLOR);
         mainPanel.setBorder(new EmptyBorder(50, 50, 50, 50));
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -85,16 +85,16 @@ public class LoginPanel extends JPanel {
 
         // Title label
         JLabel titleLabel = new JLabel("MotorPH Payroll System", SwingConstants.CENTER);
-        titleLabel.setFont(UIConstants.TITLE_FONT);
-        titleLabel.setForeground(UIConstants.TEXT_COLOR);
+        titleLabel.setFont(AppConstants.TITLE_FONT);
+        titleLabel.setForeground(AppConstants.TEXT_COLOR);
         gbc.gridy = 1;
         gbc.insets = new Insets(0, 0, 10, 0);
         mainPanel.add(titleLabel, gbc);
 
         // Subtitle label
         JLabel subtitleLabel = new JLabel("Please login to continue", SwingConstants.CENTER);
-        subtitleLabel.setFont(UIConstants.NORMAL_FONT);
-        subtitleLabel.setForeground(UIConstants.TEXT_SECONDARY);
+        subtitleLabel.setFont(AppConstants.NORMAL_FONT);
+        subtitleLabel.setForeground(AppConstants.TEXT_SECONDARY);
         gbc.gridy = 2;
         gbc.insets = new Insets(0, 0, 30, 0);
         mainPanel.add(subtitleLabel, gbc);
@@ -110,8 +110,8 @@ public class LoginPanel extends JPanel {
 
         // Status label
         statusLabel = new JLabel(" ", SwingConstants.CENTER);
-        statusLabel.setFont(UIConstants.SMALL_FONT);
-        statusLabel.setForeground(UIConstants.DELETE_BUTTON_COLOR);
+        statusLabel.setFont(AppConstants.SMALL_FONT);
+        statusLabel.setForeground(AppConstants.DELETE_BUTTON_COLOR);
         gbc.gridy = 4;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
@@ -138,7 +138,7 @@ public class LoginPanel extends JPanel {
      */
     private JPanel createLogoPanel() {
         JPanel logoPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        logoPanel.setBackground(UIConstants.BACKGROUND_COLOR);
+        logoPanel.setBackground(AppConstants.BACKGROUND_COLOR);
 
         try {
             // Try to load the logo image from different possible locations
@@ -170,15 +170,15 @@ public class LoginPanel extends JPanel {
             } else {
                 // Fallback if logo file is not found
                 JLabel logoLabel = new JLabel("MotorPH");
-                logoLabel.setFont(UIConstants.TITLE_FONT);
-                logoLabel.setForeground(UIConstants.BUTTON_COLOR);
+                logoLabel.setFont(AppConstants.TITLE_FONT);
+                logoLabel.setForeground(AppConstants.BUTTON_COLOR);
                 logoPanel.add(logoLabel);
             }
         } catch (Exception e) {
             // Fallback if image loading fails
             JLabel logoLabel = new JLabel("MotorPH");
-            logoLabel.setFont(UIConstants.TITLE_FONT);
-            logoLabel.setForeground(UIConstants.BUTTON_COLOR);
+            logoLabel.setFont(AppConstants.TITLE_FONT);
+            logoLabel.setForeground(AppConstants.BUTTON_COLOR);
             logoPanel.add(logoLabel);
         }
 
@@ -190,7 +190,7 @@ public class LoginPanel extends JPanel {
      */
     private JPanel createFormPanel() {
         JPanel formPanel = new JPanel(new GridBagLayout());
-        formPanel.setBackground(UIConstants.PANEL_BACKGROUND);
+        formPanel.setBackground(AppConstants.PANEL_BACKGROUND);
         formPanel.setBorder(new EmptyBorder(30, 40, 30, 40));
         // Remove fixed size constraint to allow natural sizing
 
@@ -201,8 +201,8 @@ public class LoginPanel extends JPanel {
 
         // Username label
         JLabel usernameLabel = new JLabel("Username:");
-        usernameLabel.setFont(UIConstants.NORMAL_FONT);
-        usernameLabel.setForeground(UIConstants.TEXT_COLOR);
+        usernameLabel.setFont(AppConstants.NORMAL_FONT);
+        usernameLabel.setForeground(AppConstants.TEXT_COLOR);
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
@@ -215,10 +215,10 @@ public class LoginPanel extends JPanel {
         usernameField.setPreferredSize(new Dimension(350, 45));
         usernameField.setMinimumSize(new Dimension(350, 45));
         usernameField.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-                javax.swing.BorderFactory.createLineBorder(UIConstants.BORDER_COLOR, 1),
+                javax.swing.BorderFactory.createLineBorder(AppConstants.BORDER_COLOR, 1),
                 javax.swing.BorderFactory.createEmptyBorder(10, 15, 10, 15)));
         usernameField.setBackground(java.awt.Color.WHITE);
-        usernameField.setForeground(UIConstants.TEXT_COLOR);
+        usernameField.setForeground(AppConstants.TEXT_COLOR);
         usernameField.setOpaque(true);
         usernameField.setEditable(true);
         usernameField.setEnabled(true);
@@ -231,8 +231,8 @@ public class LoginPanel extends JPanel {
 
         // Password label
         JLabel passwordLabel = new JLabel("Password:");
-        passwordLabel.setFont(UIConstants.NORMAL_FONT);
-        passwordLabel.setForeground(UIConstants.TEXT_COLOR);
+        passwordLabel.setFont(AppConstants.NORMAL_FONT);
+        passwordLabel.setForeground(AppConstants.TEXT_COLOR);
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 1;
@@ -245,10 +245,10 @@ public class LoginPanel extends JPanel {
         passwordField.setPreferredSize(new Dimension(350, 45));
         passwordField.setMinimumSize(new Dimension(350, 45));
         passwordField.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-                javax.swing.BorderFactory.createLineBorder(UIConstants.BORDER_COLOR, 1),
+                javax.swing.BorderFactory.createLineBorder(AppConstants.BORDER_COLOR, 1),
                 javax.swing.BorderFactory.createEmptyBorder(10, 15, 10, 15)));
         passwordField.setBackground(java.awt.Color.WHITE);
-        passwordField.setForeground(UIConstants.TEXT_COLOR);
+        passwordField.setForeground(AppConstants.TEXT_COLOR);
         passwordField.setOpaque(true);
         passwordField.setEditable(true);
         passwordField.setEnabled(true);
@@ -267,14 +267,14 @@ public class LoginPanel extends JPanel {
      */
     private JPanel createButtonPanel() {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
-        buttonPanel.setBackground(UIConstants.BACKGROUND_COLOR);
+        buttonPanel.setBackground(AppConstants.BACKGROUND_COLOR);
 
         // Login button
         loginButton = new JButton("Login");
-        loginButton.setFont(UIConstants.BUTTON_FONT);
-        loginButton.setBackground(UIConstants.BUTTON_COLOR);
-        loginButton.setForeground(UIConstants.BUTTON_TEXT_COLOR);
-        loginButton.setPreferredSize(new Dimension(120, UIConstants.BUTTON_HEIGHT));
+        loginButton.setFont(AppConstants.BUTTON_FONT);
+        loginButton.setBackground(AppConstants.BUTTON_COLOR);
+        loginButton.setForeground(AppConstants.BUTTON_TEXT_COLOR);
+        loginButton.setPreferredSize(new Dimension(120, AppConstants.BUTTON_HEIGHT));
         loginButton.setFocusPainted(false);
         loginButton.setOpaque(true);
         loginButton.setBorderPainted(false);
@@ -285,21 +285,21 @@ public class LoginPanel extends JPanel {
         loginButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                loginButton.setBackground(UIConstants.BUTTON_HOVER_COLOR);
+                loginButton.setBackground(AppConstants.BUTTON_HOVER_COLOR);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                loginButton.setBackground(UIConstants.BUTTON_COLOR);
+                loginButton.setBackground(AppConstants.BUTTON_COLOR);
             }
         });
 
         // Exit button
         exitButton = new JButton("Exit");
-        exitButton.setFont(UIConstants.BUTTON_FONT);
-        exitButton.setBackground(UIConstants.SECONDARY_BUTTON_COLOR);
-        exitButton.setForeground(UIConstants.BUTTON_TEXT_COLOR);
-        exitButton.setPreferredSize(new Dimension(120, UIConstants.BUTTON_HEIGHT));
+        exitButton.setFont(AppConstants.BUTTON_FONT);
+        exitButton.setBackground(AppConstants.SECONDARY_BUTTON_COLOR);
+        exitButton.setForeground(AppConstants.BUTTON_TEXT_COLOR);
+        exitButton.setPreferredSize(new Dimension(120, AppConstants.BUTTON_HEIGHT));
         exitButton.setFocusPainted(false);
         exitButton.setOpaque(true);
         exitButton.setBorderPainted(false);
@@ -310,12 +310,12 @@ public class LoginPanel extends JPanel {
         exitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                exitButton.setBackground(UIConstants.SECONDARY_BUTTON_HOVER);
+                exitButton.setBackground(AppConstants.SECONDARY_BUTTON_HOVER);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                exitButton.setBackground(UIConstants.SECONDARY_BUTTON_COLOR);
+                exitButton.setBackground(AppConstants.SECONDARY_BUTTON_COLOR);
             }
         });
 
