@@ -141,9 +141,8 @@ public class AttendanceViewerDialog extends JDialog {
         monthComboBox.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         monthComboBox.setPreferredSize(new Dimension(130, 35));
         monthComboBox.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(AppConstants.BORDER_COLOR, 1),
-            BorderFactory.createEmptyBorder(2, 8, 2, 8)
-        ));
+                BorderFactory.createLineBorder(AppConstants.BORDER_COLOR, 1),
+                BorderFactory.createEmptyBorder(2, 8, 2, 8)));
 
         // Year filter
         JLabel yearLabel = new JLabel("Year:");
@@ -154,9 +153,8 @@ public class AttendanceViewerDialog extends JDialog {
         yearComboBox.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         yearComboBox.setPreferredSize(new Dimension(90, 35));
         yearComboBox.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(AppConstants.BORDER_COLOR, 1),
-            BorderFactory.createEmptyBorder(2, 8, 2, 8)
-        ));
+                BorderFactory.createLineBorder(AppConstants.BORDER_COLOR, 1),
+                BorderFactory.createEmptyBorder(2, 8, 2, 8)));
         yearComboBox.setSelectedItem(LocalDate.now().getYear());
 
         // Enhanced action buttons with better labels
@@ -188,7 +186,7 @@ public class AttendanceViewerDialog extends JDialog {
 
     private JButton createActionButton(String text, Color backgroundColor) {
         JButton button = new JButton(text);
-        
+
         // Enhanced styling
         button.setFont(new Font("Segoe UI", Font.BOLD, 12));
         button.setBackground(backgroundColor);
@@ -196,72 +194,67 @@ public class AttendanceViewerDialog extends JDialog {
         button.setFocusPainted(true); // Enable focus painting for better accessibility
         button.setBorderPainted(false);
         button.setOpaque(true);
-        
+
         // Add subtle focus border
         button.setFocusable(true);
-        
+
         // Improved dimensions and padding
         button.setPreferredSize(new Dimension(140, 35));
         button.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(backgroundColor.darker(), 1),
-            BorderFactory.createEmptyBorder(8, 16, 8, 16)
-        ));
-        
+                BorderFactory.createLineBorder(backgroundColor.darker(), 1),
+                BorderFactory.createEmptyBorder(8, 16, 8, 16)));
+
         // Add modern rounded corners effect
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        
+
         // Add hover effects
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             private Color originalColor = backgroundColor;
-            
+
             @Override
             public void mouseEntered(java.awt.event.MouseEvent e) {
                 // Lighten the button color on hover
                 Color hoverColor = new Color(
-                    Math.min(255, originalColor.getRed() + 20),
-                    Math.min(255, originalColor.getGreen() + 20),
-                    Math.min(255, originalColor.getBlue() + 20)
-                );
+                        Math.min(255, originalColor.getRed() + 20),
+                        Math.min(255, originalColor.getGreen() + 20),
+                        Math.min(255, originalColor.getBlue() + 20));
                 button.setBackground(hoverColor);
                 button.setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createLineBorder(hoverColor.darker(), 2),
-                    BorderFactory.createEmptyBorder(7, 15, 7, 15)
-                ));
+                        BorderFactory.createLineBorder(hoverColor.darker(), 2),
+                        BorderFactory.createEmptyBorder(7, 15, 7, 15)));
             }
-            
+
             @Override
             public void mouseExited(java.awt.event.MouseEvent e) {
                 // Return to original color
                 button.setBackground(originalColor);
                 button.setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createLineBorder(originalColor.darker(), 1),
-                    BorderFactory.createEmptyBorder(8, 16, 8, 16)
-                ));
+                        BorderFactory.createLineBorder(originalColor.darker(), 1),
+                        BorderFactory.createEmptyBorder(8, 16, 8, 16)));
             }
-            
+
             @Override
             public void mousePressed(java.awt.event.MouseEvent e) {
                 // Darken the button when pressed
                 Color pressedColor = originalColor.darker();
                 button.setBackground(pressedColor);
             }
-            
+
             @Override
             public void mouseReleased(java.awt.event.MouseEvent e) {
                 // Return to hover color when released (if still hovering)
                 if (button.contains(e.getPoint())) {
                     Color hoverColor = new Color(
-                        Math.min(255, originalColor.getRed() + 20),
-                        Math.min(255, originalColor.getGreen() + 20),
-                        Math.min(255, originalColor.getBlue() + 20)
-                    );
+                            Math.min(255, originalColor.getRed() + 20),
+                            Math.min(255, originalColor.getGreen() + 20),
+                            Math.min(255, originalColor.getBlue() + 20));
                     button.setBackground(hoverColor);
                 } else {
                     button.setBackground(originalColor);
                 }
             }
         });
-        
+
         return button;
     }
 
@@ -684,7 +677,7 @@ public class AttendanceViewerDialog extends JDialog {
         exportButton.setToolTipText("Export the filtered attendance data to CSV format for external use");
         closeButton.setToolTipText("Close the attendance viewer dialog and return to the employee list");
     }
-    
+
     // Custom cell renderers
     private class HoursRenderer extends DefaultTableCellRenderer {
         @Override
