@@ -133,12 +133,12 @@ public class EmployeePanel extends JPanel {
         topPanel.setBackground(Color.WHITE);
         topPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 16, 0));
 
-        // Logo placeholder (matching HTML mockup)
+        // Logo placeholder 
         JLabel logoLabel = new JLabel("MotorPH");
         logoLabel.setFont(AppConstants.SUBHEADING_FONT);
         logoLabel.setForeground(Color.WHITE);
         logoLabel.setOpaque(true);
-        logoLabel.setBackground(AppConstants.TEXT_COLOR); // Using consistent color from AppConstants
+        logoLabel.setBackground(AppConstants.TEXT_COLOR);
         logoLabel.setBorder(BorderFactory.createEmptyBorder(8, 16, 8, 16));
 
         // Back button

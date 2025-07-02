@@ -192,7 +192,7 @@ public class Dashboard extends JPanel {
                 AppConstants.SUCCESS_COLOR);
 
         JPanel avgSalaryCard = createStatCard("💰", "Avg Monthly\nSalary", String.format("₱%.0f", avgSalary),
-                AppConstants.ACCENT_PRIMARY);
+                AppConstants.ACCENT_PRIMARY); //TODO CHANGE IT
 
         JPanel recentHiresCard = createStatCard("📅", "New Hires\n(This Month)", String.valueOf(recentHires),
                 AppConstants.WARNING_COLOR);

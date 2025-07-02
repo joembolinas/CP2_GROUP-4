@@ -87,6 +87,7 @@ public class AttendanceViewerDialog extends JDialog {
         initComponents();
         layoutComponents();
         setupEventHandlers();
+        addButtonTooltips();
         loadInitialData();
 
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -137,8 +138,12 @@ public class AttendanceViewerDialog extends JDialog {
         String[] months = { "All Months", "January", "February", "March", "April", "May", "June",
                 "July", "August", "September", "October", "November", "December" };
         monthComboBox = new JComboBox<>(months);
-        monthComboBox.setFont(AppConstants.NORMAL_FONT);
-        monthComboBox.setPreferredSize(new Dimension(120, 30));
+        monthComboBox.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        monthComboBox.setPreferredSize(new Dimension(130, 35));
+        monthComboBox.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(AppConstants.BORDER_COLOR, 1),
+            BorderFactory.createEmptyBorder(2, 8, 2, 8)
+        ));
 
         // Year filter
         JLabel yearLabel = new JLabel("Year:");
@@ -146,45 +151,117 @@ public class AttendanceViewerDialog extends JDialog {
 
         Integer[] years = generateYearRange();
         yearComboBox = new JComboBox<>(years);
-        yearComboBox.setFont(AppConstants.NORMAL_FONT);
-        yearComboBox.setPreferredSize(new Dimension(80, 30));
+        yearComboBox.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        yearComboBox.setPreferredSize(new Dimension(90, 35));
+        yearComboBox.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(AppConstants.BORDER_COLOR, 1),
+            BorderFactory.createEmptyBorder(2, 8, 2, 8)
+        ));
         yearComboBox.setSelectedItem(LocalDate.now().getYear());
 
-        // Action buttons
-        filterButton = createActionButton("🔍 Filter", AppConstants.PRIMARY_BUTTON_COLOR);
-        resetButton = createActionButton("🔄 Reset", AppConstants.SECONDARY_BUTTON_COLOR);
-        exportButton = createActionButton("📄 Export", AppConstants.SUCCESS_COLOR);
+        // Enhanced action buttons with better labels
+        filterButton = createActionButton("🔍 Apply Filter", AppConstants.PRIMARY_BUTTON_COLOR);
+        resetButton = createActionButton("🔄 Reset View", AppConstants.SECONDARY_BUTTON_COLOR);
+        exportButton = createActionButton("📄 Export Data", AppConstants.SUCCESS_COLOR);
 
-        // Layout
+        // Layout with improved spacing for enhanced buttons
         filterPanel.add(employeeLabel);
-        filterPanel.add(Box.createHorizontalStrut(20));
+        filterPanel.add(Box.createHorizontalStrut(25));
         filterPanel.add(Box.createHorizontalGlue());
 
         filterPanel.add(monthLabel);
-        filterPanel.add(Box.createHorizontalStrut(5));
+        filterPanel.add(Box.createHorizontalStrut(8));
         filterPanel.add(monthComboBox);
-        filterPanel.add(Box.createHorizontalStrut(15));
+        filterPanel.add(Box.createHorizontalStrut(20));
 
         filterPanel.add(yearLabel);
-        filterPanel.add(Box.createHorizontalStrut(5));
+        filterPanel.add(Box.createHorizontalStrut(8));
         filterPanel.add(yearComboBox);
-        filterPanel.add(Box.createHorizontalStrut(15));
+        filterPanel.add(Box.createHorizontalStrut(20));
 
         filterPanel.add(filterButton);
-        filterPanel.add(Box.createHorizontalStrut(10));
+        filterPanel.add(Box.createHorizontalStrut(12));
         filterPanel.add(resetButton);
-        filterPanel.add(Box.createHorizontalStrut(10));
+        filterPanel.add(Box.createHorizontalStrut(12));
         filterPanel.add(exportButton);
     }
 
     private JButton createActionButton(String text, Color backgroundColor) {
         JButton button = new JButton(text);
-        button.setFont(AppConstants.NORMAL_FONT);
+        
+        // Enhanced styling
+        button.setFont(new Font("Segoe UI", Font.BOLD, 12));
         button.setBackground(backgroundColor);
         button.setForeground(Color.WHITE);
-        button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
-        button.setPreferredSize(new Dimension(100, 30));
+        button.setFocusPainted(true); // Enable focus painting for better accessibility
+        button.setBorderPainted(false);
+        button.setOpaque(true);
+        
+        // Add subtle focus border
+        button.setFocusable(true);
+        
+        // Improved dimensions and padding
+        button.setPreferredSize(new Dimension(140, 35));
+        button.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(backgroundColor.darker(), 1),
+            BorderFactory.createEmptyBorder(8, 16, 8, 16)
+        ));
+        
+        // Add modern rounded corners effect
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+        // Add hover effects
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            private Color originalColor = backgroundColor;
+            
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                // Lighten the button color on hover
+                Color hoverColor = new Color(
+                    Math.min(255, originalColor.getRed() + 20),
+                    Math.min(255, originalColor.getGreen() + 20),
+                    Math.min(255, originalColor.getBlue() + 20)
+                );
+                button.setBackground(hoverColor);
+                button.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(hoverColor.darker(), 2),
+                    BorderFactory.createEmptyBorder(7, 15, 7, 15)
+                ));
+            }
+            
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                // Return to original color
+                button.setBackground(originalColor);
+                button.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(originalColor.darker(), 1),
+                    BorderFactory.createEmptyBorder(8, 16, 8, 16)
+                ));
+            }
+            
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent e) {
+                // Darken the button when pressed
+                Color pressedColor = originalColor.darker();
+                button.setBackground(pressedColor);
+            }
+            
+            @Override
+            public void mouseReleased(java.awt.event.MouseEvent e) {
+                // Return to hover color when released (if still hovering)
+                if (button.contains(e.getPoint())) {
+                    Color hoverColor = new Color(
+                        Math.min(255, originalColor.getRed() + 20),
+                        Math.min(255, originalColor.getGreen() + 20),
+                        Math.min(255, originalColor.getBlue() + 20)
+                    );
+                    button.setBackground(hoverColor);
+                } else {
+                    button.setBackground(originalColor);
+                }
+            }
+        });
+        
         return button;
     }
 
@@ -386,8 +463,8 @@ public class AttendanceViewerDialog extends JDialog {
         summaryLabel.setFont(AppConstants.SMALL_FONT);
         summaryLabel.setForeground(AppConstants.TEXT_SECONDARY);
 
-        // Close button
-        closeButton = createActionButton("✖ Close", AppConstants.SECONDARY_BUTTON_COLOR);
+        // Enhanced close button
+        closeButton = createActionButton("✖ Close Dialog", AppConstants.SECONDARY_BUTTON_COLOR);
 
         summaryPanel.add(summaryLabel, BorderLayout.WEST);
         summaryPanel.add(closeButton, BorderLayout.EAST);
@@ -600,6 +677,14 @@ public class AttendanceViewerDialog extends JDialog {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
+    private void addButtonTooltips() {
+        // Add helpful tooltips to buttons
+        filterButton.setToolTipText("Apply the selected month and year filter to view specific attendance records");
+        resetButton.setToolTipText("Reset the view to show all attendance records for the current year");
+        exportButton.setToolTipText("Export the filtered attendance data to CSV format for external use");
+        closeButton.setToolTipText("Close the attendance viewer dialog and return to the employee list");
+    }
+    
     // Custom cell renderers
     private class HoursRenderer extends DefaultTableCellRenderer {
         @Override
