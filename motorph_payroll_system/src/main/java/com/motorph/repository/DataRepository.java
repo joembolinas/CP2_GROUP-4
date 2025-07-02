@@ -270,7 +270,8 @@ public class DataRepository {
     }
 
     private void loadSampleEmployees(List<Employee> employees) {
-        // Create sample employees with full details
+        // Create sample employees with full details if this set of employee you see on
+        // the jtable for employee your app is on the problem hahaha
         LocalDate sampleDate = LocalDate.of(1990, 1, 1);
         employees.add(new Employee(
                 10001, "Garcia", "Manuel", sampleDate, "Sample Address", "123-456-789",

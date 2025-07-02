@@ -223,6 +223,22 @@ public final class AppUtils {
         return button;
     }
 
+    /**
+     * Create a navigation button for side panel with custom styling
+     */
+    public static JButton createNavigationButton(String text) {
+        JButton button = createModernButton(text,
+                new Color(79, 70, 229), // indigo-700 for better contrast on dark sidebar
+                new Color(67, 56, 202), // indigo-800 for hover
+                AppConstants.BUTTON_TEXT_COLOR);
+
+        // Custom styling for navigation
+        button.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        button.setBorder(new EmptyBorder(12, 20, 12, 20));
+
+        return button;
+    }
+
     // ========== VALIDATION UTILITIES ==========
 
     /**

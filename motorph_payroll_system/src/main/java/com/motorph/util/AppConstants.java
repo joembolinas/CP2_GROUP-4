@@ -11,11 +11,12 @@ public final class AppConstants {
 
     // ========== UI CONSTANTS ==========
 
-    // Colors - Modern Slate/Tailwind-inspired Color Scheme
+    // Colors - Color Scheme
     public static final Color BACKGROUND_COLOR = new Color(241, 245, 249); // #F1F5F9 - slate-100
     public static final Color PANEL_BACKGROUND = Color.WHITE; // #FFFFFF - White panels
     public static final Color CARD_BACKGROUND = Color.WHITE; // #FFFFFF - Card backgrounds
     public static final Color NAVIGATION_BACKGROUND = new Color(248, 250, 252); // #F8FAFC - slate-50
+    public static final Color SIDEBAR_BACKGROUND = new Color(51, 65, 85); // #334155 - slate-700 (darker sidebar)
     public static final Color TABLE_HEADER_BACKGROUND = new Color(248, 250, 252); // #F8FAFC - slate-50
     public static final Color TABLE_ROW_HOVER = new Color(248, 250, 252); // #F8FAFC - slate-50
     public static final Color TABLE_ALT_ROW = new Color(248, 250, 252); // #F8FAFC - slate-50
@@ -72,7 +73,6 @@ public final class AppConstants {
     public static final Font TABLE_FONT = new Font("Segoe UI", Font.PLAIN, 13);
     public static final Font TABLE_HEADER_FONT = new Font("Segoe UI", Font.BOLD, 13);
     public static final Font BUTTON_FONT = new Font("Segoe UI", Font.PLAIN, 14);
-
 
     // ========== PAYROLL CONSTANTS ==========
 
@@ -144,6 +144,70 @@ public final class AppConstants {
     // Confirmation Messages
     public static final String CONFIRM_DELETE_EMPLOYEE = "Are you sure you want to delete this employee?";
     public static final String CONFIRM_LOGOUT = "Are you sure you want to logout?";
+
+    // ========== FILE PATH CONSTANTS ==========
+    
+    // Data File Paths - Can be easily configured for deployment
+    public static final String DEFAULT_EMPLOYEES_FILE_PATH = "data/employeeDetails.csv";
+    public static final String DEFAULT_ATTENDANCE_FILE_PATH = "data/attendanceRecord.csv";
+    
+    // Alternative paths for different deployment scenarios
+    public static final String EMPLOYEES_FILE_NAME = "employeeDetails.csv";
+    public static final String ATTENDANCE_FILE_NAME = "attendanceRecord.csv";
+    
+    /**
+     * Get the employee file path, checking multiple possible locations
+     * @return The path to the employee CSV file
+     */
+    public static String getEmployeeFilePath() {
+        // Try current working directory first
+        java.io.File file = new java.io.File(DEFAULT_EMPLOYEES_FILE_PATH);
+        if (file.exists()) {
+            return DEFAULT_EMPLOYEES_FILE_PATH;
+        }
+        
+        // Try absolute path in project directory
+        String projectDir = System.getProperty("user.dir");
+        if (projectDir.endsWith("motorph_payroll_system")) {
+            file = new java.io.File(projectDir, "data/" + EMPLOYEES_FILE_NAME);
+        } else {
+            file = new java.io.File(projectDir, "motorph_payroll_system/data/" + EMPLOYEES_FILE_NAME);
+        }
+        
+        if (file.exists()) {
+            return file.getAbsolutePath();
+        }
+        
+        // Default fallback
+        return DEFAULT_EMPLOYEES_FILE_PATH;
+    }
+    
+    /**
+     * Get the attendance file path, checking multiple possible locations
+     * @return The path to the attendance CSV file
+     */
+    public static String getAttendanceFilePath() {
+        // Try current working directory first
+        java.io.File file = new java.io.File(DEFAULT_ATTENDANCE_FILE_PATH);
+        if (file.exists()) {
+            return DEFAULT_ATTENDANCE_FILE_PATH;
+        }
+        
+        // Try absolute path in project directory
+        String projectDir = System.getProperty("user.dir");
+        if (projectDir.endsWith("motorph_payroll_system")) {
+            file = new java.io.File(projectDir, "data/" + ATTENDANCE_FILE_NAME);
+        } else {
+            file = new java.io.File(projectDir, "motorph_payroll_system/data/" + ATTENDANCE_FILE_NAME);
+        }
+        
+        if (file.exists()) {
+            return file.getAbsolutePath();
+        }
+        
+        // Default fallback
+        return DEFAULT_ATTENDANCE_FILE_PATH;
+    }
 
     // Private constructor to prevent instantiation
     private AppConstants() {

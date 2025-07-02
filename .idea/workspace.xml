@@ -5,14 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea67d5ce-2183-4741-8308-276a76d084db" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/test/LoginIntegrationTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/test/LoginTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/test/LoginTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/test/LoginVisualTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/test/LoginIntegrationTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/test/LoginTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/test/LoginVisualTest$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/test/LoginVisualTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/model/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/model/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/model/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/repository/DataRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/repository/DataRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/util/AppConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/util/AppConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/util/AppUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/util/AppUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/view/EmployeePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/view/EmployeePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/view/LoginPanel$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/view/LoginPanel$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/view/LoginPanel$EnterKeyListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/view/LoginPanel$LoginCallback.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/view/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/view/MainFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/controller/AuthenticationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/controller/AuthenticationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/util/AppConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/util/AppConstants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/util/AppUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/util/AppUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Dashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Dashboard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/EmployeePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/EmployeePanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/HeaderPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/HeaderPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/LoginPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/LoginPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/MainFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/MainFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Payroll.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Payroll.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Reports.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Reports.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/EmployeeDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/EmployeeDialog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payroll_system.log" beforeDir="false" afterPath="$PROJECT_DIR$/payroll_system.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,23 +65,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "dev/debug-and-testing",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev/debug-and-testing&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -83,6 +102,7 @@
       <workItem from="1750588633437" duration="94000" />
       <workItem from="1750588737676" duration="2709000" />
       <workItem from="1751401918346" duration="1562000" />
+      <workItem from="1751413238035" duration="3611000" />
     </task>
     <servers />
   </component>

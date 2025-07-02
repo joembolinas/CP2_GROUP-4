@@ -137,10 +137,10 @@ public class EmployeePanel extends JPanel {
 
         // Logo placeholder (matching HTML mockup)
         JLabel logoLabel = new JLabel("MotorPH");
-        logoLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        logoLabel.setFont(AppConstants.SUBHEADING_FONT);
         logoLabel.setForeground(Color.WHITE);
         logoLabel.setOpaque(true);
-        logoLabel.setBackground(new Color(30, 41, 59)); // slate-800
+        logoLabel.setBackground(AppConstants.TEXT_COLOR); // Using consistent color from AppConstants
         logoLabel.setBorder(BorderFactory.createEmptyBorder(8, 16, 8, 16));
 
         // Back button
@@ -158,17 +158,17 @@ public class EmployeePanel extends JPanel {
      */
     private JPanel createRibbonActionBar() {
         JPanel ribbonPanel = new JPanel(new BorderLayout());
-        ribbonPanel.setBackground(new Color(248, 250, 252)); // bg-slate-100
+        ribbonPanel.setBackground(AppConstants.NAVIGATION_BACKGROUND);
         ribbonPanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppConstants.BORDER_COLOR, 1),
                 BorderFactory.createEmptyBorder(12, 16, 12, 16)));
 
         // Left side - action buttons
         JPanel actionsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        actionsPanel.setBackground(new Color(248, 250, 252));
+        actionsPanel.setBackground(AppConstants.NAVIGATION_BACKGROUND);
 
-        // Add New button (always enabled)
-        JButton addButton = createRibbonButton("+ Add New", AppConstants.BUTTON_COLOR, true);
+        // Add New button (always enabled) - using AppUtils
+        JButton addButton = AppUtils.createPrimaryButton("+ Add New");
         addButton.addActionListener(e -> openNewEmployeeDialog());
         actionsPanel.add(addButton);
 
@@ -179,11 +179,17 @@ public class EmployeePanel extends JPanel {
         separator.setBorder(BorderFactory.createEmptyBorder(0, 16, 0, 16));
         actionsPanel.add(separator);
 
-        // Context-aware buttons (disabled by default)
-        viewAttendanceBtn = createRibbonButton("📅 View Attendance", Color.LIGHT_GRAY, false);
-        viewDetailsBtn = createRibbonButton("👁 View Details", Color.LIGHT_GRAY, false);
-        editEmployeeBtn = createRibbonButton("✏ Edit", Color.LIGHT_GRAY, false);
-        deleteEmployeeBtn = createRibbonButton("🗑 Delete", new Color(239, 68, 68), false); // red-500
+        // Context-aware buttons (disabled by default) - using AppUtils
+        viewAttendanceBtn = AppUtils.createSecondaryButton("📅 View Attendance");
+        viewDetailsBtn = AppUtils.createSecondaryButton("👁 View Details");
+        editEmployeeBtn = AppUtils.createSecondaryButton("✏ Edit");
+        deleteEmployeeBtn = AppUtils.createDangerButton("🗑 Delete");
+
+        // Initially disable context buttons
+        viewAttendanceBtn.setEnabled(false);
+        viewDetailsBtn.setEnabled(false);
+        editEmployeeBtn.setEnabled(false);
+        deleteEmployeeBtn.setEnabled(false);
 
         // Add action listeners
         viewAttendanceBtn.addActionListener(e -> viewAttendanceForSelected());
@@ -211,63 +217,14 @@ public class EmployeePanel extends JPanel {
     /**
      * Create a ribbon-style button
      */
-    private JButton createRibbonButton(String text, Color bgColor, boolean enabled) {
-        JButton button = new JButton(text);
-        button.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        button.setForeground(enabled ? Color.WHITE : Color.GRAY);
-        button.setBackground(bgColor);
-        button.setOpaque(true);
-        button.setBorderPainted(false);
-        button.setFocusPainted(false);
-        button.setEnabled(enabled);
-        button.setPreferredSize(new java.awt.Dimension(120, 32));
-        button.setCursor(enabled ? new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)
-                : new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        // Add hover effects for enabled buttons
-        if (enabled) {
-            Color hoverColor = bgColor.darker();
-            button.addMouseListener(new java.awt.event.MouseAdapter() {
-                @Override
-                public void mouseEntered(java.awt.event.MouseEvent e) {
-                    if (button.isEnabled()) {
-                        button.setBackground(hoverColor);
-                    }
-                }
-
-                @Override
-                public void mouseExited(java.awt.event.MouseEvent e) {
-                    if (button.isEnabled()) {
-                        button.setBackground(bgColor);
-                    }
-                }
-            });
-        }
-
-        return button;
-    }
-
     /**
      * Update ribbon button states based on selection
      */
     private void updateRibbonButtons(boolean hasSelection) {
-        Color enabledColor = AppConstants.SECONDARY_BUTTON_COLOR;
-        Color disabledColor = Color.LIGHT_GRAY;
-
         viewAttendanceBtn.setEnabled(hasSelection);
         viewDetailsBtn.setEnabled(hasSelection);
         editEmployeeBtn.setEnabled(hasSelection);
         deleteEmployeeBtn.setEnabled(hasSelection);
-
-        viewAttendanceBtn.setBackground(hasSelection ? enabledColor : disabledColor);
-        viewDetailsBtn.setBackground(hasSelection ? enabledColor : disabledColor);
-        editEmployeeBtn.setBackground(hasSelection ? enabledColor : disabledColor);
-        deleteEmployeeBtn.setBackground(hasSelection ? new Color(239, 68, 68) : disabledColor);
-
-        viewAttendanceBtn.setForeground(hasSelection ? Color.WHITE : Color.GRAY);
-        viewDetailsBtn.setForeground(hasSelection ? Color.WHITE : Color.GRAY);
-        editEmployeeBtn.setForeground(hasSelection ? Color.WHITE : Color.GRAY);
-        deleteEmployeeBtn.setForeground(hasSelection ? Color.WHITE : Color.GRAY);
     }
 
     /**
@@ -499,9 +456,6 @@ public class EmployeePanel extends JPanel {
         // Get all employees
         List<Employee> employees = employeeController.getAllEmployees();
 
-        // Debug: Log the total number of employees loaded
-        System.out.println("DEBUG: Loading " + employees.size() + " employees into table");
-
         // Add employees to table (updated for new column structure)
         for (Employee employee : employees) {
             Object[] rowData = {
@@ -513,9 +467,6 @@ public class EmployeePanel extends JPanel {
             };
             tableModel.addRow(rowData);
         }
-
-        // Debug: Log the final table row count
-        System.out.println("DEBUG: Table now has " + tableModel.getRowCount() + " rows");
     }
 
     /**
