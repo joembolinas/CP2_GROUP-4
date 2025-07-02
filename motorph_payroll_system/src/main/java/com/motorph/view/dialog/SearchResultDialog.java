@@ -12,7 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import com.motorph.model.Employee;
-import com.motorph.util.UIConstants;
+import com.motorph.util.AppConstants;
 
 /**
  * Dialog for displaying employee search results.
@@ -46,8 +46,8 @@ public class SearchResultDialog extends JDialog {
         // Create the table with the data and column names
         JTable table = new JTable(data, columnNames);
         table.setFillsViewportHeight(true);
-        table.setFont(UIConstants.NORMAL_FONT);
-        table.getTableHeader().setFont(UIConstants.NORMAL_FONT);
+        table.setFont(AppConstants.NORMAL_FONT);
+        table.getTableHeader().setFont(AppConstants.NORMAL_FONT);
         
         // Add the table to a scroll pane
         JScrollPane scrollPane = new JScrollPane(table);
@@ -55,10 +55,10 @@ public class SearchResultDialog extends JDialog {
         
         // Add close button
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(UIConstants.BACKGROUND_COLOR);
+        buttonPanel.setBackground(AppConstants.BACKGROUND_COLOR);
         JButton closeButton = new JButton("Close");
-        closeButton.setFont(UIConstants.NORMAL_FONT);
-        closeButton.setBackground(UIConstants.BUTTON_COLOR);
+        closeButton.setFont(AppConstants.NORMAL_FONT);
+        closeButton.setBackground(AppConstants.BUTTON_COLOR);
         closeButton.addActionListener(e -> dispose());
         buttonPanel.add(closeButton);
         
