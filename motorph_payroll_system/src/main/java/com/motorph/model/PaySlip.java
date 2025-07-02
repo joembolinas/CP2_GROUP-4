@@ -11,7 +11,8 @@ import com.motorph.service.PayrollProcessor;
 
 /**
  * Represents a payslip for an employee for a specific period.
- * Calculates and displays payslip information including allowances and deductions.
+ * Calculates and displays payslip information including allowances and
+ * deductions.
  */
 public class PaySlip {
     private Employee employee;
@@ -44,41 +45,43 @@ public class PaySlip {
         this.allowances.put("rice", allowanceDetails.get("riceSubsidy"));
         this.allowances.put("phone", allowanceDetails.get("phoneAllowance"));
         this.allowances.put("clothing", allowanceDetails.get("clothingAllowance"));
-        this.allowances.put("workingDays", allowanceDetails.get("workingDays") != null ? 
-            allowanceDetails.get("workingDays") : 21.0);
+        this.allowances.put("workingDays",
+                allowanceDetails.get("workingDays") != null ? allowanceDetails.get("workingDays") : 21.0);
         double totalAllowances = allowanceDetails.get("totalAllowances");
         // Calculate deductions
         this.deductions.put("sss", calculator.calculateSSSContribution(grossPay));
         this.deductions.put("philhealth", calculator.calculatePhilHealthContribution(grossPay));
         this.deductions.put("pagibig", calculator.calculatePagIbigContribution(grossPay));
-        double taxableIncome = grossPay - (deductions.get("sss") + deductions.get("philhealth") + deductions.get("pagibig"));
+        double taxableIncome = grossPay
+                - (deductions.get("sss") + deductions.get("philhealth") + deductions.get("pagibig"));
         this.deductions.put("withholdingTax", calculator.calculateWithholdingTax(taxableIncome));
-        double totalDeductions = deductions.get("sss") + deductions.get("philhealth") + 
-            deductions.get("pagibig") + deductions.get("withholdingTax");
+        double totalDeductions = deductions.get("sss") + deductions.get("philhealth") +
+                deductions.get("pagibig") + deductions.get("withholdingTax");
         // Calculate net pay
         this.netPay = grossPay - totalDeductions + totalAllowances;
     }
 
-    private Map<String, Double> getGrossPayDetails(List<AttendanceRecord> attendanceRecords, PayrollProcessor calculator) {
+    private Map<String, Double> getGrossPayDetails(List<AttendanceRecord> attendanceRecords,
+            PayrollProcessor calculator) {
         double regularHours = 0;
         double overtimeHours = 0;
         double regularPay = 0;
         double overtimePay = 0;
-        
+
         // Filter attendance records for the employee within the date range
         List<AttendanceRecord> employeeRecords = new ArrayList<>();
         for (AttendanceRecord record : attendanceRecords) {
-            if (record.getEmployeeId() == employee.getEmployeeId() && 
-                    !record.getDate().isBefore(startDate) && 
+            if (record.getEmployeeId() == employee.getEmployeeId() &&
+                    !record.getDate().isBefore(startDate) &&
                     !record.getDate().isAfter(endDate)) {
                 employeeRecords.add(record);
             }
         }
-        
+
         // Calculate total hours worked
         for (AttendanceRecord record : employeeRecords) {
             double hoursWorked = record.getTotalHours();
-            
+
             // Assuming over 8 hours is overtime
             if (hoursWorked <= 8) {
                 regularHours += hoursWorked;
@@ -87,18 +90,18 @@ public class PaySlip {
                 overtimeHours += (hoursWorked - 8);
             }
         }
-        
+
         // Calculate regular pay and overtime pay
         regularPay = regularHours * employee.getHourlyRate();
         overtimePay = overtimeHours * employee.getHourlyRate() * 1.25; // 25% overtime premium
-        
+
         Map<String, Double> result = new HashMap<>();
         result.put("regularHours", regularHours);
         result.put("overtimeHours", overtimeHours);
         result.put("regularPay", regularPay);
         result.put("overtimePay", overtimePay);
         result.put("totalPay", regularPay + overtimePay);
-        
+
         return result;
     }
 
@@ -106,34 +109,65 @@ public class PaySlip {
         // Calculate number of working days in the date range
         long totalDays = ChronoUnit.DAYS.between(startDate, endDate) + 1;
         double workingDays = totalDays * 5 / 7; // assuming 5-day work week
-        
+
         // Pro-rate the allowances based on the number of working days
         double riceSubsidyPerDay = employee.getRiceSubsidy() / 21; // 21 working days per month
         double phoneAllowancePerDay = employee.getPhoneAllowance() / 21;
         double clothingAllowancePerDay = employee.getClothingAllowance() / 21;
-        
+
         double proRatedRiceSubsidy = riceSubsidyPerDay * workingDays;
         double proRatedPhoneAllowance = phoneAllowancePerDay * workingDays;
         double proRatedClothingAllowance = clothingAllowancePerDay * workingDays;
-        
+
         Map<String, Double> result = new HashMap<>();
         result.put("riceSubsidy", proRatedRiceSubsidy);
         result.put("phoneAllowance", proRatedPhoneAllowance);
         result.put("clothingAllowance", proRatedClothingAllowance);
         result.put("totalAllowances", proRatedRiceSubsidy + proRatedPhoneAllowance + proRatedClothingAllowance);
         result.put("workingDays", workingDays);
-        
+
         return result;
     }
-    
+
+    // Calculate total deductions
+    public double getTotalDeductions() {
+        return deductions.values().stream().mapToDouble(Double::doubleValue).sum();
+    }
+
     // Getters
-    public Employee getEmployee() { return employee; }
-    public LocalDate getStartDate() { return startDate; }
-    public LocalDate getEndDate() { return endDate; }
-    public double getRegularHours() { return regularHours; }
-    public double getOvertimeHours() { return overtimeHours; }
-    public double getGrossPay() { return grossPay; }
-    public double getNetPay() { return netPay; }
-    public Map<String, Double> getDeductions() { return deductions; }
-    public Map<String, Double> getAllowances() { return allowances; }
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public double getRegularHours() {
+        return regularHours;
+    }
+
+    public double getOvertimeHours() {
+        return overtimeHours;
+    }
+
+    public double getGrossPay() {
+        return grossPay;
+    }
+
+    public double getNetPay() {
+        return netPay;
+    }
+
+    public Map<String, Double> getDeductions() {
+        return deductions;
+    }
+
+    public Map<String, Double> getAllowances() {
+        return allowances;
+    }
 }
