@@ -113,7 +113,7 @@ public class EmployeePanel extends JPanel {
         titleSection.setBorder(BorderFactory.createEmptyBorder(16, 0, 24, 0));
 
         JLabel titleLabel = new JLabel("Employee Management System");
-        titleLabel.setFont(AppConstants.HEADING_FONT);
+        titleLabel.setFont(AppConstants.TITLE_FONT);
         titleLabel.setForeground(AppConstants.TEXT_COLOR);
         titleSection.add(titleLabel, BorderLayout.WEST);
 

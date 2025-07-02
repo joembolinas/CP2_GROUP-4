@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -260,6 +261,19 @@ public final class AppUtils {
     }
 
     /**
+     * Validates that the start date is before or equal to the end date
+     */
+    public static void validateDateRange(LocalDate startDate, LocalDate endDate) throws IllegalArgumentException {
+        if (startDate == null || endDate == null) {
+            throw new IllegalArgumentException("Start date and end date cannot be null");
+        }
+
+        if (startDate.isAfter(endDate)) {
+            throw new IllegalArgumentException("Start date must be before or equal to end date");
+        }
+    }
+
+    /**
      * Validates employee name
      */
     public static String validateName(String name, String fieldName) throws IllegalArgumentException {
@@ -401,6 +415,26 @@ public final class AppUtils {
     public static void handleException(String operation, Exception e, String userMessage) {
         logger.log(Level.SEVERE, "Error during " + operation + ": " + e.getMessage(), e);
         showError(userMessage);
+    }
+
+    /**
+     * Create a status badge label with appropriate styling
+     */
+    public static JLabel createStatusBadge(String status, boolean isActive) {
+        JLabel badge = new JLabel(status);
+        badge.setOpaque(true);
+        badge.setBorder(new EmptyBorder(4, 8, 4, 8));
+        badge.setFont(AppConstants.SMALL_FONT);
+        badge.setForeground(Color.WHITE);
+
+        // Set background color based on status
+        if (isActive) {
+            badge.setBackground(AppConstants.SUCCESS_COLOR);
+        } else {
+            badge.setBackground(AppConstants.DELETE_BUTTON_COLOR);
+        }
+
+        return badge;
     }
 
     // Private constructor to prevent instantiation

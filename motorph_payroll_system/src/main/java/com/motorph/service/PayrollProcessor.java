@@ -3,10 +3,11 @@ package com.motorph.service;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.motorph.util.PayrollConstants;
+import com.motorph.util.AppConstants;
 
 /**
- * Handles all payroll calculations including gross pay, net pay, and various deductions
+ * Handles all payroll calculations including gross pay, net pay, and various
+ * deductions
  * like SSS, PhilHealth, Pag-IBIG, and withholding tax.
  */
 public class PayrollProcessor {
@@ -82,11 +83,11 @@ public class PayrollProcessor {
     }
 
     public double calculatePhilHealthContribution(double grossPay) {
-        return grossPay * PayrollConstants.PHILHEALTH_EMPLOYEE_CONTRIBUTION_RATE;
+        return grossPay * AppConstants.PHILHEALTH_EMPLOYEE_CONTRIBUTION_RATE;
     }
 
     public double calculatePagIbigContribution(double grossPay) {
-        return grossPay * PayrollConstants.PAGIBIG_EMPLOYEE_CONTRIBUTION_RATE;
+        return grossPay * AppConstants.PAGIBIG_EMPLOYEE_CONTRIBUTION_RATE;
     }
 
     public double calculateWithholdingTax(double taxableIncome) {
@@ -102,10 +103,11 @@ public class PayrollProcessor {
         final double TAX_RATE_5 = 0.32;
         final double TAX_RATE_6 = 0.35;
 
-        final double FIXED_TAX_FOR_BRACKET_3 = 2500.00;    // Tax for income exceeding P20,833 up to P33,333 is (P33,333-P20,833)*20%
-        final double FIXED_TAX_FOR_BRACKET_4 = 10833.33;   // P2,500 + (P66,667-P33,333)*25%
-        final double FIXED_TAX_FOR_BRACKET_5 = 40833.33;   // P10,833.33 + (P166,667-P66,667)*30%
-        final double FIXED_TAX_FOR_BRACKET_6 = 200833.33;  // P40,833.33 + (P666,667-P166,667)*32%
+        final double FIXED_TAX_FOR_BRACKET_3 = 2500.00; // Tax for income exceeding P20,833 up to P33,333 is
+                                                        // (P33,333-P20,833)*20%
+        final double FIXED_TAX_FOR_BRACKET_4 = 10833.33; // P2,500 + (P66,667-P33,333)*25%
+        final double FIXED_TAX_FOR_BRACKET_5 = 40833.33; // P10,833.33 + (P166,667-P66,667)*30%
+        final double FIXED_TAX_FOR_BRACKET_6 = 200833.33; // P40,833.33 + (P666,667-P166,667)*32%
 
         if (taxableIncome <= TAX_BRACKET_1_THRESHOLD) { // Up to 20,833
             return 0.0;

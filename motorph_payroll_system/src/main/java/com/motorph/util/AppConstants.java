@@ -65,13 +65,14 @@ public final class AppConstants {
     public static final int BUTTON_BORDER_RADIUS = 6;
 
     // Fonts
-    public static final Font HEADING_FONT = new Font("Segoe UI", Font.BOLD, 24);
+    public static final Font TITLE_FONT = new Font("Segoe UI", Font.BOLD, 24);
     public static final Font SUBHEADING_FONT = new Font("Segoe UI", Font.BOLD, 18);
     public static final Font NORMAL_FONT = new Font("Segoe UI", Font.PLAIN, 14);
     public static final Font SMALL_FONT = new Font("Segoe UI", Font.PLAIN, 12);
     public static final Font TABLE_FONT = new Font("Segoe UI", Font.PLAIN, 13);
     public static final Font TABLE_HEADER_FONT = new Font("Segoe UI", Font.BOLD, 13);
     public static final Font BUTTON_FONT = new Font("Segoe UI", Font.PLAIN, 14);
+
 
     // ========== PAYROLL CONSTANTS ==========
 
