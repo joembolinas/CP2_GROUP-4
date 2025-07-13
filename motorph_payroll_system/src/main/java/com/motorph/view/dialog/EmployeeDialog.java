@@ -3,6 +3,7 @@ package com.motorph.view.dialog;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.time.LocalDate;
+import java.util.concurrent.atomic.AtomicInteger; // Add this import for generating employee numbers
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -30,6 +31,9 @@ public class EmployeeDialog extends JDialog {
     private final Employee existingEmployee; // null for new employee
     private final boolean isEditMode;
     private boolean operationSuccessful = false;
+
+    // Static field for generating unique employee numbers
+    private static final AtomicInteger EMPLOYEE_NUMBER_GENERATOR = new AtomicInteger(10034);
 
     // Form fields
     private JTextField employeeIdField;
@@ -94,6 +98,11 @@ public class EmployeeDialog extends JDialog {
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         add(mainPanel);
+
+        // Auto-generate employee number if in add mode
+        if (!isEditMode) {
+            employeeIdField.setText(String.valueOf(EMPLOYEE_NUMBER_GENERATOR.incrementAndGet()));
+        }
     }
 
     private JPanel createFormPanel() {
@@ -103,28 +112,28 @@ public class EmployeeDialog extends JDialog {
         JPanel basicInfoPanel = new JPanel(new GridLayout(6, 2, 10, 10));
         basicInfoPanel.setBorder(new TitledBorder("Basic Information"));
 
-        basicInfoPanel.add(new JLabel("Employee ID:"));
+        basicInfoPanel.add(new JLabel("Employee ID (Auto-Generated):"));
         employeeIdField = new JTextField();
-        employeeIdField.setEnabled(!isEditMode); // Disable for edit mode
+        employeeIdField.setEnabled(false); // Always disabled (grayed out)
         basicInfoPanel.add(employeeIdField);
 
-        basicInfoPanel.add(new JLabel("Last Name:"));
+        basicInfoPanel.add(new JLabel("Last Name *:"));
         lastNameField = new JTextField();
         basicInfoPanel.add(lastNameField);
 
-        basicInfoPanel.add(new JLabel("First Name:"));
+        basicInfoPanel.add(new JLabel("First Name *:"));
         firstNameField = new JTextField();
         basicInfoPanel.add(firstNameField);
 
-        basicInfoPanel.add(new JLabel("Birthday (MM/dd/yyyy):"));
+        basicInfoPanel.add(new JLabel("Birthday (MM/dd/yyyy) *:"));
         birthdayField = new JTextField();
         basicInfoPanel.add(birthdayField);
 
-        basicInfoPanel.add(new JLabel("Address:"));
+        basicInfoPanel.add(new JLabel("Address *:"));
         addressField = new JTextField();
         basicInfoPanel.add(addressField);
 
-        basicInfoPanel.add(new JLabel("Phone Number:"));
+        basicInfoPanel.add(new JLabel("Phone Number *:"));
         phoneField = new JTextField();
         basicInfoPanel.add(phoneField);
 
@@ -132,19 +141,19 @@ public class EmployeeDialog extends JDialog {
         JPanel idsPanel = new JPanel(new GridLayout(4, 2, 10, 10));
         idsPanel.setBorder(new TitledBorder("Government IDs"));
 
-        idsPanel.add(new JLabel("SSS Number:"));
+        idsPanel.add(new JLabel("SSS Number *:"));
         sssField = new JTextField();
         idsPanel.add(sssField);
 
-        idsPanel.add(new JLabel("PhilHealth Number:"));
+        idsPanel.add(new JLabel("PhilHealth Number *:"));
         philhealthField = new JTextField();
         idsPanel.add(philhealthField);
 
-        idsPanel.add(new JLabel("TIN Number:"));
+        idsPanel.add(new JLabel("TIN Number *:"));
         tinField = new JTextField();
         idsPanel.add(tinField);
 
-        idsPanel.add(new JLabel("Pag-IBIG Number:"));
+        idsPanel.add(new JLabel("Pag-IBIG Number *:"));
         pagibigField = new JTextField();
         idsPanel.add(pagibigField);
 
@@ -152,15 +161,15 @@ public class EmployeeDialog extends JDialog {
         JPanel employmentPanel = new JPanel(new GridLayout(3, 2, 10, 10));
         employmentPanel.setBorder(new TitledBorder("Employment Details"));
 
-        employmentPanel.add(new JLabel("Status:"));
+        employmentPanel.add(new JLabel("Status *:"));
         statusField = new JTextField();
         employmentPanel.add(statusField);
 
-        employmentPanel.add(new JLabel("Position:"));
+        employmentPanel.add(new JLabel("Position *:"));
         positionField = new JTextField();
         employmentPanel.add(positionField);
 
-        employmentPanel.add(new JLabel("Immediate Supervisor:"));
+        employmentPanel.add(new JLabel("Immediate Supervisor *:"));
         supervisorField = new JTextField();
         employmentPanel.add(supervisorField);
 
@@ -168,19 +177,19 @@ public class EmployeeDialog extends JDialog {
         JPanel compensationPanel = new JPanel(new GridLayout(4, 2, 10, 10));
         compensationPanel.setBorder(new TitledBorder("Compensation"));
 
-        compensationPanel.add(new JLabel("Basic Salary:"));
+        compensationPanel.add(new JLabel("Basic Salary *:"));
         basicSalaryField = new JTextField();
         compensationPanel.add(basicSalaryField);
 
-        compensationPanel.add(new JLabel("Rice Subsidy:"));
+        compensationPanel.add(new JLabel("Rice Subsidy *:"));
         riceSubsidyField = new JTextField();
         compensationPanel.add(riceSubsidyField);
 
-        compensationPanel.add(new JLabel("Phone Allowance:"));
+        compensationPanel.add(new JLabel("Phone Allowance *:"));
         phoneAllowanceField = new JTextField();
         compensationPanel.add(phoneAllowanceField);
 
-        compensationPanel.add(new JLabel("Clothing Allowance:"));
+        compensationPanel.add(new JLabel("Clothing Allowance *:"));
         clothingAllowanceField = new JTextField();
         compensationPanel.add(clothingAllowanceField);
 
@@ -329,3 +338,4 @@ public class EmployeeDialog extends JDialog {
         return dialog.isOperationSuccessful();
     }
 }
+
