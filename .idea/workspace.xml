@@ -5,7 +5,76 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea67d5ce-2183-4741-8308-276a76d084db" name="Changes" comment="update">
-      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/EmployeeDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/EmployeeDialog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/service/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/service/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/view/EmployeePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/view/EmployeePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/view/dialog/EmployeeDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/src/main/java/com/motorph/view/dialog/EmployeeDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/controller/AuthenticationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/controller/AuthenticationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/controller/EmployeeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/controller/EmployeeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/controller/PayrollController.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/controller/PayrollController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/controller/ReportController.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/controller/ReportController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/model/AttendanceRecord.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/model/AttendanceRecord.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/model/Employee.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/model/Employee.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/model/PaySlip.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/model/PaySlip.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/model/PayrollRun.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/model/PayrollRun.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/model/PayrollStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/model/PayrollStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/repository/CSVCreateAndWrite.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/repository/CSVCreateAndWrite.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/repository/DataRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/repository/DataRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/service/AuthenticationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/service/AuthenticationService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/service/EmployeeService.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/service/EmployeeService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/service/PayrollProcessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/service/PayrollProcessor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/service/PayrollService.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/service/PayrollService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/service/ReportService.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/service/ReportService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/util/AppConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/util/AppConstants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/util/AppUtils$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/util/AppUtils$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/util/AppUtils$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/util/AppUtils$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/util/AppUtils$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/util/AppUtils$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/util/AppUtils$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/util/AppUtils$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/util/AppUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/util/AppUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Dashboard$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Dashboard$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Dashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Dashboard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/EmployeePanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/EmployeePanel$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/EmployeePanel$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/EmployeePanel$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/EmployeePanel$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/EmployeePanel$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/EmployeePanel$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/EmployeePanel$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/EmployeePanel$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/EmployeePanel$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/EmployeePanel$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/EmployeePanel$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/EmployeePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/EmployeePanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/HeaderPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/HeaderPanel$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/HeaderPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/HeaderPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Login.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/LoginPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/LoginPanel$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/LoginPanel$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/LoginPanel$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/LoginPanel$EnterKeyListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/LoginPanel$EnterKeyListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/LoginPanel$LoginCallback.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/LoginPanel$LoginCallback.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/LoginPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/LoginPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Payroll$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Payroll$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Payroll$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Payroll$CurrencyRenderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Payroll$CurrencyRenderer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Payroll$StatusRenderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Payroll$StatusRenderer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Payroll.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Payroll.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/PayrollNew$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/PayrollNew$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/PayrollNew$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/PayrollNew$PayrollTableCellRenderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/PayrollNew$PayrollTableCellRenderer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/PayrollNew.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/PayrollNew.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Reports.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/Reports.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/AttendanceViewerDialog$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/AttendanceViewerDialog$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/AttendanceViewerDialog$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/AttendanceViewerDialog$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/AttendanceViewerDialog$DayRenderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/AttendanceViewerDialog$DayRenderer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/AttendanceViewerDialog$HoursRenderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/AttendanceViewerDialog$HoursRenderer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/AttendanceViewerDialog$StatusRenderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/AttendanceViewerDialog$StatusRenderer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/AttendanceViewerDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/AttendanceViewerDialog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/DateRangeDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/DateRangeDialog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/EmployeeDetailsDialog$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/EmployeeDetailsDialog$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/EmployeeDetailsDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/EmployeeDetailsDialog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/EmployeeNumberInputDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/EmployeeNumberInputDialog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/PayslipDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/PayslipDialog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/SearchResultDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/dialog/SearchResultDialog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/renderer/ActionButtonRenderer$ActionButtonListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/renderer/ActionButtonRenderer$ActionButtonListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/renderer/ActionButtonRenderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/motorph_payroll_system/target/classes/com/motorph/view/renderer/ActionButtonRenderer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/payroll_system.log" beforeDir="false" afterPath="$PROJECT_DIR$/payroll_system.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,6 +118,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ADMIN/CP2_GROUP-4/motorph_payroll_system/data&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -58,6 +128,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\data" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -84,6 +159,8 @@
       <workItem from="1751467516932" duration="759000" />
       <workItem from="1751469752683" duration="131000" />
       <workItem from="1752673139179" duration="298000" />
+      <workItem from="1752675202024" duration="4014000" />
+      <workItem from="1752679443789" duration="10000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />

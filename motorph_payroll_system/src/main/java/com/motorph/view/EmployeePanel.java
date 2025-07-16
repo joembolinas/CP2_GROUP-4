@@ -57,6 +57,8 @@ public class EmployeePanel extends JPanel {
             "Emp. No.", "Name", "Position", "Department", "Status"
     };
 
+    // after mo ma populate ng tamang column names, punta ka sa loadEmployeeData() method
+
     /**
      * Constructor for the employee panel
      */

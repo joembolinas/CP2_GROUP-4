@@ -328,4 +328,18 @@ public class EmployeeDialog extends JDialog {
         dialog.setVisible(true);
         return dialog.isOperationSuccessful();
     }
+
+    /**
+     *  create a label with required asterisk
+     * @param text The label text
+     * @return JLabel with asterisk for required fields
+     *
+     *
+     *
+     */
+
+
+
 }
+
+

@@ -17,11 +17,11 @@ import com.opencsv.exceptions.CsvException;
  */
 public class AuthenticationService {
     private static final Logger logger = Logger.getLogger(AuthenticationService.class.getName());
-    private static final String CREDENTIALS_FILE_PATH = "data/userCredentials.csv"; // If running from
+    private static final String CREDENTIALS_FILE_PATH = "data/userCredentials-backup.csv"; // If running from
                                                                                     // motorph_payroll_system directory
     // If you run from the parent directory, use:
     // private static final String CREDENTIALS_FILE_PATH =
-    // "motorph_payroll_system/userCredentials.csv";
+    // "motorph_payroll_system/userCredentials-backup.csv";
 
     private final List<User> users;
 
@@ -40,7 +40,7 @@ public class AuthenticationService {
         try (CSVReader reader = new CSVReader(new FileReader(CREDENTIALS_FILE_PATH))) {
             List<String[]> records = reader.readAll();
 
-            // Skip header row
+
             for (int i = 1; i < records.size(); i++) {
                 String[] record = records.get(i);
 
