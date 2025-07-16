@@ -36,7 +36,7 @@ public class MainFrame extends JFrame {
     private JPanel sideNavPanel; // Panels
     private Dashboard dashboardPanel;
     private EmployeePanel employeePanel;
-    private Payroll payrollPanel;
+    private PayrollNew payrollPanel;
     private Reports reportsPanel;
 
     /**
@@ -86,7 +86,7 @@ public class MainFrame extends JFrame {
         // Initialize panels
         dashboardPanel = new Dashboard(this, employeeController);
         employeePanel = new EmployeePanel(this, employeeController);
-        payrollPanel = new Payroll(this, payrollController);
+        payrollPanel = new PayrollNew(this, payrollController);
         reportsPanel = new Reports(this, reportController);
 
         // Add panels to card layout

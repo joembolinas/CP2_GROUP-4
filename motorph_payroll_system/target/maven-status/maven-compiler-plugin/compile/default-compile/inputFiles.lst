@@ -5,6 +5,8 @@ c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\cont
 c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\Main.java
 c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\model\AttendanceRecord.java
 c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\model\Employee.java
+c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\model\PayrollRun.java
+c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\model\PayrollStatus.java
 c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\model\PaySlip.java
 c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\model\User.java
 c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\repository\CSVCreateAndWrite.java
@@ -17,7 +19,9 @@ c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\serv
 c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\util\AppConstants.java
 c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\util\AppUtils.java
 c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\view\Dashboard.java
+c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\view\dialog\AttendanceViewerDialog.java
 c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\view\dialog\DateRangeDialog.java
+c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\view\dialog\EmployeeDetailsDialog.java
 c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\view\dialog\EmployeeDialog.java
 c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\view\dialog\EmployeeNumberInputDialog.java
 c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\view\dialog\PayslipDialog.java
@@ -28,5 +32,6 @@ c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\view
 c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\view\LoginPanel.java
 c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\view\MainFrame.java
 c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\view\Payroll.java
+c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\view\PayrollNew.java
 c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\view\renderer\ActionButtonRenderer.java
 c:\Users\ADMIN\CP2_GROUP-4\motorph_payroll_system\src\main\java\com\motorph\view\Reports.java
